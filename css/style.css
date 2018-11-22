@@ -1,0 +1,716 @@
+@charset "utf-8";
+/*resetcss*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; }
+td,th,caption { font-size:14px; }
+th{white-space: nowrap}
+h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal;}
+a { color:#555; text-decoration:none; }
+a:hover { text-decoration:underline; }
+img { border:none; }
+ol,ul,li { list-style:none; }
+input, textarea, select, button { font:14px Verdana,Helvetica,Arial,sans-serif; }
+table { border-collapse:collapse; }
+html {overflow-y: auto;}
+*{margin: 0;padding: 0;list-style:none;box-sizing:border-box;}
+select::-ms-expand { display: none;}
+a,a:hover,a:active,a:link,a:visited{text-decoration: none;}
+body{font-family:NotoSansHans-Regular,AvenirNext-Regular,arial,Hiragino Sans GB,Microsoft Yahei,WenQuanYi Micro Hei,sans-serif;}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {-webkit-appearance: none;}
+input[type="number"]{-moz-appearance: textfield;}
+/*公用类-常用布局控制*/
+.f-pr{position:relative;}
+.f-prz{position:relative;zoom:1;}
+.f-pa{position:absolute;}
+.f-oh{overflow:hidden;}
+.f-hidden,.f-dsn{display:none !important;}
+.f-oya{overflow-y: auto;}
+.f-oxa{overflow-x: auto;}
+.f-oyh{overflow-y: hidden;}
+.f-oxh{overflow-x: hidden;}
+.f-ff0{font-family:arial,\5b8b\4f53;}
+.f-ff1{font-family:"Microsoft YaHei",\5fae\8f6f\96c5\9ed1,arial,\5b8b\4f53;}
+.f-fs0{font-size:0;}
+.f-fs12{font-size:12px;}
+.f-fs14{font-size:14px;}
+.f-fs16{font-size:16px;}
+.f-fwn{font-weight:normal;}
+.f-fwb{font-weight:bold;}
+.f-tal{text-align:left;}
+.f-tac{text-align:center;}
+.f-tar{text-align:right;}
+.f-taj{text-align:justify;text-justify:inter-ideograph;}
+.f-vam,.f-vama *{vertical-align:middle;}
+.f-wsn{word-wrap:normal;white-space:nowrap;}
+.f-pre{overflow:hidden;text-align:left;white-space:pre-wrap;word-wrap:break-word;word-break:break-all;}
+.f-wwb{white-space:normal;word-wrap:break-word;word-break:break-all;}
+.f-ti{overflow:hidden;text-indent:-30000px;}
+.f-ti2{text-indent:2em;}
+.f-lhn{line-height:normal;}
+.f-tdu,.f-tdu:hover{text-decoration:underline;}
+.f-tdn,.f-tdn:hover{text-decoration:none;}
+.f-toe{overflow:hidden;word-wrap:normal;white-space:nowrap;text-overflow:ellipsis;}
+.f-csp{cursor:pointer;}
+.f-csd{cursor:default;}
+.f-csh{cursor:help;}
+.f-csm{cursor:move;}
+.f-usn{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;}
+/*定义常用的宽度*/
+.f-w70{width:70px;}
+.f-w80{width:80px;}
+.f-w100{width:100px;}
+/*公用类-常用间距控制*/
+.f-no-margin{margin:0 !important;}
+.f-mh-0{margin-top:0 !important;margin-bottom:0 !important;}
+.f-mt-0{margin-top:0 !important;}
+.f-mt-10{margin-top:10px !important;}
+.f-mt-20{margin-top:20px !important;}
+.f-mb-0{margin-bottom:0 !important;}
+.f-mb-10{margin-bottom:10px !important;}
+.f-mb-20{margin-bottom:20px !important;}
+.f-mr-10{margin-right:10px !important;}
+.f-ml-10{margin-left:10px !important;}
+.f-pr-10{padding-right:10px !important;}
+.f-pr-15{padding-right:15px !important;}
+/*公用类-清除浮动*/
+.f-fl{float:left;}
+.f-fr{float:right;}
+.clearfix:after {content: ""; display: block; width:0;height:0; clear:both; overflow:hidden;visibility: hidden;}
+.clearfix { *zoom:1; }
+.f-flex-wrap{display: -webkit-flex;display:flex;}
+.f-flex-wrap .fix-item{flex:none;}
+.f-flex-wrap .auto-item{flex:auto;}
+.row-block:after {content: ""; display: block; width:0;height:0; clear:both; overflow:hidden;visibility: hidden;}
+.col-block-p20,.col-block-p25,.col-block-p30,.col-block-p33,
+.col-block-p40,.col-block-p50,.col-block-p60,.col-block-p66,
+.col-block-p70,.col-block-p75,.col-block-p80{float:left;}
+.col-block-p20{width:20%;}
+.col-block-p25{width:25%;}
+.col-block-p30{width:30%;}
+.col-block-p33{width:33.33%;}
+.col-block-p40{width:40%;}
+.col-block-p50{width:50%;}
+.col-block-p60{width:60%;}
+.col-block-p66{width:66.6%;}
+.col-block-p70{width:70%;}
+.col-block-p75{width:75%;}
+.col-block-p80{float:80%;}
+
+.layout_panel{
+    background-color: #fff;
+    box-shadow: 1px 1px 0 #ddd;
+    border: 1px solid #80b1f9;
+    overflow: hidden;
+}
+.layout_panel .layout_title{
+    font-size: 16px;
+    padding: 0 10px;
+    border-bottom: 1px solid #80b1f9;
+}
+.layout_panel .layout_title .abs-select{
+    position:absolute;
+    right: 15px;
+    top: 8px;
+    width: 100px;
+}
+.layout_panel .layout_title .title-block{
+    display:inline-block;
+    padding:0 5px;
+    height:40px;
+    line-height: 36px;
+    border-bottom:3px solid #007ddc;
+} 
+.layout_panel .layout_title.big-title .title-block{
+    height:50px;
+    line-height: 46px;
+}
+.layout_panel .layout_content.pd15{
+    padding:15px;
+}
+
+
+
+
+
+.orchard-info .oi-container{
+    position: relative;
+    height:100%;
+}
+.orchard-info .oi-text{
+    position: absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:48px;
+    padding:2px 10px;
+    line-height: 20px;
+    color:#fff;
+    overflow: hidden;
+    background:#444c64;
+}
+.orchard-info .oi-text .bottom span + span{
+    display: inline-block;
+    margin-left:20px;
+}
+
+.device-list .device-item{
+    width:25%;
+    float:left;
+    margin:5px 0;
+    padding:0 15px;
+}
+.device-list .device-item .item-inner{
+    position:relative;
+    width:100%;
+    height:46px;
+    padding-left:60px;
+    padding-right:10px;
+    border-radius: 5px;
+    background:#10ddaf;
+}
+.device-list .device-item.warning .item-inner{
+    background:#dc7100;
+}
+.device-list .device-item.danger .item-inner{
+    background:#f75738;
+}
+
+.device-list .device-item .item-inner::before{
+    content: '';
+    display: block;
+    width: 1px;
+    height: 30px;
+    position: absolute;
+    left: 50px;
+    top: 8px;
+    background: #fff;
+    box-shadow: 0px 0 0px 1px rgba(128, 128, 128, 0.3);
+}
+.device-list .device-item .left-icon{
+    position: absolute;
+    width:40px;
+    height:40px;
+    top:3px;
+    left:5px;
+}
+.device-list .device-item .right-text{
+    color: #fff;
+    font-size: 16px;
+    line-height: 46px;
+}
+.orchard-plant{
+    padding:10px 15px;
+}
+.rows-view ul {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+.rows-view ul li {
+    float: left;
+    width: 25%;
+    list-style: none;
+    margin: 0px;
+    padding: 5px;
+    overflow: hidden;
+}
+.rows-view  .dashboard-stats-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    height: 82px;
+    border-style: solid;
+    border-color:#bfbfbf;
+    border-width: 1px 1px 12px 1px;
+}
+.rows-view .tin11{
+    float:left;
+    width:70%;
+    padding:10px 0 0 15px;
+    text-align: left;
+}
+.rows-view .tin11 .text1{
+    color:#000;
+}
+.rows-view .tin11 .text2{
+    margin-top:10px;
+    font-size:16px;
+    font-weight:bold;
+    color:#666;
+}
+.rows-view .tin12 {
+    float:left;
+    width:30%;
+    padding:5px 15px 5px 0;
+}
+.rows-view .tin12 img{
+    display:block;
+    margin:0 auto;
+    max-width:74px;
+    height:60px;
+}
+.plant-info .info-list{
+    margin-top:10px;
+}
+.plant-info .info-list>li{
+    float:left;
+    width:33.333%;
+    padding:0 6px;
+}
+.plant-info .info-list .info-item{
+    position:relative;
+    height:62px;
+    padding-left:62px;
+    border:1px solid #d0d0d0;
+    overflow: hidden;
+}
+.plant-info .info-item .img-box{
+    position: absolute;
+    left:-1px;
+    top:-1px;
+    width:62px;
+    height:62px;
+}
+.plant-info .info-item .text-box{
+    padding:10px;
+    font-size:12px;
+    color:#666;
+}
+.plant-info .info-item .total{
+    margin-top:4px;
+}
+.plant-info .info-item .total .num{
+    font-size:16px;
+    color:#000;
+    font-weight: bold;
+}
+.plant-info .info-line{
+    padding:6px;
+}
+.orchard-profile{
+    padding:10px 15px;
+}
+.orchard-profile p{
+    text-indent: 2em;
+    color:#666;
+}
+.orchard-map .map-inner{
+    height:210px;
+}
+.net-total .chart-block{
+    float:left;
+    width:50%;
+    height:116px;
+}
+
+.btn-sky-blue{
+    color:#fff;
+    background:#1890ff;
+    border-color:#1890ff;
+}
+.btn-sky-blue:hover,
+.btn-sky-blue:focus,
+.btn-sky-blue:active,
+.btn-sky-blue.active.focus,
+.btn-sky-blue.active:focus,
+.btn-sky-blue.active:hover,
+.btn-sky-blue:active.focus,
+.btn-sky-blue:active:focus,
+.btn-sky-blue:active:hover{
+    color:#fff;
+    background: #0073de;
+    border-color: #006dd4;
+}
+.layout-crops{
+    position:absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    z-index:3;
+    background: rgba(0,0,0,.5);
+    border-radius: 0 0 5px 5px;
+}
+.crops-sel{
+    width:424px;
+    margin:80px auto 0;
+    border-radius: 5px;
+}
+.crops-sel .crops-wrap{
+    height: 152px;
+    overflow: auto;
+}
+.crops-sel .crops-list{
+    margin: 0;
+    padding: 0;
+}
+.crops-list .item{
+    width: 25%;
+    padding: 0 12px;
+    margin: 8px 0;
+    float: left;
+    font-size: 0;
+}
+.crops-list .item span{
+    display: inline-block;
+    width:100%;
+    line-height:22px;
+    font-size:12px;
+    text-align: center;
+    white-space: nowrap;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    overflow:hidden;
+    color:#fff;
+    background:#1890ff;
+    border-radius: 5px;
+    cursor:pointer;
+}
+.crops-list .item span:hover{
+    background: #0073de;
+}
+.crops-list .item span.active{
+    background: #00417d;
+}
+.crops-sel .btn-line{
+    margin-top:16px;
+    text-align: right;
+}
+.crops-sel .btn-line .btn{
+    width:70px;
+}
+
+.total-block{
+    width:114px;
+    height:114px;
+    display:block;
+    text-align: center;
+    margin:0 auto;
+}
+.total-block.red{
+    background: url(../img/red_circle_bg.png);
+    background-size: 100%;
+}
+.total-block.blue{
+    background: url(../img/blue_circle_bg.png);
+    background-size: 100%;
+}
+.total-block p{
+    padding-top: 36px;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+/*所有图标*/
+.clear-float:after,.clearfix:after {display:block;content:"";width:0;height:0;visibility:hidden;overflow:hidden;zoom:1;clear:both;}
+.boe-green .title {background:#2d8930;}
+.boe-green .mid {background:#63b566;}
+.boe-red .title {background:#da646d;}
+.boe-red .mid {background:#bf8286;}
+.boe-yellow .title {background:#eaa45c;}
+.boe-yellow .mid {background:#dab894;}
+.boe-blue .title {background:#3394da;}
+.boe-blue .mid {background:#5da4d6;}
+.pin_DC0_DT1 b {background-position:-180px -30px;}
+/*正常图标背景*/.mosaic-block .pin_base {width:30px;height:30px;display:inline-block;padding:2px;border:1px solid #2d8931;border-radius:50%;background:#fff}
+/*报警图标背景*/.warning1 .pin_base {border:1px solid #da646d;background:#da646d}
+/*预警图标背景*/.alarm1 .pin_base {border:1px solid #eaa45c;background:#eaa45c}
+/*设备和控制图标*/.pin_base b,.pin_pinbase b {background:url(../img/ic_monitor_30_gray.png) 0 0 no-repeat;width:30px;height:30px;display:inline-block;margin:0}
+.warning1 b,.alarm1 b,.monitor_detail_icon b,.monitor_control_icon b {background:url(../img/ic-monitor-30.png) 0 0 no-repeat;width:30px;height:30px;display:inline-block;margin:0}
+.monitor_detail_icon b,.monitor_control_icon b {background:url(../img/ic_monitor_30_gray.png) 0 0 no-repeat;}
+.pin_red b {background:url(../img/ic-monitor-30.png) 0 0 no-repeat;width:30px;height:30px;display:inline-block;margin:5px;}
+/*DC为DeviceCategory(设备大类),DT为DeviceType， TM为DeviceTypeMore字段*//*相机*/.pin_DC2_DT300 b {background-position:-60px -30px;}
+/*排风*/.pin_DC1_TM2 b {background-position:-90px -30px;}
+/*脉冲灌溉*/.pin_DC1_TM3 b {background-position:-120px -30px;}
+/*脉冲灌溉NT*/.pin_DC1_TM103 b {background-position:-120px -30px;}
+/*降温*/.pin_DC1_TM1 b {background-position:-150px -30px;}
+/*降温NT*/.pin_DC1_TM101 b {background-position:-150px -30px;}
+/*视频监控*/.VIDEO-1 b {background-position:-270px -60px;}
+/*空气温度*/.THTC-1-T b {background-position:-180px -30px;}
+.THTC b {background-position:-180px -30px;}
+/*土壤温度*/.SLTH-1-T b {background-position:-210px -30px;}
+.SLTH b {background-position:-210px -30px;}
+/*空气湿度*/.THTC-1-H b {background-position:-240px -30px;}
+.THSC b {background-position:-240px -30px;}
+/*土壤水分*/.pin_DC0_DT4 b {background-position:-270px -30px;}
+/*光照度*/.pin_DC0_DT5 b {background-position:-300px -30px;}
+/*土壤湿度传感器*/.SLTH-1-H b {background-position:-330px -30px;}
+.SLSH b {background-position:-330px -30px;}
+/*PH值*//*.PH-1 b {background-position:-360px -30px;}
+*/.SOPH-1 b {background-position:-360px -30px;}
+.SOPH b {background-position:-360px -30px;}
+/*CO2*/.COTU-1 b {background-position:-390px -30px;}
+.COTU b {background-position:-390px -30px;}
+/*风速*/.FLWS-1 b {background-position:0px -60px;}
+.FLWS b {background-position:0px -60px;}
+/*风向*/.FLWD-1 b {background-position:-180px -60px;}
+.FLWD b {background-position:-180px -60px;}
+/*降雨量*/.RANC-1 b {background-position:-30px -60px;}
+.RANC b {background-position:-30px -60px;}
+.RADC b {background-position:-30px -60px;}
+/*流量*/.pin_DC0_DT9 b {background-position:-60px -60px;}
+/*实时流量*/.pin_DC0_DT15 b {background-position:-60px -60px;}
+/*加湿器*/.pin_DC1_TM6 b {background-position:-90px -60px;}
+/*加湿器NT*/.pin_DC1_TM106 b {background-position:-90px -60px;}
+/*照明*/.pin_DC1_TM5 b {background-position:-120px -60px;}
+/*照明NT*/.pin_DC1_TM105 b {background-position:-120px -60px;}
+/*声光报警*/.pin_DC1_TM4 b {background-position:-150px -60px;}
+/*声光报警NT*/.pin_DC1_TM104 b {background-position:-150px -60px;}
+/*压力*/.pin_DC0_DT11 b {background-position:-210px -60px;}
+/*液位*/.pin_DC0_DT13 b {background-position:-60px -90px;}
+/*氧含量*/.pin_DC0_DT30 b {background-position:-30px 0px;}
+/*甲烷含量*/.pin_DC0_DT32 b {background-position:-60px 0px;}
+/*硫化氢含量*/.pin_DC0_DT20 b {background-position:-90px 0px;}
+/*水泵*/.pin_DC1_TM8 b {background-position:-120px 0px;}
+/*水泵NT*/.pin_DC1_TM108 b {background-position:-120px 0px;}
+/*搅拌器*/.pin_DC1_TM7 b {background-position:-150px 0px;}
+/*搅拌器NT*/.pin_DC1_TM107 b {background-position:-150px 0px;}
+/*输送机*/.pin_DC1_TM9 b {background-position:-180px 0px;}
+/*输送机NT*/.pin_DC1_TM109 b {background-position:-180px 0px;}
+/*风机*/.pin_DC1_TM10 b {background-position:-210px 0px;}
+/*风机NT*/.pin_DC1_TM110 b {background-position:-210px 0px;}
+/*粉碎机*/.pin_DC1_TM11 b {background-position:-240px 0px;}
+/*粉碎机NT*/.pin_DC1_TM111 b {background-position:-240px 0px;}
+/*抓料机*/.pin_DC1_TM12 b {background-position:-270px 0px;}
+/*抓料机NT*/.pin_DC1_TM112 b {background-position:-270px 0px;}
+/*破壳机*/.pin_DC1_TM13 b {background-position:-300px 0px;}
+/*破壳机NT*/.pin_DC1_TM113 b {background-position:-300px 0px;}
+/*电机*/.pin_DC1_TM14 b {background-position:-330px 0px;}
+/*电机NT*/.pin_DC1_TM114 b {background-position:-330px 0px;}
+/*内遮阴*/.pin_DC1_TM15 b {background-position:-360px 0px;}
+/*内遮阴NT*/.pin_DC1_TM115 b {background-position:-360px 0px;}
+/*外遮阳*/.pin_DC1_TM16 b {background-position:-390px 0px;}
+/*外遮阳NT*/.pin_DC1_TM116 b {background-position:-390px 0px;}
+/*开窗*/.pin_DC1_TM17 b {background-position:0 -30px;}
+/*开窗NT*/.pin_DC1_TM117 b {background-position:0 -30px;}
+/*气压*/.pin_DC0_DT12 b {background-position:-30px -30px;}
+/*阀门*/.pin_DC1_TM18 b {background-position:-240px -60px;}
+/*阀门NT*/.pin_DC1_TM118 b {background-position:-240px -60px;}
+/*叶面湿度*/.pin_DC0_DT16 b {background-position:-300px -60px;}
+/*噪声值*/.pin_DC0_DT17 b {background-position:-330px -60px;}
+/*红外双鉴*/.pin_DC0_DT19 b {background-position:-360px -60px;}
+/*红外对射*/.pin_DC0_DT18 b {background-position:-390px -60px;}
+/*COD*/.pin_DC0_DT52 b {background-position:0px -90px}
+/*氨氮含量*/.pin_DC0_DT53 b {background-position:-30px -90px}
+/*液位*/.pin_DC0_DT13 b {background-position:-60px -90px}
+/*土壤张力*/.pin_DC0_DT54 b {background-position:-90px -90px}
+/*卷帘*/.pin_DC1_TM19 b {background-position:-360px 0px}
+/*卷被*/.pin_DC1_TM20 b {background-position:-120px -90px}
+/*溶解氧*/.pin_DC0_DT43 b {background-position:-150px -90px}
+/*电导率*/.pin_DC0_DT42 b {background-position:-180px -90px}
+/*土壤电导率*/.pin_DC0_DT56 b {background-position:-210px -90px}
+/*下面为NT (Non Time Controll)*//*灌溉NT*/.pin_DC1_TM103 b {background-position:-120px -30px;}
+/*加温灯NT*/.pin_DC1_TM105 b {background-position:-120px -60px;}
+/*加温灯NT*/.pin_DC1_TM155 b {background-position:-120px -60px;}
+/*水泵NT*/.pin_DC1_TM108 b {background-position:-120px 0px;}
+/*输送机NT*/.pin_DC1_TM109 b {background-position:-180px 0px;}
+/*电机NT*/.pin_DC1_TM114 b {background-position:-330px 0px;}
+/*脉冲卷帘NT*/.pin_DC1_TM117 b {background-position:0 -30px;}
+/*阀门*/.pin_DC1_TM118 b {background-position:-240px -60px;}
+/*排风NT*/.pin_DC1_TM102 b {background-position:-90px -30px;}
+/*光照强度*/.LTTC-1 b {background-position:-300px -30px;}
+.LTTC b {background-position:-300px -30px;}
+/*土壤盐分传感器*/.SOSA-1 b {background-position:-240px -90px;}
+.SOSA b {background-position:-240px -90px;}
+/*PM2.5传感器*/.PMTW-1 b {background-position:-270px -90px;}
+.PMTW b {background-position:-270px -90px;}
+/*高度传感器*/.ALTD-1 b {background-position:-300px -90px;}
+/*气压传感器*/.ATMP-1 b {background-position:-332px -90px;}
+.ATMP b {background-position:-332px -90px;}
+/*DC为DeviceCategory(设备大类),DT为DeviceType， TM为DeviceTypeMore字段*//*降温*/.mosaic-block .pin_DC1_TM1 s {background-position:-150px -30px}
+/*降温NT*/.mosaic-block .pin_DC1_TM101 s {background-position:-150px -30px}
+/*脉冲灌溉*/.mosaic-block .pin_DC1_TM3 s {background-position:-30px 0px}
+/*脉冲灌溉NT*/.mosaic-block .pin_DC1_TM103 s {background-position:-30px 0px}
+/*排风*/.mosaic-block .pin_DC1_TM2 s {background-position:-60px 0px;}
+/*相机*/.mosaic-block .pin_DC2_DT300 s {background-position:-90px 0px;}
+/*加湿器*/.mosaic-block .pin_DC1_TM6 s {background-position:-120px 0px;}
+/*加湿器NT*/.mosaic-block .pin_DC1_TM106 s {background-position:-120px 0px;}
+/*照明*/.mosaic-block .pin_DC1_TM5 s {background-position:-150px 0px;}
+/*照明NT*/.mosaic-block .pin_DC1_TM105 s {background-position:-150px 0px;}
+/*照明NT*/.mosaic-block .pin_DC1_TM155 s {background-position:-150px 0px;}
+/*声光报警*/.mosaic-block .pin_DC1_TM4 s {background-position:-180px 0px}
+/*声光报警NT*/.mosaic-block .pin_DC1_TM104 s {background-position:-180px 0px}
+/*水泵*/.mosaic-block .pin_DC1_TM8 s {background-position:-210px 0px}
+/*水泵NT*/.mosaic-block .pin_DC1_TM108 s {background-position:-210px 0px}
+/*搅拌器*/.mosaic-block .pin_DC1_TM7 s {background-position:-240px 0px;}
+/*搅拌器NT*/.mosaic-block .pin_DC1_TM107 s {background-position:-240px 0px;}
+/*输送机*/.mosaic-block .pin_DC1_TM9 s {background-position:-270px 0px;}
+/*输送机NT*/.mosaic-block .pin_DC1_TM109 s {background-position:-270px 0px;}
+/*风机*/.mosaic-block .pin_DC1_TM10 s {background-position:-300px 0px;}
+/*风机NT*/.mosaic-block .pin_DC1_TM110 s {background-position:-300px 0px;}
+/*粉碎机*/.mosaic-block .pin_DC1_TM11 s {background-position:-330px 0px;}
+/*粉碎机NT*/.mosaic-block .pin_DC1_TM111 s {background-position:-330px 0px;}
+/*抓料机*/.mosaic-block .pin_DC1_TM12 s {background-position:-360px 0px;}
+/*抓料机NT*/.mosaic-block .pin_DC1_TM112 s {background-position:-360px 0px;}
+/*破壳机*/.mosaic-block .pin_DC1_TM13 s {background-position:-390px 0px;}
+/*破壳机NT*/.mosaic-block .pin_DC1_TM113 s {background-position:-390px 0px;}
+/*电机*/.mosaic-block .pin_DC1_TM14 s {background-position:0px -30px;}
+/*电机NT*/.mosaic-block .pin_DC1_TM114 s {background-position:0px -30px;}
+/*内遮荫*/.mosaic-block .pin_DC1_TM15 s {background-position:-30px -30px;}
+/*内遮荫NT*/.mosaic-block .pin_DC1_TM115 s {background-position:-30px -30px;}
+/*外遮阳*/.mosaic-block .pin_DC1_TM16 s {background-position:-60px -30px;}
+/*外遮阳NT*/.mosaic-block .pin_DC1_TM116 s {background-position:-60px -30px;}
+/*开窗*/.mosaic-block .pin_DC1_TM17 s {background-position:-90px -30px;}
+/*开窗NT*/.mosaic-block .pin_DC1_TM117 s {background-position:-90px -30px;}
+/*阀门*/.mosaic-block .pin_DC1_TM18 s {background-position:-120px -30px;}
+/*阀门NT*/.mosaic-block .pin_DC1_TM118 s {background-position:-120px -30px;}
+/*排风NT*/.mosaic-block .pin_DC1_TM102 s {background-position:-60px 0px;}
+
+
+
+/*首页*/
+/*页面布局*/
+.absolute-body{
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+}
+
+
+.sum-bg1{background:#e3f7df;}
+.sum-bg2{background:#fff9df;}
+.sum-bg3{background:#dff7fe;}
+.sum-bg4{background:#dbfaf3;}
+.sum-bg5{background:#fae7fa;}
+.sum-bg6{background:#ffe6dc;}
+.sum-bg7{background:#e7eafa;}
+.sum-bg8{background:#fff2df;}
+.sum-bg1 .icon-wrap{background:#40cc29;}
+.sum-bg2 .icon-wrap{background:#ffda2b;}
+.sum-bg3 .icon-wrap{background:#26c6f6;}
+.sum-bg4 .icon-wrap{background:#10ddaf;}
+.sum-bg5 .icon-wrap{background:#de5bdc;}
+.sum-bg6 .icon-wrap{background:#fd5a13;}
+.sum-bg7 .icon-wrap{background:#5b74de;}
+.sum-bg8 .icon-wrap{background:#ffa628;}
+.sum-item{
+    float: left;
+    width:140px;
+    height:68px;
+    margin:5px 10px 5px 0;
+    border-radius: 5px;
+    overflow:hidden;
+    border:1px solid #eee;
+}
+.sum-item .icon-wrap{
+    width:60px;
+    height:100%;
+}
+.sum-item .total-wrap{
+    padding:10px;
+}
+.sum-item .total-wrap .name{
+    font-size:12px;
+}
+.sum-item .total-wrap .num{
+    margin-top:10px;
+    font-size:20px;
+    color:#000;
+}
+.tabs-title-group .select-wrap{
+    position:relative;
+    float:left;
+}
+.tabs-title-group .select-wrap::after{
+    position: absolute;
+    content: '';
+    display:block;
+    left:0;
+    right:0;
+    bottom:0;
+    border-top:3px solid #007ddc;
+}
+.tabs-title-group .select-wrap select{
+    width: 100px;
+    height: 18px;
+    line-height: 16px;
+    background: #eee;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 12px;
+}
+.tabs-title-group .select-wrap select:focus,
+.tabs-title-group .select-wrap select:focus-within,
+.tabs-title-group .select-wrap select:hover,
+.tabs-title-group .select-wrap select:active{
+    border: 1px solid #ccc;
+    outline: none;
+}
+.tabs-title-group .title-wrap{
+    float:left;
+}
+
+.wulian-img{
+    margin:0 auto;
+    width:390px;
+    height:255px;
+}
+
+.orsum-list{
+    padding:10px;
+}
+.orsum-list .orsum-item{
+    float:left;
+    width:104px;
+    height:58px;
+    margin:0 5px;
+    border-radius: 5px;
+    border:1px solid #c3c3c3;
+    overflow:hidden;
+    text-align: center;
+}
+.orsum-list .orsum-item .name{
+    height:20px;
+    line-height:20px;
+}
+.orsum-list .orsum-item .total{
+    height:36px;
+    line-height: 36px;
+    color:#fff;
+}
+.orsum-list .orsum-item .num{
+    font-size:20px;
+}
+.analyse-list{
+    width:400px;
+    margin:0 auto;
+    padding:5px 0;
+}
+.analyse-list .analyse-item{
+    margin:5px 0;
+}
+.analyse-list .analyse-item .name{
+    width:60px;
+    line-height: 30px;
+}
+.analyse-list .analyse-item .item-box{
+    padding:0 15px;
+}
+.analyse-list .analyse-item .item-card{
+    width:100%;
+    height:30px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 3px;
+    border:1px solid #3394da;
+}
+.msg-list{
+    padding:10px 30px;
+    font-size:14px;
+}
+.msg-list .msg-item{
+    padding:10px 10px 5px;
+    border-bottom:1px solid #ddd;
+}
+.msg-list .msg-item .title{
+    width:80%;
+}
+.msg-list .msg-item .time{
+    width:100px;
+    color:#666;
+    text-align: right;
+}

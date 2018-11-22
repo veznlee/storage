@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修文县土地资源大屏</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; }
+        div,img{
+            position: absolute;
+            display: block;
+        }
+        .panel{
+            background-color: rgba(0,24,13,0.65);
+            border:1px solid #11810c;
+            box-shadow:0 0 10px black,inset 0 0 5px #11810c;
+        }
+        .panel-teeth{
+            border-top-left-radius: 9px;
+            border-top-right-radius: 9px;
+        }
+        .corner-left-top{
+            left:-7px;
+            top:-7px;
+        }
+        .corner-left-bottom{
+            left:-7px;
+            bottom:-7px;
+        }
+        .corner-right-top{
+            right:-7px;
+            top:-7px;
+        }
+        .corner-right-bottom{
+            right:-7px;
+            bottom:-7px;
+        }
+        .button-normal{
+            position: relative;
+            line-height: 28px;
+            margin-top:3px;
+            display: inline-block;
+            width: 90px;
+            height: 30px;
+            color:#a1d8e6;
+            border:2px solid transparent;
+        }
+        .button-active {
+            position: relative;
+            display: inline-block;
+            line-height: 28px;
+            margin-top:2px;
+            width: 90px;
+            height: 30px;
+            border-radius: 30px;
+            border: 2px solid #29b70e;
+            box-shadow: 0 0 2px black, inset 0 0 5px #29b70e;
+            background-color: #0e8513;
+            color:white;
+        }
+        .iconfont{
+            font-size: 30px !important;
+        }
+        .button-text{
+            position: relative;
+            display: inline-block;
+            top:-5px;
+            height: 36px;
+            font-size: 14px;
+            line-height: 40px;
+            margin-left: 5px;
+        }
+        .panel-title{
+            position: relative;
+            display: block;
+            left:20px;
+            top:15px;
+            text-align: left;
+            font-size: 14px;
+            color:white;
+        }
+        .panel-line{
+            position: relative;
+            display: block;
+            height: 1px;
+            left:20px;
+            width:calc(100% - 40px);
+            top:23px;
+            overflow: hidden;
+            background-color:#487e8c;
+        }
+        .vline{
+            height:32px;
+            width:1px;
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            background-color: rgba(89,121,136,1);
+            z-index: 2;
+            top:6px;
+        }
+        span{
+            text-align: center;
+            display: inline-block;
+            width:80px;
+            height:40px;
+        }
+        dfn{
+            font-style: normal;
+            display: inline-block;
+        }
+    </style>
+    <link rel="stylesheet" href="./tudiscreen2_files/iconfont.css">
+    <script src="./tudiscreen2_files/jquery-3.2.1.min.js"></script>
+    <script src="./tudiscreen2_files/module.js"></script>
+    <script src="./tudiscreen2_files/echarts.js"></script>
+</head>
+<body style="background: url(&quot;images/bg.png&quot;) 0% 0% / 100% 100% fixed; zoom: 1;">
+<img src="./tudiscreen2_files/bg.png" style="left:0;width:100%;right:100%;top:0;">
+<img src="./tudiscreen2_files/top-bg.png" style="left:40%;width:347px;right:40%;top:0;">
+<div id="main" style="left:0;top:0;width: 100%;height: 100%;text-align:center;overflow: hidden;min-height: 950px;min-width:1920px;">
+    <div class="panel panel-teeth" style="left:50px;top:20px;width:325px;height:350px;">
+        <img class="corner-left-top" src="./tudiscreen2_files/teeth-left.png">
+        <img class="corner-left-bottom" src="./tudiscreen2_files/corner-left-bottom.png">
+        <img class="corner-right-top" src="./tudiscreen2_files/teeth-right.png">
+        <img class="corner-right-bottom" src="./tudiscreen2_files/corner-right-bottom.png">
+        <img src="./tudiscreen2_files/text4.png" style="left:20px;top:10px;">
+    </div>
+    <div class="panel" style="left:50px;bottom:120px;width:325px;height:460px;">
+        <img class="corner-left-top" src="./tudiscreen2_files/corner-left-top.png">
+        <img class="corner-left-bottom" src="./tudiscreen2_files/corner-left-bottom.png">
+        <img class="corner-right-top" src="./tudiscreen2_files/corner-right-top.png">
+        <img class="corner-right-bottom" src="./tudiscreen2_files/corner-right-bottom.png">
+        <img src="./tudiscreen2_files/text3.png" style="left:8px;top:10px;">
+        <img src="./tudiscreen2_files/menu1.png" style="left:80px;top:145px;height:300px">
+    </div>
+
+    <div style="left:380px;height:32px;top:10px;white-space: nowrap">
+        <span style="font-size: 24px;color:rgba(243,253,189,1)">修文县</span>
+        <div class="vline"></div>
+        <span>
+            <img id="weather" src="./tudiscreen2_files/多云.png" style="height:30px;position: relative;top:5px;display: inline-block">
+            <dfn style="left:42px;top:20px;font-size:14px;color:rgba(155,198,223,1);" data-bind="weather">多云</dfn>
+        </span>
+        <div class="vline"></div>
+        <span style="font-size: 24px;color:rgba(243,253,189,1)">
+            <dfn data-bind="temperature">11</dfn>℃
+            </span>
+        <div class="vline"></div>
+        <span style="text-align: left;color:rgba(155,198,223,1);font-size: 14px;">
+                <dfn data-bind="windDirePower">东风和风</dfn><br>
+                <dfn data-bind="minTemp">8</dfn>~<dfn data-bind="maxTemp">20</dfn>℃
+        </span>
+        <div style="width:100%;top:45px;height:2px;overflow:hidden;background: linear-gradient(to right, rgba(93,127,149,0), rgba(93,127,149,1), rgba(93,127,149,0))"></div>
+    </div>
+    <div onmouseout="$(&#39;.button-active&#39;).attr(&#39;class&#39;,&#39;button-normal&#39;);" style="right:20px;height:40px;top:10px;border-radius: 30px;border:1px solid #11810c;background-color: rgba(8,66,77,0.8);box-shadow:0 0 10px black,inset 0 0 5px #11810c;">
+        <div class="button-normal" url="area.html"><i class="icon iconfont icon-guoyuan"></i><div class="button-text">果园</div></div>
+        <div class="button-normal" url="weather.html"><i class="icon iconfont icon-qixiangjiance"></i><div class="button-text">气象</div></div>
+        <div class="button-normal" url="analysis.html"><i class="icon iconfont icon-weixing1"></i><div class="button-text">遥感</div></div>
+        <div class="button-normal" url="#"><i class="icon iconfont icon-quanping"></i><div class="button-text">全屏</div></div>
+    </div>
+    <div class="panel" style="right:30px;top:80px;width:450px;height:290px;">
+        <img class="corner-left-top" src="./tudiscreen2_files/corner-left-top.png">
+        <img class="corner-left-bottom" src="./tudiscreen2_files/corner-left-bottom.png">
+        <img class="corner-right-top" src="./tudiscreen2_files/corner-right-top.png">
+        <img class="corner-right-bottom" src="./tudiscreen2_files/corner-right-bottom.png">
+        <div class="panel-title">2017年农林牧渔增加值及其增长率</div>
+        <div class="panel-line"></div>
+        <div id="echart1" style="left: -30px; width: 300px; height: 300px; -webkit-tap-highlight-color: transparent; user-select: none; background: transparent;" _echarts_instance_="ec_1541040689973"><div style="position: relative; overflow: hidden; width: 300px; height: 300px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas width="300" height="300" data-zr-dom-id="zr_0" style="position: absolute; left: 0px; top: 0px; width: 300px; height: 300px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div></div>
+        <img src="./tudiscreen2_files/text0.png" style="left:180px;top:60px;">
+    </div>
+    <div class="panel" style="right:30px;top:41%;bottom:39%;width:450px;height:230px;">
+        <img class="corner-left-top" src="./tudiscreen2_files/corner-left-top.png">
+        <img class="corner-left-bottom" src="./tudiscreen2_files/corner-left-bottom.png">
+        <img class="corner-right-top" src="./tudiscreen2_files/corner-right-top.png">
+        <img class="corner-right-bottom" src="./tudiscreen2_files/corner-right-bottom.png">
+        <div class="panel-title">2017年经济作物种植面积及其增长率</div>
+        <div class="panel-line"></div>
+        <img src="./tudiscreen2_files/text1.png" style="left:10px;top:50px;">
+    </div>
+    <div class="panel" style="right:30px;bottom:120px;width:450px;height:200px;">
+        <img class="corner-left-top" src="./tudiscreen2_files/corner-left-top.png">
+        <img class="corner-left-bottom" src="./tudiscreen2_files/corner-left-bottom.png">
+        <img class="corner-right-top" src="./tudiscreen2_files/corner-right-top.png">
+        <img class="corner-right-bottom" src="./tudiscreen2_files/corner-right-bottom.png">
+        <div class="panel-title">2017年粮食作物种植面积及其增长率</div>
+        <div class="panel-line"></div>
+        <img src="./tudiscreen2_files/text2.png" style="left:10px;top:50px;">
+    </div>
+    <img src="./tudiscreen2_files/map.png" style="width: calc(100% - 1000px);left:450px;top:70px;">
+    <img id="bottomMenu" src="./tudiscreen2_files/menu.png" style="width: calc(100% - 1000px);left:450px;bottom:110px;">
+</div>
+<script>
+    $(document).ready(function () {
+        module.getData("public/weatherInfo?cityCode=520123", function (data) {
+            for (var i = 0; i < document.getElementsByTagName("dfn").length; i++) {
+                var obj = document.getElementsByTagName("dfn")[i];
+                obj.innerText = data.retBody.todayWeather[obj.getAttribute("data-bind")];
+            }
+            $("#weather").attr("src", "images/weather/" + data.retBody.todayWeather["weather"] + ".png")
+        })
+    });
+    $(".button-normal").on("mouseover",function (e) {
+        var obj=e.target;
+       if(e.target.className!="button-normal" &&e.target.className!="button-active"){
+           obj=e.target.parentNode;
+       }
+       $(".button-active").attr("class","button-normal");
+       obj.className="button-active";
+    });
+    $(".button-normal").on("click",function (e) {
+        var obj = e.target;
+        if (e.target.className != "button-active") {
+            obj = e.target.parentNode;
+        }
+        var url = obj.getAttribute("url");
+        if (url == "#") {
+            var isFullscreen = parent.document.fullScreen || parent.document.mozFullScreen || parent.document.webkitIsFullScreen;
+            if (!isFullscreen) {//进入全屏,多重短路表达式
+                if(parent.document.getElementsByTagName("iframe").length>0)
+                parent.document.getElementsByTagName("iframe")[0].style.top = "0";
+                obj.children[1].innerText = "退出";
+                obj = parent.document.body;
+                (obj.requestFullscreen && obj.requestFullscreen()) ||
+                (obj.mozRequestFullScreen && obj.mozRequestFullScreen()) ||
+                (obj.webkitRequestFullscreen && obj.webkitRequestFullscreen()) || (obj.msRequestFullscreen && obj.msRequestFullscreen());
+                document.getElementById("main").style.top = "50px";
+            } else {	//退出全屏,三目运算符
+                obj.children[1].innerText = "全屏";
+                if(parent.document.getElementsByTagName("iframe").length>0)
+                parent.document.getElementsByTagName("iframe")[0].style.top = "90px";
+                parent.document.exitFullscreen ? parent.document.exitFullscreen() :
+                    parent.document.mozCancobjFullScreen ? parent.document.mozCancobjFullScreen() :
+                        parent.document.webkitExitFullscreen ? parent.document.webkitExitFullscreen() : '';
+                document.getElementById("main").style.top = "0";
+            }
+        }
+        else {
+            window.location.href = url;
+        }
+    });
+    (function () {
+//右上角图表
+        var placeHolderStyle = {
+            normal: {
+                color: 'rgba(0,0,0,0)',
+                label: {show: false},
+                labelLine: {show: false}
+            },
+            emphasis: {
+                color: 'rgba(0,0,0,0)'
+            }
+        };
+        option = {
+            series: [
+                {
+                    name:"种植业",
+                    type: 'pie',
+                    clockWise: false,
+                    radius: [90, 105],
+                    itemStyle: {
+                        normal: {
+                            color:"#2ea4dd",
+                            label: {show: false},
+                            labelLine: {show: false}
+                        }
+                    },
+                    data: [
+                        {
+                            value: 1287.17,
+                            name: '种植业'
+                        },
+                        {
+
+                            value:2128.48-1287.17,
+                            name:'种植业',
+                            itemStyle : placeHolderStyle
+                        }
+                    ]
+                },
+                {
+                    name:"畜牧业",
+                    type: 'pie',
+                    clockWise: false,
+                    radius: [75, 90],
+                    itemStyle: {
+                        normal: {
+                            color:"#5ccff2",
+                            label: {show: false},
+                            labelLine: {show: false}
+                        }
+                    },
+                    data: [
+                        {
+                            value: 531.08,
+                            name: '畜牧业'
+                        },
+                        {
+                            value:2128.48-531.08,
+                            name:'畜牧业',
+                            itemStyle : placeHolderStyle
+                        }
+                    ]
+                },
+                {
+                    name:"林业",
+                    type: 'pie',
+                    clockWise: false,
+                    radius: [60, 75],
+                    itemStyle: {
+                        normal: {
+                            color:"#4b499b",
+                            label: {show: false},
+                            labelLine: {show: false}
+                        }
+                    },
+                    data: [
+                        {
+                            value: 155.45,
+                            name: '林业'
+                        },
+                        {
+                            value:2128.48-155.45,
+                            name:'林业',
+                            itemStyle : placeHolderStyle
+                        }
+                    ]
+                },
+                {
+                    name:"渔业",
+                    type: 'pie',
+                    clockWise: false,
+                    radius: [45, 60],
+                    itemStyle: {
+                        normal: {
+                            color:"#8383c6",
+                            label: {show: false},
+                            labelLine: {show: false}
+                        }
+                    },
+                    data: [
+                        {
+                            value: 47.07,
+                            name: '渔业'
+                        },
+                        {
+                            value:2128.48-47.07,
+                            name:'渔业',
+                            itemStyle : placeHolderStyle
+                        }
+                    ]
+                },
+                {
+                    name:"农渔牧服务业",
+                    type: 'pie',
+                    clockWise: false,
+                    radius: [30, 45],
+                    itemStyle: {
+                        normal: {
+                            color:"#2665b2",
+                            label: {show: false},
+                            labelLine: {show: false}
+                        }
+                    },
+                    data: [
+                        {
+                            value: 107.71,
+                            name: '农渔牧服务业'
+                        },
+                        {
+                            value:2128.48-107.71,
+                            name:'农渔牧服务业',
+                            itemStyle : placeHolderStyle
+                        }
+                    ]
+                }
+            ]
+        };
+        var echart1=echarts.init(document.getElementById("echart1"));
+        echart1.setOption(option);
+    })();
+
+</script>
+
+</body></html>

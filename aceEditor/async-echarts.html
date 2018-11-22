@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script src="./src/ace.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        *{margin:0;padding:0;box-sizing: border-box;}
+        .clearfix:after {content: ""; display: block; width:0;height:0; clear:both; overflow:hidden;visibility: hidden;}
+        .clearfix { *zoom:1; }
+        .full-height{height:100vh;}
+        .view-block{
+            position:relative;
+            width:50%;
+            height:100%;
+            float:left;
+        }
+        .code-block{
+            height:100%;
+        }
+        .top-bar{
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 32px;
+            width: 100%;
+            box-shadow: 0px 0px 6px #909090;
+            border-bottom: 2px solid #aba8a8;
+            z-index: 2;
+            text-align: right;
+        }
+        .btn{
+            display: inline-block;
+            height: 30px;
+            width: 55px;
+            padding: 0;
+            line-height: 30px;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            vertical-align: middle;
+            font-size:12px;
+            text-align: center;
+            color: #FFF;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+            background-color: #3FA7DC;
+            border: none;
+            cursor:pointer;
+        }
+        .btn:hover{
+            background-color: #277EAB;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="full-height">
+        <div class="view-block" style="padding-top:32px;">
+            <div class="top-bar">
+                <button class="btn">刷新</button>
+            </div>
+            <div class="code-block" id="editor"></div>
+        </div>
+        <div class="view-block" id="viewBlock"></div>
+    </div>
+    <script src="../js/echarts-4.0.5.min.js"></script>
+    <script>
+        var myChart = echarts.init(document.getElementById('viewBlock'));
+
+        ace.require("ace/ext/language_tools");
+        var editor = ace.edit("editor");
+        editor.$blockScrolling = Infinity;
+        editor.setFontSize(16);
+        //设置语言
+        editor.session.setMode("ace/mode/javascript");
+
+        //自动换行,设置为off关闭
+        editor.setOption("wrap", "free")
+        //启用提示菜单
+        ace.require("ace/ext/language_tools");
+
+        editor.setOptions({
+            enableBasicAutocompletion: true,
+            enableSnippets: true,
+            enableLiveAutocompletion: true
+        });
+
+        //editor.moveCursorTo(0, 0);//移动光标至第0行，第0列
+        //editor.execCommand('find');//与ctrl+f功能一致
+
+        
+        //这里的字符串不是路径，而是定义的模块名
+        editor.setTheme("ace/theme/monokai");
+        //editor.setTheme("ace/theme/github");
+        var editorValue = `
+        //请在下面编写你的js代码
+        function foo(items, nada) {
+            for (var i=0; i<items.length; i++) {
+                alert(items[i] + "juhu");
+            }	// Real Tab.
+        }`;
+
+        //editor.setValue(editorValue);
+        var option;
+        $.ajax({
+            type:'get',
+            url:'http://www.testphp.com/code.php',
+            dataType:'json',
+            success:function(data){
+                //console.log(data);
+                //setValue(value,n),n指设置值后光标的位置，1表示开始位置，-1表示结束位置
+                editor.setValue(data.code,1);
+                //console.log(editor.getValue());
+                eval(editor.getValue());
+                myChart.setOption(option);
+            }
+        });
+
+
+        $('.btn').click(function(){
+            eval(editor.getValue());
+            editor.moveCursorTo(0, 0);
+            myChart.setOption(option);
+        });
+
+        editor.getSession().on('change', function (e) {
+            // e.type, etc
+            try {
+                eval(editor.getValue());
+                myChart.setOption(option);
+            } catch (error) {
+                console.error('option 不正确');
+            }
+        });
+
+
+        $(window).resize(function(){
+            myChart.resize();
+        });
+    </script>
+</pre>
+</body>
+
+</html>

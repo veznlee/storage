@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>大数据物联网可追溯云平台</title>
+    <meta name="description" content="大数据物联网可追溯云平台"/>
+    <meta name="keyword" content="大数据物联网可追溯云平台"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <script src="http://192.168.1.168:82/js/boot.js?id=0e27b4b2059d0c0a26e3" type="text/javascript" id="bootJs"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/control-tab.css">
+    <link rel="stylesheet" href="css/font/iconfont.css">
+    <link rel="stylesheet" href="http://mishengqiang.com/sweetalert/css/sweetalert.css">
+    <style>
+        ::-webkit-scrollbar-track {background-color: #F5F5F5;-webkit-box-shadow: inset 0 0 6px #177CE8;}
+        ::-webkit-scrollbar {width: 10px;height: 10px;background-color: #177CE8;}
+        ::-webkit-scrollbar-thumb {background-color: #99C1FB;border-radius: 10px;}
+        .mt-5{margin-top:5px;}
+        .page-body{padding:20px;background:#f3f4f8;}
+        .mod-p20{padding:20px;}
+        .mod-pr15{padding-right:15px;}
+        .mod-pv-10{padding-top:10px;padding-bottom:10px;}
+        .mod-h-340{height:340px;}
+        .mod-h-274{height:274px;}
+        .mod-h-280{height:280px;}
+        .mod-year-sel{width:76px;}
+
+        .row-block+.row-block{margin-top:20px;}
+        .mod-panel-wrap{background:#ffffff;box-shadow:0 0 4px 0 rgba(218,221,234,0.50);border-radius:2px;}
+        .mod-panel-wrap .cm-tab-panel{padding:20px;}
+        .mod-panel-wrap .cm-tab-panel .cm-tab-more{right:20px;top:24px;}
+        .cm_panel.mod-panel-wrap{padding-top:15px;}
+        .cm_panel .cm_content{padding:15px;}
+
+        .mod-h-700{height:700px;}
+    </style>
+</head>
+
+<body class="page-body">
+    <div class="row-correct-wrap row-space-20">
+        <div class="row-block">
+            <div class="col-block-p100">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block">
+                            <span>地图下钻示例</span>
+                        </div>
+                    </div>
+                    <div class="cm_content mod-h-700">
+                        <div class="cm-chart-container" id="demoChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-block">
+            <code class="col-block-p100" id="arr"></code>
+        </div>
+    </div>
+    <div class="panel" style="position: absolute;background-color: #fff;border: solid 1px silver;box-shadow: 3px 4px 3px 0px silver;right: 10px;top: 10px;padding: 5px 10px;font-size: 12px;border-radius: 4px">
+        <button title="下载点这里" style="background-color: red;">下载</button>请选择区域：
+        <select style="height: 36px; margin: 2.1px 0px;">
+            <option selected="selected" value="country">中国</option>
+        </select>
+    </div>
+<style>
+    
+    
+</style>
+<script src="http://webapi.amap.com/maps?v=1.3&key=9d4f5c2078ba12cb9d9d09c4e81c95d0&plugin=AMap.DistrictSearch"></script>
+<script src="http://mishengqiang.com/sweetalert/js/sweetalert-dev.js"></script>
+<script src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+<script src="js/echarts-4.0.5.min.js"></script>
+<script>
+    var basePath = 'http://gallerybox.echartsjs.com';
+
+    var myChart = echarts.init(document.getElementById('demoChart'));
+
+    var arrOne = ['showLoading', 'last', 'option:selected', 'find', '.panel', 'selected', 'attr', '|', 'split', 'val', 'text', 'all', 'setSubdistrict', 'setLevel', 'type', 'FeatureCollection', 'features', 'Feature', 'id', '', 'properties', 'geometry', 'Polygon', 'length', 'boundaries', 'lng', 'lat', 'push', 'UTF8Encoding', 'encodeOffsets', 'coordinates', 'forEach', 'MultiPolygon', 'ceil', 'fromCharCode', 'districtList', 'citycode', 'name', 'adcode', 'childNum', 'center', 'cp', 'search', 'level', 'district', 'textarea', 'querySelector', 'input[type="button"]', 'a', 'createElement', 'download', 'display', 'style', 'none', 'href', 'createObjectURL', 'appendChild', 'body', 'click', 'removeChild', 'mapArea', 'registerMap', 'contextmenu', '#', 'getDom', 'clear', '#dd6b66', '#759aa0', '#e69d87', '#8dc1a9', '#ea7e53', '#eedd78', '#73a373', '#73b9bc', '#7289ab', '#91ca8c', '#f49f42', '#333', '#eee', 'Microsoft YaHei', 'normal', '.panel select:eq(-2) option:selected', '注：点击下钻，右击跳出（目前只支持到县市级）', '#fff', 'single', 'rgba(100,149,237,1)', '#1b1b1b', 'setOption', 'geoJson', 'getMap', 'stringify', 'title', 'getOption', '.json', 'bind', 'unbind', '.panel button', 'geoselectchanged', 'on', 'mousedown', '.panel select', 'remove', '.panel select:last-child', 'which', 'event', 'getZr', 'hideLoading', 'biz_area', '<select></select>', '<option value="">--  所有省(行政区,直辖市)  --</option>', 'append', 'country', '<option value="">--  所有城市  --</option>', 'province', '<option value="">--  所有区县  --</option>', 'city', 'nextAll', 'change', 'appendTo', '<option value="', '">', '</option>', '<div class="panel" style="position: absolute;background-color: #fff;border: solid 1px silver;box-shadow: 3px 4px 3px 0px silver;right: 10px;top: 10px;padding: 5px 10px;font-size: 12px;border-radius: 4px"><button title="下载点这里" style="background-color: red;">下载</button>请选择区域：<select><option selected="selected" value="country">中国</option></select></div>', 'link', 'rel', 'stylesheet', 'text/css', 'http://mishengqiang.com/sweetalert/css/sweetalert.css', 'head', 'getElementsByTagName', '意思意思先', '<div><img style="width:21%" src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1542342514432&amp;di=4f8be9ffd0e441643a4ae0930a941870&amp;imgtype=0&amp;src=http%3A%2F%2Fwww.xwbline.com%2Fimages2016%2Falipay200.gif">多少来点</div>', '#DD6B55', '已打赏', '爷就不', '爷真帅', '<img style="width:88px" src="http://ws1.sinaimg.cn/large/9150e4e5ly1fd3zcb8k8tg2079056gsa.gif">', '点击这里下载', '算你狠', '下次不许这个样子了哦!', '36px', '2.1px 0', 'css', 'select', '数据来源：高德地图', 'rgba(18,89,147,1)', 'rgba(255,255,255,0.8)', 'hsl(', 'h', ',', 's', '%,', 'l', '%)', 'graphic', '#004159', '#cfe7ee', '#68849a', 'white', '宋体', 'bold'];
+    var arrTwo = [arrOne[0], arrOne[1], arrOne[2], arrOne[3], arrOne[4], arrOne[5], arrOne[6], arrOne[7], arrOne[8], arrOne[9], arrOne[10], arrOne[11], arrOne[12], arrOne[13], "type", arrOne[15], arrOne[16], arrOne[17], arrOne[18], arrOne[19], arrOne[20], arrOne[21], arrOne[22], arrOne[23], arrOne[24], arrOne[25], arrOne[26], arrOne[27], arrOne[28], arrOne[29], arrOne[30], arrOne[31], arrOne[32], arrOne[33], arrOne[34], arrOne[35], arrOne[36], arrOne[37], arrOne[38], arrOne[39], arrOne[40], arrOne[41], arrOne[42], arrOne[43], arrOne[44], arrOne[45], arrOne[46], arrOne[47], arrOne[48], "createElement", arrOne[50], arrOne[51], arrOne[52], arrOne[53], "href", arrOne[55], "appendChild", arrOne[57], arrOne[58], arrOne[59], arrOne[60], arrOne[61], arrOne[62], arrOne[63], arrOne[64], arrOne[65], arrOne[66], arrOne[67], arrOne[68], arrOne[69], arrOne[70], arrOne[71], arrOne[72], arrOne[73], arrOne[74], arrOne[75], arrOne[76], arrOne[77], arrOne[78], arrOne[79], arrOne[80], arrOne[81], arrOne[82], arrOne[83], arrOne[84], arrOne[85], arrOne[86], arrOne[87], arrOne[88], arrOne[89], arrOne[90], arrOne[91], arrOne[92], arrOne[93], arrOne[94], arrOne[95], arrOne[96], arrOne[97], arrOne[98], arrOne[99], arrOne[100], arrOne[101], arrOne[102], arrOne[103], arrOne[104], arrOne[105], arrOne[106], arrOne[107], arrOne[108], arrOne[109], arrOne[110], arrOne[111], arrOne[112], arrOne[113], arrOne[114], arrOne[115], arrOne[116], arrOne[117], arrOne[118], arrOne[119], arrOne[120], arrOne[121], arrOne[19], arrOne[122]];
+
+    function loadJSON() {
+        var _0xaaa3x4, _0xaaa3x5, _0xaaa3x6, _0xaaa3x7, _0xaaa3x8, _0xaaa3x9, _0xaaa3xa;
+        a = myChart, 
+        a["showLoading"](), 
+        _0xaaa3x4 = $(".panel")["find"]("option:selected")["last"](), 
+        _0xaaa3x4["attr"]("selected", !0), 
+        _0xaaa3x5 = _0xaaa3x4["val"]()["split"]("|"),
+        _0xaaa3x6 = _0xaaa3x5[0], _0xaaa3x7 = _0xaaa3x5[1], 
+        _0xaaa3x8 = _0xaaa3x4["text"](), 
+        _0xaaa3x9 = {
+            subdistrict: 1,
+            extensions: "all"
+        }, 
+        _0xaaa3xa = new AMap.DistrictSearch(_0xaaa3x9), 
+        _0xaaa3xa["setSubdistrict"](1), 
+        _0xaaa3xa["setLevel"](_0xaaa3x6), 
+        _0xaaa3xa[arrTwo[42]](_0xaaa3x8, function (_0xaaa3x4, _0xaaa3x5) {
+            function _0xaaa3x8() {
+                this[arrTwo[14]] = arrTwo[15], this[arrTwo[16]] = []
+            }
+
+            function _0xaaa3x9() {
+                this[arrTwo[14]] = arrTwo[17], this[arrTwo[18]] = arrTwo[19], this[arrTwo[20]] = {
+                    name: arrTwo[19],
+                    cp: [],
+                    childNum: 1
+                }, this[arrTwo[21]] = {
+                    type: arrTwo[22],
+                    coordinates: []
+                }
+            }
+
+            function _0xaaa3xb(_0xaaa3xc, _0xaaa3x4) {
+                var _0xaaa3x5, _0xaaa3x6, _0xaaa3x7, _0xaaa3x8 = [],
+                    _0xaaa3x9 = [],
+                    _0xaaa3xa = [],
+                    _0xaaa3xb = _0xaaa3xc[arrTwo[24]][arrTwo[23]];
+                if (1 === _0xaaa3xb) {
+                    for (_0xaaa3x5 = _0xaaa3xc[arrTwo[24]][0], _0xaaa3x6 = 0; _0xaaa3x6 < _0xaaa3x5[arrTwo[23]]; _0xaaa3x6++) {
+                        _0xaaa3x8[0] = _0xaaa3x5[_0xaaa3x6][arrTwo[25]], _0xaaa3x8[1] = _0xaaa3x5[_0xaaa3x6][arrTwo[26]], _0xaaa3x9[arrTwo[27]](_0xaaa3x8), _0xaaa3x8 = []
+                    };
+                    _0xaaa3x4[arrTwo[27]](_0xaaa3x9)
+                } else {
+                    for (_0xaaa3x7 = 0; _0xaaa3xb > _0xaaa3x7; _0xaaa3x7++) {
+                        for (_0xaaa3x5 = _0xaaa3xc[arrTwo[24]][_0xaaa3x7], _0xaaa3x6 = 0; _0xaaa3x6 < _0xaaa3x5[arrTwo[23]]; _0xaaa3x6++) {
+                            _0xaaa3x8[0] = _0xaaa3x5[_0xaaa3x6][arrTwo[25]], _0xaaa3x8[1] = _0xaaa3x5[_0xaaa3x6][arrTwo[26]], _0xaaa3x9[arrTwo[27]](_0xaaa3x8), _0xaaa3x8 = []
+                        };
+                        _0xaaa3xa[arrTwo[27]](_0xaaa3x9), _0xaaa3x9 = [], _0xaaa3x4[arrTwo[27]](_0xaaa3xa), _0xaaa3xa = []
+                    }
+                }
+            }
+
+            function _0xaaa3xd(_0xaaa3xc) {
+                _0xaaa3xc[arrTwo[28]] = !0;
+                var _0xaaa3x4 = _0xaaa3xc[arrTwo[16]];
+                return _0xaaa3x4 ? (_0xaaa3x4[arrTwo[31]](function (_0xaaa3xc) {
+                    var _0xaaa3x4 = _0xaaa3xc[arrTwo[21]][arrTwo[29]] = [],
+                        _0xaaa3x5 = _0xaaa3xc[arrTwo[21]][arrTwo[30]];
+                    arrTwo[22] === _0xaaa3xc[arrTwo[21]][arrTwo[14]] ? _0xaaa3x5[arrTwo[31]](function (_0xaaa3xc, _0xaaa3x6) {
+                        _0xaaa3x5[_0xaaa3x6] = _0xaaa3xe(_0xaaa3xc, _0xaaa3x4[_0xaaa3x6] = [])
+                    }) : arrTwo[32] === _0xaaa3xc[arrTwo[21]][arrTwo[14]] && _0xaaa3x5[arrTwo[31]](function (_0xaaa3xc, _0xaaa3x6) {
+                        _0xaaa3x4[_0xaaa3x6] = [], _0xaaa3xc[arrTwo[31]](function (_0xaaa3xc, _0xaaa3x7) {
+                            _0xaaa3x5[_0xaaa3x6][_0xaaa3x7] = _0xaaa3xe(_0xaaa3xc, _0xaaa3x4[_0xaaa3x6][_0xaaa3x7] = [])
+                        })
+                    })
+                }), _0xaaa3xc) : void (0)
+            }
+
+            function _0xaaa3xe(_0xaaa3xc, _0xaaa3x4) {
+                var _0xaaa3x5, _0xaaa3x6, _0xaaa3x7 = arrTwo[19],
+                    _0xaaa3x8 = _0xaaa3xf(_0xaaa3xc[0][0]),
+                    _0xaaa3x9 = _0xaaa3xf(_0xaaa3xc[0][1]);
+                for (_0xaaa3x4[0] = _0xaaa3x8, _0xaaa3x4[1] = _0xaaa3x9, _0xaaa3x5 = 0; _0xaaa3x5 < _0xaaa3xc[arrTwo[23]]; _0xaaa3x5++) {
+                    _0xaaa3x6 = _0xaaa3xc[_0xaaa3x5], _0xaaa3x7 += _0xaaa3x10(_0xaaa3x6[0], _0xaaa3x8), _0xaaa3x7 += _0xaaa3x10(_0xaaa3x6[1], _0xaaa3x9), _0xaaa3x8 = _0xaaa3xf(_0xaaa3x6[0]), _0xaaa3x9 = _0xaaa3xf(_0xaaa3x6[1])
+                };
+                return _0xaaa3x7
+            }
+
+            function _0xaaa3xf(_0xaaa3xc) {
+                return Math[arrTwo[33]](1024 * _0xaaa3xc)
+            }
+
+            function _0xaaa3x10(_0xaaa3xc, _0xaaa3x4) {
+                return _0xaaa3xc = _0xaaa3xf(_0xaaa3xc), _0xaaa3xc -= _0xaaa3x4, 8232 == 64 + (_0xaaa3xc << 1 ^ _0xaaa3xc >> 15) && _0xaaa3xc-- , _0xaaa3xc = _0xaaa3xc << 1 ^ _0xaaa3xc >> 15, String[arrTwo[34]](_0xaaa3xc + 64)
+            }
+
+            function _0xaaa3x11(_0xaaa3xc, _0xaaa3x4, _0xaaa3x5) {
+                var _0xaaa3x6, _0xaaa3xe, _0xaaa3xf, _0xaaa3x10 = new _0xaaa3x8(),
+                    _0xaaa3x11 = _0xaaa3x10[arrTwo[16]],
+                    _0xaaa3x12 = _0xaaa3xc[0],
+                    _0xaaa3x13 = _0xaaa3x12[arrTwo[35]],
+                    _0xaaa3x14 = _0xaaa3x12[arrTwo[36]],
+                    _0xaaa3x15 = 0;
+                if (_0xaaa3x14[arrTwo[23]]) {
+                    for (_0xaaa3x6 = 0, _0xaaa3xe = _0xaaa3x13[arrTwo[23]]; _0xaaa3xe > _0xaaa3x6; _0xaaa3x6++) {
+                        _0xaaa3x15++ , _0xaaa3xa[arrTwo[42]](_0xaaa3x13[_0xaaa3x6][arrTwo[37]], function (_0xaaa3xc, _0xaaa3x6) {
+                            function _0xaaa3x8(_0xaaa3xc, _0xaaa3x4) {
+                                var _0xaaa3x5, _0xaaa3x6, _0xaaa3x7, _0xaaa3x8, _0xaaa3xa, _0xaaa3xd;
+                                for (_0xaaa3x5 = new _0xaaa3x9(), _0xaaa3x6 = [], _0xaaa3x7 = [], _0xaaa3x8 = 0, _0xaaa3xa = _0xaaa3xc[arrTwo[23]]; _0xaaa3xa > _0xaaa3x8; _0xaaa3x8++) {
+                                    if (_0xaaa3xd = _0xaaa3xc[_0xaaa3x8], _0xaaa3xd[arrTwo[36]] === _0xaaa3x4) {
+                                        return _0xaaa3x5[arrTwo[18]] = _0xaaa3xd[arrTwo[38]], _0xaaa3x5[arrTwo[20]][arrTwo[37]] = _0xaaa3xd[arrTwo[37]], _0xaaa3x5[arrTwo[20]][arrTwo[39]] = _0xaaa3xd[arrTwo[24]][arrTwo[23]], _0xaaa3x5[arrTwo[20]][arrTwo[39]] > 1 && (_0xaaa3x5[arrTwo[21]][arrTwo[14]] = arrTwo[32]), _0xaaa3x6[0] = _0xaaa3xd[arrTwo[40]][arrTwo[25]], _0xaaa3x6[1] = _0xaaa3xd[arrTwo[40]][arrTwo[26]], _0xaaa3x5[arrTwo[20]][arrTwo[41]] = _0xaaa3x6, _0xaaa3x6 = [], _0xaaa3xb(_0xaaa3xd, _0xaaa3x7), _0xaaa3x5[arrTwo[21]][arrTwo[30]] = _0xaaa3x7, _0xaaa3x7 = [], _0xaaa3x5
+                                    }
+                                }
+                            }
+                            _0xaaa3x15--;
+                            var _0xaaa3xe = _0xaaa3x6[arrTwo[35]],
+                                _0xaaa3xf = _0xaaa3x8(_0xaaa3xe, _0xaaa3x7);
+                            _0xaaa3xf && _0xaaa3x11[arrTwo[27]](_0xaaa3xf), 0 === _0xaaa3x15 && (_0xaaa3x4 && (_0xaaa3x10 = _0xaaa3xd(_0xaaa3x10)), _0xaaa3x5(_0xaaa3x10), _0xaaa3xa["setSubdistrict"](1))
+                        })
+                    }
+                } else {
+                    for (_0xaaa3x6 = 0, _0xaaa3xe = _0xaaa3x13[arrTwo[23]]; _0xaaa3xe > _0xaaa3x6; _0xaaa3x6++) {
+                        _0xaaa3xf = _0xaaa3x13[_0xaaa3x6][arrTwo[37]], _0xaaa3x15++ , _0xaaa3xa[arrTwo[42]](_0xaaa3xf, function (_0xaaa3xc, _0xaaa3x4) {
+                            function _0xaaa3x6(_0xaaa3xc) {
+                                var _0xaaa3x4, _0xaaa3x5, _0xaaa3x6, _0xaaa3x7, _0xaaa3x8, _0xaaa3xa;
+                                for (_0xaaa3x4 = new _0xaaa3x9(), _0xaaa3x5 = [], _0xaaa3x6 = [], _0xaaa3x7 = 0, _0xaaa3x8 = _0xaaa3xc[arrTwo[23]]; _0xaaa3x8 > _0xaaa3x7; _0xaaa3x7++) {
+                                    return _0xaaa3xa = _0xaaa3xc[_0xaaa3x7], _0xaaa3x4[arrTwo[18]] = _0xaaa3xa[arrTwo[38]], _0xaaa3x4[arrTwo[20]][arrTwo[37]] = _0xaaa3xa[arrTwo[37]], _0xaaa3x4[arrTwo[20]][arrTwo[39]] = _0xaaa3xa[arrTwo[24]][arrTwo[23]], _0xaaa3x4[arrTwo[20]][arrTwo[39]] > 1 && (_0xaaa3x4[arrTwo[21]][arrTwo[14]] = arrTwo[32]), _0xaaa3x5[0] = _0xaaa3xa[arrTwo[40]][arrTwo[25]], _0xaaa3x5[1] = _0xaaa3xa[arrTwo[40]][arrTwo[26]], _0xaaa3x4[arrTwo[20]][arrTwo[41]] = _0xaaa3x5, _0xaaa3x5 = [], _0xaaa3xb(_0xaaa3xa, _0xaaa3x6), _0xaaa3x4[arrTwo[21]][arrTwo[30]] = _0xaaa3x6, _0xaaa3x6 = [], _0xaaa3x4
+                                }
+                            }
+                            _0xaaa3x15--;
+                            var _0xaaa3x7 = _0xaaa3x4[arrTwo[35]],
+                                _0xaaa3x8 = _0xaaa3x6(_0xaaa3x7);
+                            _0xaaa3x11[arrTwo[27]](_0xaaa3x8), 0 === _0xaaa3x15 && (_0xaaa3x10 = _0xaaa3xd(_0xaaa3x10), _0xaaa3x5(_0xaaa3x10), _0xaaa3xa["setSubdistrict"](1))
+                        })
+                    }
+                }
+            }
+
+            function _0xaaa3x12(_0xaaa3xc, _0xaaa3x4, _0xaaa3x5) {
+                function _0xaaa3x6(_0xaaa3xc, _0xaaa3x4) {
+                    var _0xaaa3x5, _0xaaa3x6, _0xaaa3x7, _0xaaa3x8, _0xaaa3xa, _0xaaa3xd;
+                    for (_0xaaa3x5 = new _0xaaa3x9(), _0xaaa3x6 = [], _0xaaa3x7 = [], _0xaaa3x8 = 0, _0xaaa3xa = _0xaaa3xc[arrTwo[23]]; _0xaaa3xa > _0xaaa3x8; _0xaaa3x8++) {
+                        if (_0xaaa3xd = _0xaaa3xc[_0xaaa3x8], _0xaaa3xd[arrTwo[36]] == _0xaaa3x4) {
+                            return _0xaaa3x5[arrTwo[18]] = _0xaaa3xd[arrTwo[38]], _0xaaa3x5[arrTwo[20]][arrTwo[37]] = _0xaaa3xd[arrTwo[37]], _0xaaa3x5[arrTwo[20]][arrTwo[39]] = _0xaaa3xd[arrTwo[24]][arrTwo[23]], _0xaaa3x5[arrTwo[20]][arrTwo[39]] > 1 && (_0xaaa3x5[arrTwo[21]][arrTwo[14]] = arrTwo[32]), _0xaaa3x6[0] = _0xaaa3xd[arrTwo[40]][arrTwo[25]], _0xaaa3x6[1] = _0xaaa3xd[arrTwo[40]][arrTwo[26]], _0xaaa3x5[arrTwo[20]][arrTwo[41]] = _0xaaa3x6, _0xaaa3x6 = [], _0xaaa3xb(_0xaaa3xd, _0xaaa3x7), _0xaaa3x5[arrTwo[21]][arrTwo[30]] = _0xaaa3x7, _0xaaa3x5
+                        }
+                    }
+                }
+
+                function _0xaaa3xe(_0xaaa3xc) {
+                    var _0xaaa3x4 = new _0xaaa3x9(),
+                        _0xaaa3x5 = [],
+                        _0xaaa3x6 = [];
+                    return _0xaaa3x4[arrTwo[18]] = _0xaaa3xc[arrTwo[38]], _0xaaa3x4[arrTwo[20]][arrTwo[37]] = _0xaaa3xc[arrTwo[37]], _0xaaa3x4[arrTwo[20]][arrTwo[39]] = _0xaaa3xc[arrTwo[24]][arrTwo[23]], _0xaaa3x4[arrTwo[20]][arrTwo[39]] > 1 && (_0xaaa3x4[arrTwo[21]][arrTwo[14]] = arrTwo[32]), _0xaaa3x5[0] = _0xaaa3xc[arrTwo[40]][arrTwo[25]], _0xaaa3x5[1] = _0xaaa3xc[arrTwo[40]][arrTwo[26]], _0xaaa3x4[arrTwo[20]][arrTwo[41]] = _0xaaa3x5, _0xaaa3x5 = [], _0xaaa3xb(_0xaaa3xc, _0xaaa3x6), _0xaaa3x4[arrTwo[21]][arrTwo[30]] = _0xaaa3x6, _0xaaa3x4
+                }
+                var _0xaaa3xf, _0xaaa3x10 = new _0xaaa3x8(),
+                    _0xaaa3x11 = _0xaaa3x10[arrTwo[16]],
+                    _0xaaa3x12 = _0xaaa3xc[0],
+                    _0xaaa3x13 = (_0xaaa3x12[arrTwo[36]], _0xaaa3x12[arrTwo[43]]);
+                _0xaaa3xf = arrTwo[44] === _0xaaa3x13 ? _0xaaa3x6(_0xaaa3xc, _0xaaa3x7) : _0xaaa3xe(_0xaaa3x12), _0xaaa3x11[arrTwo[27]](_0xaaa3xf), _0xaaa3x4 && (_0xaaa3x10 = _0xaaa3xd(_0xaaa3x10)), _0xaaa3x5(_0xaaa3x10), _0xaaa3xa["setSubdistrict"](1)
+            }
+
+            function _0xaaa3x13(_0xaaa3x4) {
+                var _0xaaa3x7 = function (_0xaaa3xc, _0xaaa3x4) {
+                    swal({
+                        title: arrOne[130],
+                        text: arrOne[131],
+                        html: true,
+                        showCancelButton: true,
+                        confirmButtonColor: arrOne[132],
+                        confirmButtonText: arrOne[133],
+                        cancelButtonText: arrOne[134],
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    }, function (_0xaaa3x16) {
+                        if (_0xaaa3x16) {
+                            swal({
+                                title: arrOne[135],
+                                html: true,
+                                text: arrOne[136],
+                                showCancelButton: true,
+                                confirmButtonColor: arrOne[132],
+                                confirmButtonText: arrOne[137]
+                            }, function () {
+                                _0xaaa3x17()
+                            })
+                        } else {
+                            swal({
+                                title: arrOne[138],
+                                text: arrOne[139],
+                                showCancelButton: true,
+                                confirmButtonColor: arrOne[132],
+                                confirmButtonText: arrOne[137]
+                            }, function () {
+                                _0xaaa3x17()
+                            })
+                        }
+                    });
+
+                    function _0xaaa3x17() {
+                        var _0xaaa3x18 = document["createElement"](arrOne[48]);
+                        _0xaaa3x18[arrOne[50]] = _0xaaa3x4, _0xaaa3x18[arrOne[52]][arrOne[51]] = arrOne[53], _0xaaa3x18["href"] = URL[arrOne[55]](new Blob([_0xaaa3xc])), document[arrOne[57]]["appendChild"](_0xaaa3x18), _0xaaa3x18[arrOne[58]](), document[arrOne[57]][arrOne[59]](_0xaaa3x18)
+                    }
+                };
+                $(arrOne[4])[arrOne[3]](arrOne[143])[arrOne[142]]({
+                    height: arrOne[140],
+                    margin: arrOne[141]
+                });
+
+                /*new BMap.Geolocation().getCurrentPosition(function(result) {
+                    if (result.address) {
+                        result = result.address;
+                        var $province = $('select').eq(1).find('option:selected');
+                        if (!$province.val()) {
+                            if ($province.text() == result.province) {
+                                var $city = $('select').eq(2).find('option:selected');
+                                if (!$city.val()) {
+                                    if ($city.text() != result.city) {
+                                        $city = $city.siblings().filter(function() {
+                                            return this.text == result.province
+                                        });
+                                        $city.attr('selected', true);
+                                        $city.parent('select').trigger('change');
+                                    }
+                                }
+    
+    
+                            } else {
+                                $province = $province.siblings().filter(function() {
+                                    return this.text == result.province
+                                });
+                                $province.attr('selected', true);
+                                $province.parent('select').trigger('change');
+                            }
+                        }
+    
+    
+                    }
+                });*/
+
+                var _0xaaa3x19 = {
+                    h: 200,
+                    s: 30,
+                    l: 90
+                };
+                echarts[arrTwo[61]](arrTwo[60], _0xaaa3x4), $(arrTwo[63] + a[arrTwo[64]]()[arrTwo[18]])[arrTwo[62]](function () {
+                    return !1
+                }), a[arrTwo[65]](), a[arrTwo[87]]({
+                    title: [{
+                        text: $(arrTwo[81])["text"](),
+                        subtext: arrOne[144],
+                        textStyle: {
+                            color: arrOne[145],
+                            fontSize: 30
+                        },
+                        backgroundColor: arrOne[146]
+                    }],
+                    backgroundColor: new echarts[arrOne[154]].RadialGradient(0.5, 0.5, 1, [{
+                        offset: 0,
+                        color: arrOne[147] + _0xaaa3x19[arrOne[148]] + arrOne[149] + _0xaaa3x19[arrOne[150]] + arrOne[151] + _0xaaa3x19[arrOne[152]] + arrOne[153]
+                    }, {
+                        offset: 1,
+                        color: arrOne[147] + _0xaaa3x19[arrOne[148]] + arrOne[149] + _0xaaa3x19[arrOne[150]] + arrOne[151] + parseInt(_0xaaa3x19[arrOne[152]] / 2) + arrOne[153]
+                    }]),
+                    geo: {
+                        map: arrTwo[60],
+                        roam: !0,
+                        selectedMode: arrTwo[84],
+                        itemStyle: {
+                            normal: {
+                                areaColor: arrOne[155],
+                                borderColor: arrOne[156]
+                            },
+                            emphasis: {
+                                areaColor: arrOne[157]
+                            }
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                color: arrOne[145],
+                                backgroundColor: arrOne[158],
+                                fontFamily: arrOne[159],
+                                fontSize: 12,
+                                fontWeight: arrOne[160],
+                                padding: 5
+                            }
+                        }
+                    }
+                }), $(arrTwo[96])[arrTwo[95]]()[arrTwo[94]](arrTwo[58], function () {
+                    _0xaaa3x7(JSON[arrTwo[90]](echarts[arrTwo[89]](arrTwo[60])[arrTwo[88]]), a[arrTwo[92]]()[arrTwo[91]][0]["text"] + arrTwo[93])
+                }), a[arrTwo[98]](arrTwo[97], function () { }), a[arrTwo[105]]()[arrTwo[98]](arrTwo[99], function (_0xaaa3xc) {
+                    switch (_0xaaa3xc[arrTwo[104]][arrTwo[103]]) {
+                        case 3:
+                            $(arrTwo[100])[arrTwo[23]] > 2 && ($(arrTwo[102])[arrTwo[101]](), $(arrTwo[102])[arrTwo[101]](), loadJSON())
+                    }
+                }), a[arrTwo[106]]()
+            }
+            switch (_0xaaa3x6) {
+                case arrTwo[44]:
+                    ;;
+                case arrTwo[107]:
+                    _0xaaa3x12(_0xaaa3x5[arrTwo[35]], !0, _0xaaa3x13);
+                    break;
+                default:
+                    _0xaaa3x11(_0xaaa3x5[arrTwo[35]], !0, _0xaaa3x13);
+                    var _0xaaa3x14 = $(arrTwo[108]);
+                    switch (_0xaaa3x14[arrTwo[117]](function () {
+                        $(this)[arrTwo[116]]()[arrTwo[101]](), $(this)["val"]() || $(this)[arrTwo[101]](), loadJSON()
+                    }), _0xaaa3x14[arrTwo[118]]($(".panel")), _0xaaa3x6) {
+                        case arrTwo[111]:
+                            _0xaaa3x14[arrTwo[110]]($(arrTwo[109]));
+                            break;
+                        case arrTwo[113]:
+                            _0xaaa3x14[arrTwo[110]]($(arrTwo[112]));
+                            break;
+                        case arrTwo[115]:
+                            _0xaaa3x14[arrTwo[110]]($(arrTwo[114]))
+                    };
+                    _0xaaa3x5[arrTwo[35]][0][arrTwo[35]][arrTwo[31]](function (_0xaaa3xc) {
+                        _0xaaa3x14[arrTwo[110]]($(arrTwo[119] + _0xaaa3xc[arrTwo[43]] + (_0xaaa3xc[arrTwo[36]] ? "|" + _0xaaa3xc[arrTwo[36]] : arrTwo[19]) + arrTwo[120] + _0xaaa3xc[arrTwo[37]] + arrTwo[121]))
+                    })
+            }
+        })
+    };
+    loadJSON();
+</script>
+</body>
+</html>

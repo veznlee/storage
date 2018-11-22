@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修文县土地资源大屏</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; }
+        .tm  { position: absolute; top: 10px; right: 10px; }
+        .webgl-error { font: 15px/30px monospace; text-align: center; color: #fff; margin: 50px; }
+        .webgl-error a { color: #fff; }
+        div{
+            left:0;
+            top:0;
+        }
+        .menu-top{
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+        }
+        a:hover{
+            color:#00baff;
+        }
+        a{
+            color:#fbfbfb;
+            margin: 30px;
+            cursor:pointer;
+            text-decoration:none;
+        }
+        .selected-menu{
+            color:#00baff;
+        }
+        .panel{
+            background-color: rgba(1,64,95,0.9);
+            border:1px solid #11810c;
+            box-shadow:0 0 10px black,inset 0 0 5px #11810c;
+        }
+        .panel-teeth{
+            border-top-left-radius: 9px;
+            border-top-right-radius: 9px;
+        }
+        .corner-left-top{
+            left:-7px;
+            top:-7px;
+        }
+        .corner-left-bottom{
+            left:-7px;
+            bottom:-7px;
+        }
+        .corner-right-top{
+            right:-7px;
+            top:-7px;
+        }
+        .corner-right-bottom{
+            right:-7px;
+            bottom:-7px;
+        }
+        iframe,div{
+            position: absolute;
+        }
+        .scrollbar {
+            overflow-y: auto;
+        }
+        .scrollbar::-webkit-scrollbar-track-piece {
+            background-color: #697d96;
+        }
+
+        .scrollbar::-webkit-scrollbar {
+            width:6px;
+            height:6px;
+        }
+
+        .scrollbar::-webkit-scrollbar-thumb {
+            background-color:#d0ecfe;
+            border-radius: 3px;
+            background-clip:padding-box;
+            min-height:28px;
+        }
+        .scrollbar::-webkit-scrollbar-thumb:hover {
+            background-color:#89bee0;
+        }
+        .div-focus{
+            border:2px solid #5fa8ff;
+            box-shadow: 0 0 10px #89c8ff;
+            border-radius: 2px;
+        }
+    </style>
+    <script src="./tudiscreen_files/jquery-3.2.1.min.js"></script>
+    <script src="./tudiscreen_files/three.js"></script>
+
+</head>
+<body style="zoom: 1;">
+<div id="webgl"><canvas width="1920" height="976" style="width: 1920px; height: 976px;"></canvas></div>
+<div style="top:0;left:0;width:100%;height:100%">
+    <div id="main" style="width: 80%;left:0;top:0;height:100%;text-align: center"><video style="width: 90%; height: 90%;" src="video/finance.mp4" autoplay="" loop="" data-bind="http://prc801.858.im/page/bigScreen/index.html"></video></div>
+    <div style="width: 20%;left:80%;top:0;height:5%;text-align:center;"><img id="rightup" src="./tudiscreen_files/arrow_up_disable.png"></div>
+    <div id="menus" style="width: 20%;left:80%;top:5%;height:80%;" class="scrollbar">
+        <video style="width: 370px;" src="video/manage.mp4" autoplay="" loop="" data-bind="manage.html" class=""></video>
+        <video style="width:98%;" src="video/finance.mp4" autoplay="" loop="" data-bind="http://prc801.858.im/page/bigScreen/index.html" class="div-focus"></video>
+        <video style="width:98%;" src="video/price.mp4" autoplay="" loop="" data-bind="price/index.html"></video>
+        <video style="width:98%;" src="video/expert.mp4" autoplay="" loop="" data-bind="expert.html"></video>
+        <video style="width:98%;" src="video/service.mp4" autoplay="" loop="" data-bind="service.html"></video>
+        <video style="width:98%;" src="video/quality.mp4" autoplay="" loop="" data-bind="http://spzl.xwnykzs.com/foodQualityScreen/index.html"></video>
+    </div>
+    <div style="width: 20%;left:80%;top:85%;text-align:center;height:5%;"><img id="rightdown" src="./tudiscreen_files/arrow_down.png"></div>
+</div>
+<script>
+    $("video").on("click",function (e) {
+        var d = document.getElementById('main');
+        d.innerHTML = e.target.outerHTML;
+        d.children[0].style.width = '90%';
+        d.children[0].style.height = '90%';
+        d.children[0].onclick = function () {
+            window.open(e.target.getAttribute("data-bind"));
+        }
+        var m=document.getElementById("menus").children;
+        if(lunbo.current!=-1){
+            m[lunbo.current].className="";
+        }
+        for(var i=0;i<m.length;i++) {
+            if (m[i].getAttribute("data-bind") == e.target.getAttribute("data-bind")) {
+                lunbo.current = i;
+                m[lunbo.current].className="div-focus";
+            }
+        }
+        td.stoped=true;
+        //手动点击后1分钟才开启轮播
+        lunbo.counter=0;
+        lunbo.wait=60*60;
+    });
+    var t=null;
+    $("#rightup").on("click",function () {
+        document.getElementById('rightup').src='images/arrow_up_disable.png';
+        document.getElementById('rightdown').src='images/arrow_down.png';
+        if(t)
+            clearInterval(t);
+        document.getElementById('menus').scrollBy(0,-3);
+        t=setInterval(function () {
+            document.getElementById('menus').scrollBy(0,-3);
+        },10)
+    });
+    $("#rightdown").on("click",function () {
+        document.getElementById('rightup').src='images/arrow_up.png';
+        document.getElementById('rightdown').src='images/arrow_down_disable.png';
+        if(t)
+            clearInterval(t);
+        document.getElementById('menus').scrollBy(0,3);
+        t=setInterval(function () {
+            document.getElementById('menus').scrollBy(0,3);
+        },10)
+    });
+    var lunbo={
+        counter:0,
+        current:-1,
+        wait:600,
+        //10秒后开始轮播
+        animate:function () {
+            if(t && (document.getElementById('menus').scrollTop==0 || document.getElementById('menus').scrollTop+document.getElementById('menus').clientHeight==document.getElementById('menus').scrollHeight))
+                clearInterval(t);
+            lunbo.counter++;
+            if(lunbo.counter>=lunbo.wait){
+                td.stoped=true;
+                lunbo.wait=600;
+                lunbo.counter=0;
+                var m=document.getElementById("menus").children;
+                if(lunbo.current!=-1){
+                    m[lunbo.current].className="";
+                }
+                lunbo.current++;
+                if(lunbo.current>=m.length)
+                    lunbo.current=0;
+                if(lunbo.current>3)
+                    document.getElementById("menus").scrollTo(0,800);
+                else
+                    document.getElementById("menus").scrollTo(0,0);
+                var d = document.getElementById('main');
+                d.innerHTML = m[lunbo.current].outerHTML;
+                m[lunbo.current].className="div-focus";
+                d.children[0].style.width = '90%';
+                d.children[0].style.height = '90%';
+                d.children[0].onclick = function () {
+                    window.open(m[lunbo.current].getAttribute("data-bind"));
+                }
+            }
+            requestAnimationFrame(lunbo.animate)
+        }
+    };
+    lunbo.animate();
+    var scene, camera, renderer;
+    var td= {
+        stoped:false,
+        init: function () {
+            document.getElementById('menus').children[0].style.width=document.getElementById('menus').children[1].clientWidth+'px';
+            scene = new THREE.Scene();//场景
+            camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 1000);//透视相机
+            window.addEventListener('resize', function () {
+                // 重新设置相机的宽高比
+                camera.aspect = window.innerWidth / window.innerHeight;
+                // 更新相机投影矩阵
+                camera.updateProjectionMatrix();
+                // 更新渲染器大小
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }, false);
+            camera.position.set(100, 60, 500);//相机位置
+            scene.add(camera);//add到场景中
+            //全局增亮
+            scene.add(new THREE.AmbientLight(0x101010));
+            //点光源1
+            var light = new THREE.PointLight(0x5599cc, 0.8, 5000);
+            light.position.set(0, 200, 250);
+            scene.add(light);
+
+            //点光源1
+            var light = new THREE.PointLight(0x5599cc, 2, 100);
+            light.position.set(75, 30, 250);
+            scene.add(light);
+            //点光源1
+            var light = new THREE.PointLight(0x5599cc, 1, 100);
+            light.position.set(75, 70, 250);
+            scene.add(light);
+            //点光源1
+            var light = new THREE.PointLight(0x5599cc, 1, 100);
+            light.position.set(75, 110, 250);
+            scene.add(light);
+            //点光源1
+            var light = new THREE.PointLight(0x5599cc, 1, 100);
+            light.position.set(75, 150, 250);
+            scene.add(light);
+
+            renderer = new THREE.WebGLRenderer({antialias: true});//渲染
+            renderer.setClearColor(0x000000);//设置底图的颜色
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMapEnabled = true;//shadow，阴影，表明能渲染阴影
+            document.getElementById('webgl').appendChild(renderer.domElement);//将渲染Element添加到Dom中
+            td.background();
+            td.baseLine();
+            td.earth.init();
+            td.render();
+        },
+        background: function () {//绘制所有背景
+            //定义圆心坐标
+            var posX = 75, posZ = 225;
+            //绘制地板
+            var groundGeometry = new THREE.CubeGeometry(2200, 1000, 1);
+            var groundMaterial = new THREE.MeshPhongMaterial({color: 0x000088, specular: 0x000088, shininess: 1});
+            var ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.position.set(0, 0, 500);
+            ground.rotation.x = Math.PI / 2;
+            scene.add(ground);
+            //地板竖线条
+            for (var i = 0; i < 20; i++) {
+                var lineGeometry = new THREE.CubeGeometry(3, 1000, 1);
+                var lineMaterial = new THREE.MeshPhongMaterial({color: 0x66ccff, specular: 0x66ccff, shininess: 30});
+                var line = new THREE.Mesh(lineGeometry, lineMaterial);
+                line.position.set(i * 100 - 1000, 0, 500);
+                line.rotation.x = Math.PI / 2;
+                scene.add(line);
+            }
+            //地板横线条
+            for (var i = 0; i < 10; i++) {
+                var lineGeometry = new THREE.CubeGeometry(2200, 3, 1);
+                var lineMaterial = new THREE.MeshPhongMaterial({color: 0x66ccff, specular: 0x66ccff, shininess: 30});
+                var line = new THREE.Mesh(lineGeometry, lineMaterial);
+                line.position.set(0, 0, i * 50);
+                line.rotation.x = Math.PI / 2;
+                scene.add(line);
+            }
+            //背景墙
+            var loader = new THREE.TextureLoader();
+            loader.load('images/bg.jpg',
+                // 资源加载完成后的回调函数
+                function (texture) {
+                    var backGeometry = new THREE.CubeGeometry(2200, 1000, 1);
+                    var backMaterial = new THREE.MeshPhongMaterial({
+                        color: 0xabcdef,
+                        specularMap: new THREE.TextureLoader().load('images/bg-dump.jpg'),
+                        specular: 0xffffff,
+                        shininess: 1,
+                        map: texture
+                    });
+                    var back = new THREE.Mesh(backGeometry, backMaterial);
+                    back.position.set(0, 500, 0);
+                    scene.add(back);
+                }
+            );
+            loader.load('images/xw.png',
+                // 修文农业云logo
+                function (texture) {
+                    var backGeometry = new THREE.CubeGeometry(155, 155, 1);
+                    var backMaterial = new THREE.MeshPhongMaterial({
+                        color: 0xFFFFFF,
+                        specular: 0xFFFFFF,
+                        shininess: 30,
+                        transparent:true,
+                        map: texture
+                    });
+                    var back = new THREE.Mesh(backGeometry, backMaterial);
+                    back.position.set(posX, 100, posZ);
+                    scene.add(back);
+                }
+            );
+            loader.load("images/dot.png", function (texture) {
+                //光点
+                td.dotMat = new THREE.MeshPhongMaterial({
+                    map: texture,
+                    transparent: true,
+                    opacity: 1,
+                    color: 0xffffff,
+                    specular: 0xffffff,
+                    shininess: 30
+                });
+            });
+            //绘制多个圆环 makeCycle(color,inside,outside,num,y,wireframe,scaleRange,rotationRate,clockwise)
+            makeRing(0x7898f8, 90, 98, 128, 15, true, 0, Math.PI / 900, false);
+            makeRing(0x7898f8, 60, 66, 24, 30, true, 0, Math.PI / 900, true);
+            makeRing(0x7898f8, 50, 54, 20, 34, true, 0, 0, true);
+            makeRing(0x48a7ff, 36, 40, 16, 1, false, 80, 0, false);
+            makeRing(0x2897ff, 100, 102, 64, 1, false, 18, 0, false);
+            makeRing(0x3254a0, 105, 106.5, 64, 1, false, 0, 0, false);
+            makeRing(0x2897ff, 130, 132, 64, 1, false, 20, 0, false);
+            //底部圆
+            var geometry = new THREE.CircleGeometry(40, 32);
+            var material = new THREE.MeshBasicMaterial({
+                color: 0x98c8ff,
+                wireframe: true,
+                wireframeLinewidth: 20
+            });
+            td.cycle = new THREE.Mesh(geometry, material);
+            td.cycle.position.set(posX, 1, posZ);
+            td.cycle.rotation.x = Math.PI / 2;
+            scene.add(td.cycle);
+
+            //绘制光柱
+            td.lights = [];
+            var lightsNum = 80;
+            var length = 240;
+            for (var i = 10; i < lightsNum - 10; i++) {
+                var w = Math.random() * 8;
+                var rectShape = new THREE.Shape();
+                var r = Math.random() / 20;
+                rectShape.moveTo(-1, 0);
+                rectShape.lineTo(-w + (length - w) * Math.cos(Math.PI / lightsNum * i + r), (length - w) * Math.sin(Math.PI / lightsNum * i + r));
+                rectShape.lineTo(w + (length - w) * Math.cos(Math.PI / lightsNum * i + r), (length - w) * Math.sin(Math.PI / lightsNum * i + r) + (i < lightsNum / 2 ? -1 : 1) * Math.sin(Math.PI / lightsNum * i + r) * w);
+                rectShape.lineTo(1, 0);
+                rectShape.lineTo(-1, 0);
+                var rectGeom = new THREE.ShapeGeometry(rectShape);
+                var rectMesh = new THREE.Mesh(rectGeom, new THREE.MeshBasicMaterial({
+                    color: 0x2288dd,
+                    transparent: true,
+                    opacity: 0.1
+                }));
+                rectMesh.position.set(posX, 0, posZ);
+                scene.add(rectMesh);
+                td.lights.push(rectMesh);
+                if (Math.random() > 0.5)
+                    td.lightsDir.push("+");
+                else
+                    td.lightsDir.push("-");
+            }
+        },
+        rings: [],
+        cycle: null,
+        lights: [],
+        lightsDir: [],
+        dotMat: null,
+        dots: [],
+        baseLine: function () {
+            //3维基点坐标准线
+            var geometry = new THREE.Geometry();
+            var material = new THREE.LineBasicMaterial({vertexColors: true});
+            var color1 = new THREE.Color(0xff0000), color2 = new THREE.Color(0x00FF00), color3 = new THREE.Color(0x0000FF);
+            // 线的材质可以由2点的颜色决定
+            var p0 = new THREE.Vector3(0, 0, 0);
+            var p1 = new THREE.Vector3(100, 0, 0);
+            geometry.vertices.push(p0);
+            geometry.vertices.push(p1);
+            geometry.colors.push(color1, color1);
+            var line = new THREE.Line(geometry, material, THREE.LineSegments);
+            scene.add(line);
+            geometry = new THREE.Geometry();
+            var p2 = new THREE.Vector3(0, 100, 0);
+            geometry.vertices.push(p0);
+            geometry.vertices.push(p2);
+            geometry.colors.push(color2, color2);
+            line = new THREE.Line(geometry, material, THREE.LineSegments);
+            scene.add(line);
+            geometry = new THREE.Geometry();
+            var p3 = new THREE.Vector3(0, 0, 100);
+            geometry.vertices.push(p0);
+            geometry.vertices.push(p3);
+            geometry.colors.push(color3, color3);
+            line = new THREE.Line(geometry, material, THREE.LineSegments);
+            scene.add(line);
+
+        },
+        render: function () {
+            td.counter++;
+            var posX = 75, posZ = 225;
+            td.cycle.rotation.z += Math.PI / 90;
+            for (var i = 0; i < td.rings.length; i++) {//圆环对象处理
+                if (td.rings[i].scaleRange != 0) {
+                    if (td.rings[i].dir == 0) {
+                        td.rings[i].scale -= 0.01;
+                    }
+                    if (td.rings[i].dir == 1) {
+                        td.rings[i].scale += 0.01;
+                    }
+                    td.rings[i].obj.scale.x = td.rings[i].scale;
+                    td.rings[i].obj.scale.y = td.rings[i].scale;
+                    if (td.rings[i].scale <= 1 - 0.01 * td.rings[i].scaleRange)
+                        td.rings[i].dir = 1;
+                    if (td.rings[i].scale >= 1)
+                        td.rings[i].dir = 0;
+                }
+                if (td.rings[i].rotationRate != 0) {
+                    if (td.rings[i].clockwise)
+                        td.rings[i].obj.rotation.z += td.rings[i].rotationRate;
+                    else
+                        td.rings[i].obj.rotation.z -= td.rings[i].rotationRate;
+                }
+            }
+            for (var i = 0; i < td.dots.length; i++) {//光点的处理
+                if (td.dots[i].dir == 0)
+                    td.dots[i].x -= td.dots[i].speed;
+                else
+                    td.dots[i].x += td.dots[i].speed;
+                td.dots[i].y += td.dots[i].speed;
+                if (td.dots[i].x < td.dots[i].ox - td.dots[i].range)
+                    td.dots[i].dir = 1;
+                if (td.dots[i].x > td.dots[i].ox + td.dots[i].range)
+                    td.dots[i].dir = 0;
+                td.dots[i].obj.position.x = td.dots[i].x;
+                td.dots[i].obj.position.y = td.dots[i].y;
+                td.dots[i].obj.material.opacity = 1.1 - td.dots[i].y / td.dots[i].distance;
+                if (td.dots[i].y >= td.dots[i].distance) {
+                    scene.remove(td.dots[i].obj);
+                    td.dots.splice(i, 1);
+                    i--;
+                }
+            }
+            if (Math.random() < 0.2 && td.dotMat) {//产生光点
+                var r = 2 + Math.random() * 20;
+                var geometry = new THREE.BoxGeometry(r, r, 1);
+                var dot = new THREE.Mesh(geometry, td.dotMat);
+                dot.position.set(115 - Math.random() * 80, 10, 225);
+                scene.add(dot);
+                td.dots.push({
+                    obj: dot,
+                    speed: 0.2 + Math.random() * 1,
+                    distance: 100 + parseInt(Math.random() * 100),
+                    range: parseInt(10 + Math.random() * 40),
+                    ox: dot.position.x,
+                    x: dot.position.x,
+                    y: 10,
+                    dir: parseInt(Math.random() * 2)
+                });
+            }
+            if (td.counter % 3 == 0) {//光柱明暗控制
+                for (var j = 0; j < td.lights.length; j++) {
+                    var o = td.lights[j].material.opacity;
+                    if (td.lightsDir[j] == '+') {
+                        if (o < 0.1 + Math.random() * 0.1)
+                            td.lights[j].material.opacity += 0.01;
+                        else
+                            td.lightsDir[j] = '-';
+                    }
+                    else {
+                        if (o > Math.random() * -0.1)
+                            td.lights[j].material.opacity -= 0.01;
+                        else
+                            td.lightsDir[j] = '+';
+                    }
+                }
+            }
+            //控制旋转动作
+            td.earth.group.rotation.y += 0.01;
+            td.earth.group.rotation.z += 0.0005;
+            td.earth.group.rotation.x += 0.0002;
+            if (!td.stoped)
+                requestAnimationFrame(td.render);
+            renderer.render(scene, camera);
+        },
+        counter: 0,
+        earth : {
+            init: function () {
+                // Earth params
+                var earth=td.earth,
+                    r = 50;
+                earth.group = new THREE.Group();
+                //生成球的算法
+                var opoints = [];
+                var dpi = 3;
+                for (var fi = 0; fi <= Math.PI * 2; fi += Math.PI / dpi) {
+                    var points = [];
+                    for (var theta = 0; theta <= Math.PI * 2; theta += Math.PI / dpi) {
+                        points.push(new THREE.Vector3(r * Math.sin(fi) * Math.cos(theta), r * Math.cos(fi), r * Math.sin(fi) * Math.sin(theta)));
+                        opoints.push([r * Math.sin(fi) * Math.cos(theta), r * Math.cos(fi), r * Math.sin(fi) * Math.sin(theta)]);
+                        // 创建粒子geometry
+                        var geom = new THREE.Geometry();
+                        var material = new THREE.PointsMaterial({
+                            color: 0x00FFFF,
+                            size: 0.04
+                        });
+                        // 创建单个粒子
+
+                        var color1 = new THREE.Color( 0x0000ff );
+                        // 将粒子加入粒子geometry
+                        geom.vertices.push(new THREE.Vector3(r * Math.sin(fi) * Math.cos(theta), r * Math.cos(fi), r * Math.sin(fi) * Math.sin(theta)));
+                        geom.colors.push(color1);
+                        // 创建粒子系统
+                        var system =  new THREE.Points(geom, material);
+                        // 将粒子系统加入场景
+                        earth.group.add(system);
+                    }
+                    //var curve = new THREE.CatmullRomCurve3(points);
+                    var geometry = new THREE.Geometry();
+                    geometry.vertices = points;
+                    var material = new THREE.LineBasicMaterial({color: 0x3050a0});
+                    var line = new THREE.Line(geometry, material);
+                    earth.group.add(line);
+                }
+                for (var i = 0; i < dpi * 2; i++) {
+                    var points2 = [];
+                    for (var j = 0; j < dpi * 2; j++) {
+                        points2.push(new THREE.Vector3(opoints[j * dpi * 2 + i][0], opoints[j * dpi * 2 + i][1], opoints[j * dpi * 2 + i][2]));
+                    }
+                    //var curve2 = new THREE.CatmullRomCurve3(points2);
+                    var geometry2 = new THREE.Geometry();
+                    geometry2.vertices = points2;
+                    var material2 = new THREE.LineBasicMaterial({color: 0x3050a0});
+                    var line2 = new THREE.Line(geometry2, material2);
+                    earth.group.add(line2);
+                }
+                earth.group.position.set(78,95,255);
+                scene.add(earth.group);
+            },
+            group: null
+        }
+    };
+    /*
+     color:颜色
+     inside:内边缘大小
+     outside:外边缘大小
+     num:分割段数
+     y:高度
+     wireframe:true/false是否以线条构建图形
+     scaleRange:缩放范围
+     rotationRate:每帧转动角度
+     clockwise:true/false是否顺时针旋转
+     */
+    function makeRing(color,inside,outside,num,y,wireframe,scaleRange,rotationRate,clockwise) {
+        //定义圆心中心点
+        var posX = 75, posZ = 225;
+        var geometry = new THREE.RingGeometry(inside, outside, num);
+        var material = new THREE.MeshBasicMaterial({
+            color: color,
+            transparent: true,
+            opacity: 0.8,
+            wireframe: wireframe,
+            side: THREE.DoubleSide
+        });
+        var ring = new THREE.Mesh(geometry, material);
+        ring.position.set(posX, y, posZ);
+        ring.rotation.x = Math.PI / 2;
+        scene.add(ring);
+        td.rings.push({
+            obj: ring,
+            scaleRange: scaleRange,
+            rotationRate: rotationRate,
+            clockwise: clockwise,
+            dir: 1,
+            scale: 1
+        })
+    }
+    td.init();
+</script>
+
+</body></html>

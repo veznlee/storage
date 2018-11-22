@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修文县农业大数据监控平台</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; }
+        .tm  { position: absolute; top: 10px; right: 10px; }
+        .webgl-error { font: 15px/30px monospace; text-align: center; color: #fff; margin: 50px; }
+        .webgl-error a { color: #fff; }
+        div{
+            left:0;
+            top:0;
+        }
+        .menu-top{
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+        }
+        a:hover{
+            color:#00baff;
+        }
+        a{
+            color:#fbfbfb;
+            margin: 30px;
+            cursor:pointer;
+            text-decoration:none;
+        }
+       .selected-menu{
+            color:#00baff;
+        }
+        .panel{
+            background-color: rgba(1,64,95,0.9);
+            border:1px solid #11810c;
+            box-shadow:0 0 10px black,inset 0 0 5px #11810c;
+        }
+        .panel-teeth{
+            border-top-left-radius: 9px;
+            border-top-right-radius: 9px;
+        }
+        .corner-left-top{
+            left:-7px;
+            top:-7px;
+        }
+        .corner-left-bottom{
+            left:-7px;
+            bottom:-7px;
+        }
+        .corner-right-top{
+            right:-7px;
+            top:-7px;
+        }
+        .corner-right-bottom{
+            right:-7px;
+            bottom:-7px;
+        }
+        iframe,img,div{
+            position: absolute;
+        }
+    </style>
+    <script src="./tudiscreen3_files/jquery-3.2.1.min.js"></script>
+    <script src="./tudiscreen3_files/module.js"></script>
+</head>
+<body style="zoom: 1;">
+<div style="width: 100%;height: 100%;text-align:center;overflow: hidden">
+    <canvas id="menuTab" style="background: transparent;width:1920px;height:100px;top:0;left:0;position:absolute" width="1920" height="100"></canvas>
+    <div id="menuTop" style="top:15px;"><a class="menu-top" href="http://dsj.858.im/#" index="0" data-sort="0" url="home.html" onclick="document.getElementsByTagName(&#39;iframe&#39;)[0].src=this.getAttribute(&#39;url&#39;)">首页</a><a class="menu-top" href="http://dsj.858.im/#" index="1" data-sort="0" url="manage.html" onclick="document.getElementsByTagName(&#39;iframe&#39;)[0].src=this.getAttribute(&#39;url&#39;)">一张精准管理图</a><a class="menu-top selected-menu" href="http://dsj.858.im/#" index="2" data-sort="0" url="price/index.html" onclick="document.getElementsByTagName(&#39;iframe&#39;)[0].src=this.getAttribute(&#39;url&#39;)">农产品价格监控</a><a class="menu-top" href="http://dsj.858.im/#" index="3" data-sort="0" url="http://prc801.858.im/page/bigScreen/index.html" onclick="document.getElementsByTagName(&#39;iframe&#39;)[0].src=this.getAttribute(&#39;url&#39;)">金融服务</a><a class="menu-top" href="http://dsj.858.im/#" index="4" data-sort="0" url="expert.html" onclick="document.getElementsByTagName(&#39;iframe&#39;)[0].src=this.getAttribute(&#39;url&#39;)">专家资源大数据</a><a class="menu-top" href="http://dsj.858.im/#" index="5" data-sort="0" url="service.html" onclick="document.getElementsByTagName(&#39;iframe&#39;)[0].src=this.getAttribute(&#39;url&#39;)">农业服务大数据</a><a class="menu-top" href="http://dsj.858.im/#" index="6" data-sort="0" url="http://spzl.xwnykzs.com/foodQualityScreen/index.html" onclick="document.getElementsByTagName(&#39;iframe&#39;)[0].src=this.getAttribute(&#39;url&#39;)">食品质量监管</a><a class="menu-top" href="http://dsj.858.im/#" index="7" data-sort="0" url="trace.html" onclick="document.getElementsByTagName(&#39;iframe&#39;)[0].src=this.getAttribute(&#39;url&#39;)">修文县农业大数据平台</a></div>
+    <iframe id="allpages" src="./tudiscreen3_files/index.html" style="left:0;top:90px;width:100%;height:100%;border: 0" allowtransparency="true" allowfullscreen="">
+
+    </iframe>
+</div>
+<script>
+    var menu= {
+        currentTab: 0,
+        init: function () {
+            menu.render();
+            document.onclick = function (e) {
+                if (e.target.className == "menu-top") {
+                    menu.currentTab = e.target.getAttribute("index");
+                    menu.redraw();
+                }
+            }
+        },
+        redraw: function () {
+            document.getElementsByClassName("selected-menu")[0].className = "menu-top";
+            var obj = document.getElementById("menuTab");
+            var ctx = obj.getContext("2d");
+            obj = document.getElementsByClassName("menu-top")[menu.currentTab];
+            obj.className = "menu-top selected-menu";
+            var left = obj.offsetLeft;
+            var width = obj.clientWidth;
+            ctx.clearRect(0, 0, 1920, 100);
+            var top = 76;
+            ctx.fillStyle = "rgba(22,67,88,1)";
+            ctx.fillRect(0, top - 3, 1920, 2);
+            ctx.fillRect(left - 20, top - 6, width + 30, 2);
+            ctx.fillRect(left - 18, top - 9, width + 30, 2);
+            ctx.fillRect(left - 17, top - 12, width + 30, 2);
+            ctx.fillRect(left - 16, top - 15, width + 30, 2);
+            ctx.fillRect(left - 15, top - 18, width + 30, 2);
+            ctx.fillRect(left - 13, top - 21, width + 30, 2);
+            ctx.fillRect(left - 12, top - 24, width + 30, 2);
+            ctx.fillRect(left - 12, top - 27, width + 30, 2);
+            ctx.fillRect(left - 11, top - 30, width + 30, 2);
+            ctx.fillRect(left - 11, top - 33, width + 30, 2);
+            ctx.fillStyle = "rgba(22,67,88,0.8)";
+            ctx.fillRect(0, top, 1920, 2);
+            ctx.fillStyle = "rgba(22,67,88,0.6)";
+            ctx.fillRect(0, top + 3, 1920, 2);
+            ctx.fillStyle = "rgba(22,67,88,0.4)";
+            ctx.fillRect(0, top + 6, 1920, 2);
+            ctx.fillStyle = "rgba(22,67,88,0.3)";
+            ctx.fillRect(0, top + 9, 1920, 2);
+            ctx.fillStyle = "rgba(22,67,88,0.2)";
+            ctx.fillRect(0, top + 12, 1920, 2);
+            ctx.fillStyle = "rgba(22,67,88,0.1)";
+            ctx.fillRect(0, top + 15, 1920, 2);
+
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.strokeStyle = "#2481df";
+            ctx.shadowColor = "#2c86c0";
+            ctx.shadowBlur = 5;
+            top = 41;
+            ctx.moveTo(-100, top + 32);
+            ctx.lineTo(left - 20, top + 32);
+            //ctx.quadraticCurveTo(left-15,top+22,left-15,top+11);
+            //ctx.quadraticCurveTo(left-15,top,left-10,top);
+            ctx.lineTo(left - 10, top);
+            ctx.lineTo(left + width + 20, top);
+            ctx.lineTo(left + width + 10, top + 32);
+            ctx.lineTo(1920, top + 32);
+            ctx.stroke();
+            ctx.closePath();
+            //跑动的线条
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            var lineLenth = 600;
+            if(menu.lineLeft < left - 20) {
+                ctx.moveTo(menu.lineLeft - lineLenth, top + 32);
+                ctx.lineTo(menu.lineLeft, top + 32);
+            }
+            else if(menu.lineLeft < left+width +20) {
+                ctx.moveTo(menu.lineLeft - lineLenth, top+32);
+                ctx.lineTo(left - 20, top+32);
+                ctx.lineTo(left - 10, top);
+                ctx.lineTo(menu.lineLeft, top);
+            }
+            else if(menu.lineLeft-lineLenth < left-20){
+                ctx.moveTo(menu.lineLeft - lineLenth, top+32);
+                ctx.lineTo(left - 20, top+32);
+                ctx.lineTo(left - 10, top);
+                ctx.lineTo(left+width+20, top);
+                ctx.lineTo(left+width+10, top+32);
+                ctx.lineTo(menu.lineLeft, top + 32);
+            }
+            else if(menu.lineLeft-lineLenth < left+width+20){
+                ctx.moveTo(menu.lineLeft - lineLenth, top);
+                ctx.lineTo(left - 10, top);
+                ctx.lineTo(left+width+20, top);
+                ctx.lineTo(left+width+10, top+32);
+                ctx.lineTo(menu.lineLeft, top + 32);
+            }
+            else{
+                ctx.moveTo(menu.lineLeft - lineLenth, top+32);
+                ctx.lineTo(menu.lineLeft, top + 32);
+            }
+            var g = ctx.createLinearGradient(menu.lineLeft - lineLenth, top + 22, menu.lineLeft, top + 22);  //创建渐变对象  渐变开始点和渐变结束点
+            g.addColorStop(0, 'rgba(140,200,255,0.1)'); //添加颜色点
+            g.addColorStop(0.2, 'rgba(140,200,255,1)'); //添加颜色点
+            g.addColorStop(0.8, 'rgba(140,200,255,1)'); //添加颜色点
+            g.addColorStop(1, 'rgba(140,200,255,0.1)'); //添加颜色点
+            ctx.strokeStyle = g;
+            ctx.shadowColor = "#2c86c0";
+            ctx.shadowBlur = 3;
+            ctx.stroke();
+            ctx.closePath();
+            menu.lineLeft += 12;
+            if (menu.lineLeft > 2500)
+                menu.lineLeft = 0;
+        },
+        render: function () {
+            requestAnimationFrame(menu.render);
+            menu.redraw();
+        },
+        lineLeft: 0
+    };
+    module.getData("menu/index",function (data) {
+        var html = "";
+        for (var i = 0; i < data.retBody.menu.length; i++) {
+            var thisMenu = data.retBody.menu[i];
+            if(thisMenu.description=="quality.html") {
+                thisMenu.description = "price/index.html";
+                thisMenu.name="农产品价格监控";
+            }
+            html += '<a class="menu-top' + (i == 0 ? ' selected-menu' : '') + '" href="#" index="' + i + '" data-sort="' + thisMenu.sort +
+                '" url="' + (thisMenu.description == "finance.html" ? "http://prc801.858.im/page/bigScreen/index.html" : thisMenu.description) + '" onclick="document.getElementsByTagName(\'iframe\')[0].src=this.getAttribute(\'url\')">' + thisMenu.name + '</a>';
+        }
+        $("#menuTop").html(html);
+        menu.init();
+    });
+</script>
+
+</body></html>

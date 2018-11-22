@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>大数据物联网可追溯云平台</title>
+    <meta name="description" content="大数据物联网可追溯云平台"/>
+    <meta name="keyword" content="大数据物联网可追溯云平台"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/control-tab.css">
+    <link rel="stylesheet" href="../css/font/iconfont.css">
+    <link rel="stylesheet" href="http://mishengqiang.com/sweetalert/css/sweetalert.css">
+    <style>
+        ::-webkit-scrollbar-track {background-color: #F5F5F5;-webkit-box-shadow: inset 0 0 6px #177CE8;}
+        ::-webkit-scrollbar {width: 10px;height: 10px;background-color: #177CE8;}
+        ::-webkit-scrollbar-thumb {background-color: #99C1FB;border-radius: 10px;}
+        .mt-5{margin-top:5px;}
+        .page-body{padding:20px;background:#f3f4f8;}
+        .mod-p20{padding:20px;}
+        .mod-pr15{padding-right:15px;}
+        .mod-pv-10{padding-top:10px;padding-bottom:10px;}
+        .mod-h-340{height:340px;}
+        .mod-h-274{height:274px;}
+        .mod-h-280{height:280px;}
+        .mod-year-sel{width:76px;}
+
+        .row-block+.row-block{margin-top:20px;}
+        .mod-panel-wrap{background:#ffffff;box-shadow:0 0 4px 0 rgba(218,221,234,0.50);border-radius:2px;}
+        .mod-panel-wrap .cm-tab-panel{padding:20px;}
+        .mod-panel-wrap .cm-tab-panel .cm-tab-more{right:20px;top:24px;}
+        .cm_panel.mod-panel-wrap{padding-top:15px;}
+        .cm_panel .cm_content{padding:15px;}
+
+        .mod-h-700{height:700px;}
+    </style>
+</head>
+
+<body class="page-body">
+    <div class="row-correct-wrap row-space-20">
+        <div class="row-block">
+            <div class="col-block-p100">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block">
+                            <span>地图下钻示例</span>
+                        </div>
+                    </div>
+                    <div class="cm_content mod-h-700">
+                        <div class="cm-chart-container" id="demoChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-block">
+            <code class="col-block-p100" id="arr"></code>
+        </div>
+    </div>
+    <div class="panel" style="position: absolute;background-color: #fff;border: solid 1px silver;box-shadow: 3px 4px 3px 0px silver;right: 10px;top: 10px;padding: 5px 10px;font-size: 12px;border-radius: 4px">
+        <button title="下载点这里" style="background-color: red;">下载</button>请选择区域：
+        <select style="height: 36px; margin: 2.1px 0px;">
+            <option selected="selected" value="country">中国</option>
+        </select>
+    </div>
+<style>
+    
+    
+</style>
+<!-- 高德地图 
+key=9d4f5c2078ba12cb9d9d09c4e81c95d0&plugin 自己申请的key
+plugin=AMap.DistrictSearch 需要用到的地图插件
+-->
+<script src="http://webapi.amap.com/maps?v=1.3&key=9d4f5c2078ba12cb9d9d09c4e81c95d0&plugin=AMap.DistrictSearch"></script>
+<!-- <script src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script> -->
+<script src="js/echarts-4.0.5.min.js"></script>
+<script>
+    /*实现原理，从高德地图搜索行政区域数据进行渲染*/
+    var myChart = echarts.init(document.getElementById('demoChart'));
+
+    function loadJSON() {
+        var _var1, _var2, _var3, _var4, _var5, _var6, _var7;
+        a = myChart, 
+        a["showLoading"](), 
+        _var1 = $(".panel")["find"]("option:selected")["last"](), 
+        _var1["attr"]("selected", !0), 
+        _var2 = _var1["val"]()["split"]("|"),
+        _var3 = _var2[0], _var4 = _var2[1], 
+        _var5 = _var1["text"](), 
+        _var6 = {
+            subdistrict: 1,
+            /*显示下级行政区级数（行政区级别包括：国家、省/直辖市、市、区/县4个级别），商圈为区/县下一级,可选值：0、1、2、3
+            0：不返回下级行政区
+            1：返回下一级行政区
+            2：返回下两级行政区
+            3：返回下三级行政区
+            默认值：1 */
+            extensions: "all"
+            /* 是否返回行政区边界坐标点,默认值：base，不返回行政区边界坐标点,取值：all，返回完整行政区边界坐标点 */
+        },
+        //构造函数，实例化一个行政区查询
+        _var7 = new AMap.DistrictSearch(_var6),
+        _var7["setLevel"](_var3),
+        /* 设置关键字对应的行政区级别或商圈，可选值：
+        country：国家
+        province：省 / 直辖市
+        city：市
+        district：区 / 县
+        biz_area：商圈 */
+
+        /* search(keyword: String,callback: function (status: String, result: info/ AutocompleteResult))
+        根据输入关键字提示匹配信息，支持中文、拼音
+        当status为complete时，result为AutocompleteResult；
+        当status为error时，result为错误信息info；
+        当status为no_data时，代表检索返回0结果 */
+        _var7["search"](_var5, function (_var1, _var2) {
+            function _var5() {
+                this.type = "FeatureCollection", this.features = []
+            }
+
+            function _var6() {
+                this.type = "Feature", this.id = "", this.properties = {
+                    name: "",
+                    cp: [],
+                    childNum: 1
+                }, this.geometry = {
+                    type: "Polygon",
+                    coordinates: []
+                }
+            }
+
+            function _var8(param1, param2) {
+                var _var2, _var3, _var4, _var5 = [],
+                    _var6 = [],
+                    _var7 = [],
+                    _var8 = param1["boundaries"]["length"];
+                if (1 === _var8) {
+                    for (_var2 = param1["boundaries"][0], _var3 = 0; _var3 < _var2["length"]; _var3++) {
+                        _var5[0] = _var2[_var3]["lng"], _var5[1] = _var2[_var3]["lat"], _var6["push"](_var5), _var5 = []
+                    };
+                    param2["push"](_var6)
+                } else {
+                    for (_var4 = 0; _var8 > _var4; _var4++) {
+                        for (_var2 = param1["boundaries"][_var4], _var3 = 0; _var3 < _var2["length"]; _var3++) {
+                            _var5[0] = _var2[_var3]["lng"], _var5[1] = _var2[_var3]["lat"], _var6["push"](_var5), _var5 = []
+                        };
+                        _var7["push"](_var6), _var6 = [], param2["push"](_var7), _var7 = []
+                    }
+                }
+            }
+
+            function _var9(param) {
+                param["UTF8Encoding"] = !0;
+                var _var1 = param["features"];
+                return _var1 ? (_var1["forEach"](function (param) {
+                    var _var1 = param["geometry"]["encodeOffsets"] = [],
+                        _var2 = param["geometry"]["coordinates"];
+                    "Polygon" === param["geometry"]["type"] ? _var2["forEach"](function (param, _var3) {
+                        _var2[_var3] = _var15(param, _var1[_var3] = [])
+                    }) : "MultiPolygon" === param["geometry"]["type"] && _var2["forEach"](function (param, _var3) {
+                        _var1[_var3] = [], param["forEach"](function (param, _var4) {
+                            _var2[_var3][_var4] = _var15(param, _var1[_var3][_var4] = [])
+                        })
+                    })
+                }), param) : void (0)
+            }
+
+            function _var15(param1, param2) {
+                var _var2, _var3, _var4 = "",
+                    _var5 = _var16(param1[0][0]),
+                    _var6 = _var16(param1[0][1]);
+                for (param2[0] = _var5, param2[1] = _var6, _var2 = 0; _var2 < param1["length"]; _var2++) {
+                    _var3 = param1[_var2], _var4 += _var10(_var3[0], _var5), _var4 += _var10(_var3[1], _var6), _var5 = _var16(_var3[0]), _var6 = _var16(_var3[1])
+                };
+                return _var4
+            }
+
+            function _var16(num) {
+                return Math.ceil(1024 * num)
+            }
+
+            function _var10(param, step) {
+                param = _var16(param),
+                param -= step,
+                8232 == 64 + (param << 1 ^ param >> 15) && param-- ,
+                param = param << 1 ^ param >> 15;
+                return String["fromCharCode"](param + 64)
+            }
+
+            function _var11(param1, _var1, _var2) {
+                var _var3, _var15, _var16, _var10 = new _var5(),
+                    _var11 = _var10["features"],
+                    _var12 = param1[0],
+                    _districtList = _var12["districtList"],
+                    _count = 0;
+                if (_var12["citycode"]["length"]) {
+                    for (_var3 = 0, _var15 = _districtList["length"]; _var15 > _var3; _var3++) {
+                        _count++ , _var7["search"](_districtList[_var3]["name"], function (param1, _var3) {
+                            function _var5(param1, _var1) {
+                                var _var2, _var3, _var4, _var5, _var7, _var9;
+                                for (_var2 = new _var6(), _var3 = [], _var4 = [], _var5 = 0, _var7 = param1["length"]; _var7 > _var5; _var5++) {
+                                    if (_var9 = param1[_var5], _var9["citycode"] === _var1) {
+                                        _var2["id"] = _var9["adcode"],
+                                        _var2["properties"]["name"] = _var9["name"],
+                                        _var2["properties"]["childNum"] = _var9["boundaries"]["length"],
+                                        _var2["properties"]["childNum"] > 1 && (_var2["geometry"]["type"] = "MultiPolygon"),
+                                        _var3[0] = _var9["center"]["lng"],
+                                        _var3[1] = _var9["center"]["lat"],
+                                        _var2["properties"]["cp"] = _var3,
+                                        _var3 = [],
+                                        _var8(_var9, _var4),
+                                        _var2["geometry"]["coordinates"] = _var4,
+                                        _var4 = [];
+                                        return _var2
+                                    }
+                                }
+                            }
+                            _count--;
+                            var _var15 = _var3["districtList"],
+                                _var16 = _var5(_var15, _var4);
+                            _var16 && _var11["push"](_var16), 0 === _count && (_var1 && (_var10 = _var9(_var10)), _var2(_var10), _var7["setSubdistrict"](1))
+                        })
+                    }
+                } else {
+                    for (_var3 = 0, _var15 = _districtList["length"]; _var15 > _var3; _var3++) {
+                        _var16 = _districtList[_var3]["name"], _count++ , _var7["search"](_var16, function (param1, _var1) {
+                            function _var3(param1) {
+                                var _var1, _var2, _var3, _var4, _var5, _var7;
+                                for (_var1 = new _var6(), _var2 = [], _var3 = [], _var4 = 0, _var5 = param1["length"]; _var5 > _var4; _var4++) {
+                                    _var7 = param1[_var4],
+                                    _var1["id"] = _var7["adcode"],
+                                    _var1["properties"]["name"] = _var7["name"],
+                                    _var1["properties"]["childNum"] = _var7["boundaries"]["length"],
+                                    _var1["properties"]["childNum"] > 1 && (_var1["geometry"]["type"] = "MultiPolygon"),
+                                    _var2[0] = _var7["center"]["lng"],
+                                    _var2[1] = _var7["center"]["lat"],
+                                    _var1["properties"]["cp"] = _var2,
+                                    _var2 = [],
+                                    _var8(_var7, _var3),
+                                    _var1["geometry"]["coordinates"] = _var3,
+                                    _var3 = [];
+                                    return _var1
+                                }
+                            }
+                            _count--;
+                            var _var4 = _var1["districtList"],
+                                _var5 = _var3(_var4);
+                            _var11["push"](_var5), 0 === _count && (_var10 = _var9(_var10), _var2(_var10), _var7["setSubdistrict"](1))
+                        })
+                    }
+                }
+            }
+
+            function _var12(param1, _var1, _var2) {
+                function _var3(param1, _var1) {
+                    var _var2 = new _var6(),
+                        _var3 = [],
+                        _var4 = [],
+                        i = 0,
+                        len = param1["length"],
+                        _var9;
+                    for (; i < len; i++) {
+                        _var9 = param1[i];
+                        if (_var9["citycode"] == _var1) {
+                            _var2["id"] = _var9["adcode"],
+                            _var2["properties"]["name"] = _var9["name"],
+                            _var2["properties"]["childNum"] = _var9["boundaries"]["length"],
+                            _var2["properties"]["childNum"] > 1 && (_var2["geometry"]["type"] = "MultiPolygon"),
+                            _var3[0] = _var9["center"]["lng"],
+                            _var3[1] = _var9["center"]["lat"],
+                            _var2["properties"]["cp"] = _var3,
+                            _var3 = [],
+                            _var8(_var9, _var4),
+                            _var2["geometry"]["coordinates"] = _var4;
+                            return _var2
+                        }
+                    }
+                }
+
+                function _var15(param1) {
+                    var _var1 = new _var6(),
+                        _var2 = [],
+                        _var3 = [];
+                    _var1["id"] = param1["adcode"],
+                    _var1["properties"]["name"] = param1["name"],
+                    _var1["properties"]["childNum"] = param1["boundaries"]["length"],
+                    _var1["properties"]["childNum"] > 1 && (_var1["geometry"]["type"] = "MultiPolygon"),
+                    _var2[0] = param1["center"]["lng"],
+                    _var2[1] = param1["center"]["lat"],
+                    _var1["properties"]["cp"] = _var2,
+                    _var2 = [],
+                    _var8(param1, _var3),
+                    _var1["geometry"]["coordinates"] = _var3;
+                    return _var1
+                }
+                var _var16, _var10 = new _var5(),
+                    _var11 = _var10["features"],
+                    _var12 = param1[0],
+                    _var13 = (_var12["citycode"], _var12["level"]);
+                _var16 = "district" === _var13 ? _var3(param1, _var4) : _var15(_var12),
+                _var11["push"](_var16),
+                _var1 && (_var10 = _var9(_var10)),
+                _var2(_var10),
+                _var7["setSubdistrict"](1)
+            }
+            
+
+            function _var13(_var1) {
+                var _var4 = function (jsonData, name) {
+                    /* swal({
+                        title: "意思意思先",
+                        text: "<div>多少来点</div>",
+                        html: true,
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "已打赏",
+                        cancelButtonText: "爷就不",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    }, function (flag) {
+                        if (flag) {
+                            swal({
+                                title: "爷真帅",
+                                html: true,
+                                text: '<img style="width: 88px" src="http://ws1.sinaimg.cn/large/9150e4e5ly1fd3zcb8k8tg2079056gsa.gif">',
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "点击这里下载"
+                            }, function () {
+                                down()
+                            })
+                        } else {
+                            swal({
+                                title: "算你狠",
+                                text: "下次不许这个样子了哦!",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "点击这里下载"
+                            }, function () {
+                                down()
+                            })
+                        }
+                    }); */
+
+                    function down() {
+                        var $a = document.createElement("a");
+                        $a["download"] = name, 
+                        $a["style"]["display"] = "none", 
+                        $a["href"] = URL["createObjectURL"](new Blob([jsonData])),
+                        document.body.appendChild($a), 
+                        $a["click"](),
+                        document.body.removeChild($a)
+                    }
+                    down();
+
+                    /*new BMap.Geolocation().getCurrentPosition(function(result) {
+                        if (result.address) {
+                            result = result.address;
+                            var $province = $('select').eq(1).find('option:selected');
+                            if (!$province.val()) {
+                                if ($province.text() == result.province) {
+                                    var $city = $('select').eq(2).find('option:selected');
+                                    if (!$city.val()) {
+                                        if ($city.text() != result.city) {
+                                            $city = $city.siblings().filter(function() {
+                                                return this.text == result.province
+                                            });
+                                            $city.attr('selected', true);
+                                            $city.parent('select').trigger('change');
+                                        }
+                                    }
+        
+        
+                                } else {
+                                    $province = $province.siblings().filter(function() {
+                                        return this.text == result.province
+                                    });
+                                    $province.attr('selected', true);
+                                    $province.parent('select').trigger('change');
+                                }
+                            }
+        
+        
+                        }
+                    });*/
+                };
+                
+                
+                $('.panel').find("select").css({
+                    height: "36px",
+                    margin: "2.1px 0"
+                });
+
+                echarts.registerMap("mapArea", _var1), 
+                //a.getDom()获取 ECharts 实例容器的 dom 节点
+                $("#" + a.getDom().id).contextmenu(function () {
+                    return !1
+                }), 
+                //清空当前实例，会移除实例中所有的组件和图表
+                a.clear(), 
+                a.setOption({
+                    title: [{
+                        text: $(".panel select:eq(-2) option:selected")["text"](),
+                        subtext: "数据来源：高德地图",
+                        textStyle: {
+                            color: "rgba(18,89,147,1)",
+                            fontSize: 30
+                        },
+                        backgroundColor: "rgba(255,255,255,0.8)"
+                    }],
+                    backgroundColor: new echarts["graphic"].RadialGradient(0.5, 0.5, 1, [{
+                        offset: 0,
+                        color: "hsl(200,30%,90%)"
+                    }, {
+                        offset: 1,
+                        color: "hsl(200,30%," + parseInt(90 / 2) + "%)"
+                    }]),
+                    geo: {
+                        map: "mapArea",
+                        roam: !0,
+                        selectedMode: "single",
+                        itemStyle: {
+                            normal: {
+                                areaColor: "#004159",
+                                borderColor: "#cfe7ee"
+                            },
+                            emphasis: {
+                                areaColor: "#68849a"
+                            }
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                color: "rgba(18,89,147,1)",
+                                backgroundColor: "white",
+                                fontFamily: "宋体",
+                                fontSize: 12,
+                                fontWeight: "bold",
+                                padding: 5
+                            }
+                        }
+                    }
+                }), 
+                $(".panel button").unbind().bind("click", function () {
+                    _var4(JSON.stringify(echarts.getMap("mapArea").geoJson), a.getOption().title[0].text + ".json")
+                }),
+                //地图区域切换选中状态的事件 
+                a.on("geoselectchanged", function (param) {
+                    console.log(param);
+                }), 
+                a.getZr().on("mousedown", function (param) {
+                    switch (param["event"]["which"]) {
+                        case 3:
+                            if($(".panel select")["length"] > 2){
+                                $(".panel select:last-child")["remove"](),
+                                $(".panel select:last-child")["remove"](),
+                                loadJSON()
+                            }
+                    }
+                }), 
+                a.hideLoading()
+            }
+            switch (_var3) {
+                case "district":
+                    ;;
+                case "biz_area":
+                    _var12(_var2["districtList"], !0, _var13);
+                    break;
+                default:
+                    _var11(_var2["districtList"], !0, _var13);
+                    var $select = $("<select></select>");
+                    $select["change"](function () {
+                        $(this).nextAll().remove(), $(this).val() || $(this).remove(), loadJSON()
+                    });
+                    $select["appendTo"]($(".panel"));
+                    switch (_var3) {
+                        case "country":
+                            $select["append"]($('<option value="">--  所有省(行政区,直辖市)  --</option>'));
+                            break;
+                        case "province":
+                            $select["append"]($('<option value="">--  所有城市  --</option>'));
+                            break;
+                        case "city":
+                            $select["append"]($('<option value="">--  所有区县  --</option>'));
+                    };
+                    _var2.districtList[0].districtList.forEach(function (item) {
+                        $select["append"]($('<option value="' + item["level"] + (item["citycode"] ? "|" + item["citycode"] : "") + '">' + item["name"] + "</option>"))
+                    })
+            }
+        })
+    };
+    loadJSON();
+</script>
+<script>
+    eval(function (p, a, c, k, e, d) { e = function (c) { return (c < a ? "" : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36)) }; if (!''.replace(/^/, String)) { while (c--) d[e(c)] = k[c] || e(c); k = [function (e) { return d[e] }]; e = function () { return '\\w+' }; c = 1; }; while (c--) if (k[c]) p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]); return p; }('e 16(){k 7,6,4,9,c,h,f;a=1V,a["1P"](),7=$(".C")["1H"]("r:1c")["1f"](),7["1T"]("1c",!0),6=7["1v"]()["1R"]("|"),4=6[0],9=6[1],c=7["X"](),h={1L:1,2h:"2i"},f=x 2g.2e(h),f["2f"](4),f["1i"](c,e(7,6){e c(){u.y="28",u.Y=[]}e h(){u.y="21",u.N="",u.j={o:"",V:[],w:1},u.p={y:"1m",P:[]}}e A(b,L){k 6,4,9,c=[],h=[],f=[],A=b["E"]["m"];R(1===A){z(6=b["E"][0],4=0;4<6["m"];4++){c[0]=6[4]["O"],c[1]=6[4]["K"],h["D"](c),c=[]};L["D"](h)}1F{z(9=0;A>9;9++){z(6=b["E"][9],4=0;4<6["m"];4++){c[0]=6[4]["O"],c[1]=6[4]["K"],h["D"](c),c=[]};f["D"](h),h=[],L["D"](f),f=[]}}}e g(d){d["22"]=!0;k 7=d["Y"];t 7?(7["S"](e(d){k 7=d["p"]["20"]=[],6=d["p"]["P"];"1m"===d["p"]["y"]?6["S"](e(d,4){6[4]=q(d,7[4]=[])}):"U"===d["p"]["y"]&&6["S"](e(d,4){7[4]=[],d["S"](e(d,9){6[4][9]=q(d,7[4][9]=[])})})}),d):1Y(0)}e q(b,L){k 6,4,9="",c=n(b[0][0]),h=n(b[0][1]);z(L[0]=c,L[1]=h,6=0;6<b["m"];6++){4=b[6],9+=l(4[0],c),9+=l(4[1],h),c=n(4[0]),h=n(4[1])};t 9}e n(1J){t 1Z.26(27*1J)}e l(d,1A){d=n(d),d-=1A,25==1E+(d<<1^d>>15)&&d--,d=d<<1^d>>15;t 23["24"](d+1E)}e F(b,7,6){k 4,q,n,l=x c(),F=l["Y"],v=b[0],W=v["H"],I=0;R(v["M"]["m"]){z(4=0,q=W["m"];q>4;4++){I++,f["1i"](W[4]["o"],e(b,4){e c(b,7){k 6,4,9,c,f,g;z(6=x h(),4=[],9=[],c=0,f=b["m"];f>c;c++){R(g=b[c],g["M"]===7){6["N"]=g["10"],6["j"]["o"]=g["o"],6["j"]["w"]=g["E"]["m"],6["j"]["w"]>1&&(6["p"]["y"]="U"),4[0]=g["B"]["O"],4[1]=g["B"]["K"],6["j"]["V"]=4,4=[],A(g,9),6["p"]["P"]=9,9=[];t 6}}}I--;k q=4["H"],n=c(q,9);n&&F["D"](n),0===I&&(7&&(l=g(l)),6(l),f["1a"](1))})}}1F{z(4=0,q=W["m"];q>4;4++){n=W[4]["o"],I++,f["1i"](n,e(b,7){e 4(b){k 7,6,4,9,c,f;z(7=x h(),6=[],4=[],9=0,c=b["m"];c>9;9++){f=b[9],7["N"]=f["10"],7["j"]["o"]=f["o"],7["j"]["w"]=f["E"]["m"],7["j"]["w"]>1&&(7["p"]["y"]="U"),6[0]=f["B"]["O"],6[1]=f["B"]["K"],7["j"]["V"]=6,6=[],A(f,4),7["p"]["P"]=4,4=[];t 7}}I--;k 9=7["H"],c=4(9);F["D"](c),0===I&&(l=g(l),6(l),f["1a"](1))})}}}e v(b,7,6){e 4(b,7){k 6=x h(),4=[],9=[],i=0,1z=b["m"],g;z(;i<1z;i++){g=b[i];R(g["M"]==7){6["N"]=g["10"],6["j"]["o"]=g["o"],6["j"]["w"]=g["E"]["m"],6["j"]["w"]>1&&(6["p"]["y"]="U"),4[0]=g["B"]["O"],4[1]=g["B"]["K"],6["j"]["V"]=4,4=[],A(g,9),6["p"]["P"]=9;t 6}}}e q(b){k 7=x h(),6=[],4=[];7["N"]=b["10"],7["j"]["o"]=b["o"],7["j"]["w"]=b["E"]["m"],7["j"]["w"]>1&&(7["p"]["y"]="U"),6[0]=b["B"]["O"],6[1]=b["B"]["K"],7["j"]["V"]=6,6=[],A(b,4),7["p"]["P"]=4;t 7}k n,l=x c(),F=l["Y"],v=b[0],Q=(v["M"],v["1y"]);n="1p"===Q?4(b,9):q(v),F["D"](n),7&&(l=g(l)),6(l),f["1a"](1)}e Q(7){k 9=e(1x,o){e 1l(){k a=1d.2a("a");a["29"]=o,a["2b"]["2d"]="2c",a["1O"]=1K["1M"](x 1U([1x])),1d.1q.1W(a),a["1C"](),1d.1q.1S(a)}1l();};$(\'.C\').1H("G").1Q({1N:"1X",2j:"2.34 0"});19.35("1j",7),$("#"+a.32().N).33(e(){t!1}),a.38(),a.39({1D:[{X:$(".C G:36(-2) r:1c")["X"](),37:"31：2U",2V:{13:"1e(18,1o,1n,1)",1I:30},1b:"1e(17,17,17,0.8)"}],1b:x 19["2S"].2T(0.5,0.5,1,[{1r:0,13:"1t(1s,30%,1u%)"},{1r:1,13:"1t(1s,30%,"+2Y(1u/2)+"%)"}]),2Z:{2W:"1j",2X:!0,3a:"3j",3m:{1k:{1w:"#3k",3l:"#3d"},3e:{1w:"#3b"}},3c:{1k:{3h:3i,13:"1e(18,1o,1n,1)",1b:"3f",3g:"2v",1I:12,2w:"2t",2u:5}}}}),$(".C 2z").2A().2x("1C",e(){9(2y.2s(19.2m("1j").2n),a.2k().1D[0].X+".2l")}),a.1B("2q",e(d){2r.2o(d)}),a.2p().1B("2M",e(d){1g(d["2N"]["2K"]){J 3:R($(".C G")["m"]>2){$(".C G:1f-1G")["14"](),$(".C G:1f-1G")["14"](),16()}}}),a.2L()}1g(4){J"1p":;J"2Q":v(6["H"],!0,Q);1h;2R:F(6["H"],!0,Q);k s=$("<G></G>");s["2O"](e(){$(u).2P().14(),$(u).1v()||$(u).14(),16()});s["2J"]($(".C"));1g(4){J"2D":s["11"]($(\'<r Z="">--  2E(2B,2C)  --</r>\'));1h;J"2H":s["11"]($(\'<r Z="">--  2I  --</r>\'));1h;J"2F":s["11"]($(\'<r Z="">--  2G  --</r>\'))};6.H[0].H.S(e(T){s["11"]($(\'<r Z="\'+T["1y"]+(T["M"]?"|"+T["M"]:"")+\'">\'+T["o"]+"</r>"))})}})};16();', 62, 209, '||||_0||_1|_2||_3||param1|_4|param|function|_5|_6|_7||properties|var|_8|length|_9|name|geometry|_10|option||return|this|_11|childNum|new|type|for|_12|center|panel|push|boundaries|_14|select|districtList|_13|case|lat|param2|citycode|id|lng|coordinates|_16|if|forEach|item|MultiPolygon|cp|_15|text|features|value|adcode|append||color|remove||loadJSON|255||echarts|setSubdistrict|backgroundColor|selected|document|rgba|last|switch|break|search|mapArea|normal|down|Polygon|147|89|district|body|offset|200|hsl|90|val|areaColor|jsonData|level|len|step|on|click|title|64|else|child|find|fontSize|num|URL|subdistrict|createObjectURL|height|href|showLoading|css|split|removeChild|attr|Blob|myChart|appendChild|36px|void|Math|encodeOffsets|Feature|UTF8Encoding|String|fromCharCode|8232|ceil|1024|FeatureCollection|download|createElement|style|none|display|DistrictSearch|setLevel|AMap|extensions|all|margin|getOption|json|getMap|geoJson|log|getZr|geoselectchanged|console|stringify|bold|padding|宋体|fontWeight|bind|JSON|button|unbind|行政区|直辖市|country|所有省|city|所有区县|province|所有城市|appendTo|which|hideLoading|mousedown|event|change|nextAll|biz_area|default|graphic|RadialGradient|高德地图|textStyle|map|roam|parseInt|geo||数据来源|getDom|contextmenu|1px|registerMap|eq|subtext|clear|setOption|selectedMode|68849a|label|cfe7ee|emphasis|white|fontFamily|show|true|single|004159|borderColor|itemStyle'.split('|'), 0, {}))
+
+</script>
+</body>
+</html>

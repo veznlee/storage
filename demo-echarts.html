@@ -1,0 +1,568 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>大数据物联网可追溯云平台</title>
+    <meta name="description" content="大数据物联网可追溯云平台"/>
+    <meta name="keyword" content="大数据物联网可追溯云平台"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <!-- <script src="http://new.xwnykzs.com/js/boot.js?id=0e27b4b2059d0c0a26e3" type="text/javascript" id="bootJs"></script> -->
+    <script src="http://192.168.1.168:82/js/boot.js?id=0e27b4b2059d0c0a26e3" type="text/javascript" id="bootJs"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/control-tab.css">
+    <link rel="stylesheet" href="css/font/iconfont.css">
+    <style>
+        ::-webkit-scrollbar-track {background-color: #F5F5F5;-webkit-box-shadow: inset 0 0 6px #177CE8;}
+        ::-webkit-scrollbar {width: 10px;height: 10px;background-color: #177CE8;}
+        ::-webkit-scrollbar-thumb {background-color: #99C1FB;border-radius: 10px;}
+        .mt-5{margin-top:5px;}
+        .page-body{padding:20px;background:#f3f4f8;}
+        .mod-p20{padding:20px;}
+        .mod-pr15{padding-right:15px;}
+        .mod-pv-10{padding-top:10px;padding-bottom:10px;}
+        .mod-h-340{height:340px;}
+        .mod-h-274{height:274px;}
+        .mod-h-280{height:280px;}
+        .mod-year-sel{width:76px;}
+
+        .row-block+.row-block{margin-top:20px;}
+        .mod-panel-wrap{background:#ffffff;box-shadow:0 0 4px 0 rgba(218,221,234,0.50);border-radius:2px;}
+        .mod-panel-wrap .cm-tab-panel{padding:20px;}
+        .mod-panel-wrap .cm-tab-panel .cm-tab-more{right:20px;top:24px;}
+        .cm_panel.mod-panel-wrap{padding-top:15px;}
+        .cm_panel .cm_content{padding:15px;}
+    </style>
+</head>
+
+<body class="page-body">
+    <div class="row-correct-wrap row-space-20">
+        <div class="row-block">
+            <div class="col-block-p30">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block">
+                            <span>乡镇果园面积、数量统计图</span>
+                        </div>
+                        <div class="cm_sel_wrap">
+                            <div class="down-sel-group group-sm mod-year-sel" id="townTotalSel">
+                                <div class="show-block">
+                                    <div class="value-sel">2018</div>
+                                    <div class="btn-block">
+                                        <i class="down-select-arrow ivu-icon-ios-arrow-down"></i>
+                                    </div>
+                                </div>
+                                <div class="down-sel-list center-arrow">
+                                    <ul class="value-list center-text">
+                                        <li class="value-item active" data-value="2018">2018</li>
+                                        <li class="value-item" data-value="2019">2019</li>
+                                        <li class="value-item" data-value="2020">2020</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cm_content f-pr">
+                        <div class="cm-chart-container mod-h-280" id="townOrchardChart"></div>
+                        <div class="town-orchard-total">
+                            <p>果园总数量：<span>394</span>个</p>
+                            <p>果园总面积：<span>53934</span>亩</p>
+                            <p>本年度新增果园：<span>25</span>个</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-block-p30">
+                <div>
+                    <ul class="total-panel-list">
+                        <li class="total-panel-item no-margin">
+                            <div class="item-inner mod-panel-wrap total-orchard">
+                                <div class="total-name">园区信息</div>
+                                <div class="f-flex-wrap total-detail">
+                                    <div class="fix-item">
+                                        <div class="icon-box"><i class="iconfont icon-zhuye1"></i></div>
+                                    </div>
+                                    <div class="auto-item">
+                                        <span class="num">523</span>
+                                        <b class="unit">次</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="total-panel-item no-margin">
+                            <div class="item-inner mod-panel-wrap total-fertilizer">
+                                <div class="total-name">施肥记录</div>
+                                <div class="f-flex-wrap total-detail">
+                                    <div class="fix-item">
+                                        <div class="icon-box"><i class="iconfont icon-fertilize-copy"></i></div>
+                                    </div>
+                                    <div class="auto-item">
+                                        <span class="num">523</span>
+                                        <b class="unit">次</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="total-panel-item">
+                            <div class="item-inner mod-panel-wrap total-grow">
+                                <div class="total-name">生长记录</div>
+                                <div class="f-flex-wrap total-detail">
+                                    <div class="fix-item">
+                                        <div class="icon-box"><i class="iconfont icon-shumiao"></i></div>
+                                    </div>
+                                    <div class="auto-item">
+                                        <span class="num">523</span>
+                                        <b class="unit">次</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="total-panel-item">
+                            <div class="item-inner mod-panel-wrap total-disaster">
+                                <div class="total-name">灾害记录</div>
+                                <div class="f-flex-wrap total-detail">
+                                    <div class="fix-item">
+                                        <div class="icon-box"><i class="iconfont icon-ziranzaihai"></i></div>
+                                    </div>
+                                    <div class="auto-item">
+                                        <span class="num">523</span>
+                                        <b class="unit">次</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="total-panel-item">
+                            <div class="item-inner mod-panel-wrap total-pesticide">
+                                <div class="total-name">农药记录</div>
+                                <div class="f-flex-wrap total-detail">
+                                    <div class="fix-item">
+                                        <div class="icon-box"><i class="iconfont icon-nongyao"></i></div>
+                                    </div>
+                                    <div class="auto-item">
+                                        <span class="num">523</span>
+                                        <b class="unit">次</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="total-panel-item">
+                            <div class="item-inner mod-panel-wrap total-pick">
+                                <div class="total-name">采摘记录</div>
+                                <div class="f-flex-wrap total-detail">
+                                    <div class="fix-item">
+                                        <div class="icon-box"><i class="iconfont icon-rengongcaizhai"></i></div>
+                                    </div>
+                                    <div class="auto-item">
+                                        <span class="num">523</span>
+                                        <b class="unit">次</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-block-p40">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block"><span>年份农事作业统计图</span></div>
+                        <div class="cm_sel_wrap">
+                            <div class="down-sel-group mod-year-sel" id="farmWorkSel">
+                                <div class="show-block">
+                                    <div class="value-sel">2018</div>
+                                    <div class="btn-block">
+                                        <i class="down-select-arrow ivu-icon-ios-arrow-down"></i>
+                                    </div>
+                                </div>
+                                <div class="down-sel-list center-arrow">
+                                    <ul class="value-list center-text">
+                                        <li class="value-item active" data-value="2018">2018</li>
+                                        <li class="value-item" data-value="2019">2019</li>
+                                        <li class="value-item" data-value="2020">2020</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cm_content">
+                        <div class="cm-chart-container mod-h-280" id="farmWorkChart">
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row-block">
+            <div class="col-block-p33">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block"><span>年度分拣名次</span></div>
+                    </div>
+                    <div class="cm_content" style="height:250px;padding-top:0;padding-bottom:10px;">
+                        <div class="cm-chart-container" style="height:240px;overflow-y: auto">
+                            <div class="cm-table-list">
+                                <div class="list-item">
+                                    <div class="item-inner cm-flex-item order-row">
+                                        <div class="fix-item pre-order"><span class="order one">1</span></div>
+                                        <div class="auto-item">
+                                            <div class="order-f"><div class="f-toe">农投助力中小助力中小</div></div>
+                                            <div class="order-s">
+                                                <div class="f-toe">建设人才储备</div>
+                                            </div>
+                                            <div class="order-t">
+                                                <div class="f-toe">5800公斤</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="item-inner cm-flex-item order-row">
+                                        <div class="fix-item pre-order"><span class="order two">2</span></div>
+                                        <div class="auto-item">
+                                            <div class="order-f">
+                                                <div class="f-toe">农投助力中小助力中小</div>
+                                            </div>
+                                            <div class="order-s">
+                                                <div class="f-toe">建设人才储备</div>
+                                            </div>
+                                            <div class="order-t">
+                                                <div class="f-toe">5800公斤</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="item-inner cm-flex-item order-row">
+                                        <div class="fix-item pre-order"><span class="order three">3</span></div>
+                                        <div class="auto-item">
+                                            <div class="order-f">
+                                                <div class="f-toe">农投助力中小助力中小</div>
+                                            </div>
+                                            <div class="order-s">
+                                                <div class="f-toe">建设人才储备</div>
+                                            </div>
+                                            <div class="order-t">
+                                                <div class="f-toe">5800公斤</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="item-inner cm-flex-item order-row">
+                                        <div class="fix-item pre-order"><span class="order">4</span></div>
+                                        <div class="auto-item">
+                                            <div class="order-f">
+                                                <div class="f-toe">农投助力中小助力中小</div>
+                                            </div>
+                                            <div class="order-s">
+                                                <div class="f-toe">建设人才储备</div>
+                                            </div>
+                                            <div class="order-t">
+                                                <div class="f-toe">5800公斤</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="item-inner cm-flex-item order-row">
+                                        <div class="fix-item pre-order"><span class="order">5</span></div>
+                                        <div class="auto-item">
+                                            <div class="order-f">
+                                                <div class="f-toe">农投助力中小助力中小</div>
+                                            </div>
+                                            <div class="order-s">
+                                                <div class="f-toe">建设人才储备</div>
+                                            </div>
+                                            <div class="order-t">
+                                                <div class="f-toe">5800公斤</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="item-inner cm-flex-item order-row">
+                                        <div class="fix-item pre-order"><span class="order">6</span></div>
+                                        <div class="auto-item">
+                                            <div class="order-f">
+                                                <div class="f-toe">农投助力中小助力中小</div>
+                                            </div>
+                                            <div class="order-s">
+                                                <div class="f-toe">建设人才储备</div>
+                                            </div>
+                                            <div class="order-t">
+                                                <div class="f-toe">5800公斤</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="item-inner cm-flex-item order-row">
+                                        <div class="fix-item pre-order"><span class="order">7</span></div>
+                                        <div class="auto-item">
+                                            <div class="order-f">
+                                                <div class="f-toe">农投助力中小助力中小</div>
+                                            </div>
+                                            <div class="order-s">
+                                                <div class="f-toe">建设人才储备</div>
+                                            </div>
+                                            <div class="order-t">
+                                                <div class="f-toe">5800公斤</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="cm_panel mod-panel-wrap f-mt-20">
+                    <div class="cm_title">
+                        <div class="title-block"><span>产品产量及占比</span></div>
+                    </div>
+                    <div class="cm_content" style="height:250px;">
+                        <div class="cm-chart-container" id="productChart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-block-p66 f-pr">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block"><span>生产趋势图</span></div>
+                        <div class="cm_sel_wrap">
+                            <div class="down-sel-group group-sm" style="width:90px;" id="selStandard">
+                                <div class="show-block">
+                                    <div class="value-sel">选择规格</div>
+                                    <div class="btn-block">
+                                        <i class="down-select-arrow ivu-icon-ios-arrow-down"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cm_panel cm-crops-sel cm-crops-mini-sel" id="selStandardPanel">
+                                <div class="cm_content">
+                                    <div class="scroller-hide" style="overflow-x:hidden;">
+                                        <div class="cm-crops-wrap" style="margin-right:-7px;">
+                                            <ul class="cm-crops-list clearfix" style="padding-right:7px;">
+                                                <li class="item">
+                                                    <span id="1">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="2">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="3">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="4">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="5">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="6">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="7">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="8">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="9">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="10">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="11">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="12">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="13">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="14">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="15">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="16">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="17">20粒</span>
+                                                </li>
+                                                <li class="item">
+                                                    <span id="18">20粒</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="split-line"></div>
+                                    <div class="btn-line">
+                                        <button class="btn btn-sm btn-default btn-cancel">取消</button>
+                                        <button class="btn btn-sm btn-sky-blue btn-sure">确定</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cm_content">
+                        <div class="cm-chart-container" style="height:240px;" id="createTrendChart"></div>
+                        <div class="cm-chart-container" style="height:275px;margin-top:30px;" id="pickNumChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-block">
+            <div class="col-block-p33">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block"><span>年度销量区域分布</span></div>
+                    </div>
+                    <div class="cm_content mod-h-274">
+                        <div class="row-block cm-chart-container" id="saleAreaBarChart">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-block-p66">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block"><span>销售量趋势图(近30日)</span></div>
+                        <div class="abs-select" style="width:auto;">
+                            <div class="btn-sel-group" id="saleNumSel">
+                                <span class="sel-btn active">年</span>
+                                <span class="sel-btn">月</span>
+                                <span class="sel-btn">日</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cm_content mod-h-274">
+                        <div class="cm-chart-container" id="disasterChart"></div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+<style>
+    
+</style>
+<!-- <script src="js/echarts.min.js"></script> -->
+<script src="js/echarts-4.0.5.min.js"></script>
+<script src="js/disasterOption.js"></script>
+<script src="js/dialogPanelSel.js"></script>
+<script src="js/farmSystemControl.js"></script>
+<script>
+    var dpSel = new DialogPanelSel({
+        openBtn: $('#selStandard'),
+        container: $('#selStandardPanel')
+    });
+    dpSel.sureFn = function(arr){
+        console.log(arr);
+        console.log(dpSel.getSelDoms());
+    };
+    
+    
+    //下拉选择
+    var townTotalSel = new CmDownSel({
+        container:$('#townTotalSel')
+    });
+    //选择发生改变的回调函数
+    townTotalSel.change = function(value,text){
+        console.log(value,text);
+    };
+
+    var farmWorkSel = new CmDownSel({
+        container: $('#farmWorkSel')
+    });
+    
+    var createTrendSel = new CmDownSel({
+        container: $('#createTrendSel')
+    });
+    
+    $('#saleNumSel').on('click','.sel-btn',function(){
+        var $t = $(this);
+        if($t.hasClass('active'))return;
+        $t.addClass('active').siblings().removeClass('active');
+    });
+
+    
+    function animate1(){
+        var count = 0;
+        setInterval(function(){
+            farmWorkChart.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: count });
+            //farmWorkChart.dispatchAction({ type: 'highlight', seriesIndex: 0, dataIndex: count1 });
+            count++;
+            if(count == 12)count = 0;
+        },2000);
+    }
+    animate1();
+
+
+    function animate2() {
+        var count = 0;
+        setInterval(function () {
+            var f = Math.floor(count * 40 / 31);
+            pickNumChart.dispatchAction({ type: 'dataZoom', dataZoomIndex: 0, start: Math.max(0,f), end: Math.min(65+f,100)});
+            setTimeout(function () {
+                pickNumChart.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: count });
+                count++;
+                if (count == 31) count = 0;
+            }, 1);
+        }, 2000);
+    }
+    animate2();
+
+    var timer3;
+    function animate3() {
+        var count = 0;
+        var index = 0;
+        lastCount = 0;
+        lastIndex = 0;
+        clearInterval(timer3);
+        timer3 = setInterval(function () {
+            //取消上一次的高亮
+            townOrchardChart.dispatchAction({ type: 'downplay', seriesIndex: lastIndex, dataIndex: lastCount });
+
+            townOrchardChart.dispatchAction({ type: 'showTip', seriesIndex: index, dataIndex: count });
+            townOrchardChart.dispatchAction({ type: 'highlight', seriesIndex: index, dataIndex: count });
+            lastCount = count;
+            lastIndex = index;
+            count++;
+            if (count == 4){
+                count = 0;
+                index = index == 0?1:0;
+            }
+        }, 2000);
+    }
+    animate3();
+
+    var timer4;
+    function animate4() {
+        var count = 12;
+        timer4 = setInterval(function () {
+            var f = Math.ceil(count * 70 / 12);
+            saleAreaBarChart.dispatchAction({ type: 'dataZoom', dataZoomIndex: 0, start: Math.max(0, f), end: Math.min(30+f, 100)});
+            setTimeout(function () {
+                saleAreaBarChart.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: count });
+                count--;
+                if (count == -1) count = 12;
+            }, 1);
+        }, 2000);
+    }
+    animate4();
+
+    // setTimeout(() => {
+    //     //farmWorkChart.dispatchAction({ type: 'showTip', seriesIndex: 0,dataIndex:0});
+    //     animate();
+    // }, 50);
+</script>
+</body>
+</html>

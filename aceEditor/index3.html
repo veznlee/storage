@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./src/ace.js"></script>
+</head>
+<body>
+    <div id="editor" style="height:500px;"></div>
+
+    <!--引入require.js-->
+    <script src="./static/require.js"></script>
+    <script>
+        //配置根路径，src文件夹所在的目录
+        require.config({paths: {ace: "./src"}})
+        //定义一个模块
+        define('testace', ['ace/ace'],function(ace, langtools) {
+            console.log("This is the testace module");
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/twilight");
+            editor.session.setMode("ace/mode/javascript");
+            require(["ace/requirejs/text!src/ace"], function(e){
+                editor.setValue(e);
+            })
+        });
+        require(['testace'])
+    </script>
+</body>
+</html>

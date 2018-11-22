@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>highlight.js</title>
+
+  <link rel="stylesheet" type="text/css" media="screen" href="./style.css" />
+  
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/default.css">
+  <link class="codestyle" rel="stylesheet" href="./src/styles/solarized-dark.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/solarized-light.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/github.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/railscasts.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/monokai-sublime.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/mono-blue.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/tomorrow.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/color-brewer.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/zenburn.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/agate.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/androidstudio.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/dracula.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/rainbow.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/vs.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/atom-one-dark.css">
+  <link class="codestyle" rel="prefetch alternate stylesheet" href="./src/styles/atom-one-light.css">
+
+  <script src="./src/highlight.site.pack.js"></script>
+  <!-- <script src="./src/highlight.js"></script> -->
+</head>
+<body>
+  <div id="header">
+    <h1>highlight.js</h1>
+  </div>
+
+  <div id="snippet">
+    <pre>
+        <code>
+            #import &lt;UIKit/UIKit.h&gt;
+            #import &quot;Dependency.h&quot;
+
+            @protocol WorldDataSource
+            @optional
+            - (NSString*)worldName;
+            @required
+            - (BOOL)allowsToLive;
+            @end
+
+            @property (nonatomic, readonly) NSString *title;
+            - (IBAction) show;
+            @end
+        </code>
+      </pre>
+      <div id="control">
+        <p>language: <a id="languageLink" href="/?snippet=3&amp;style=1">javascript</a>
+        </p>
+        <p>style: <a id="styleLink" href="/?snippet=2&amp;style=2">solarized-dark</a>
+        </p>
+      </div>
+  </div>
+
+  
+  <script>
+    function initSnippet() {
+      var snippet = document.querySelector('#snippet pre code');
+      hljs.highlightBlock(snippet);
+      var style = document.getElementById('styleLink').textContent;
+      var links = document.querySelectorAll('.codestyle');
+      Array.prototype.forEach.call(links, function (link) {
+        link.rel = 'stylesheet';
+        link.disabled = !link.href.match(style + '\\.css$');
+      });
+      document.getElementById('languageLink').innerHTML = snippet.result.language;
+      var controls = document.querySelectorAll('#control a');
+      Array.prototype.forEach.call(controls, function (control) {
+        control.addEventListener('click', function (e) {
+          var href = control.href.split('?')[1];
+          fetch('https://highlightjs.org/?'+href, { headers: new Headers({ 'X-Requested-With': 'XMLHttpRequest' }) })
+            .then(response => response.text())
+            .then(text => {
+              document.getElementById('snippet').innerHTML = text;
+              initSnippet();
+            });
+          e.preventDefault();
+        });
+      });
+    }
+    addEventListener('load', initSnippet);
+
+    
+    /* 
+    https://segmentfault.com/a/1190000011433064
+
+
+    和xmlHttp的区别：
+    当接收到一个代表错误的 HTTP 状态码时，从 fetch()返回的 Promise 不会被标记为 reject， 
+    即使该 HTTP 响应的状态码是 404 或 500。相反，它会将 Promise 状态标记为 resolve （但是会将 resolve 的返回值的 ok 属性设置为 false ），
+    仅当网络故障时或请求被阻止时，才会标记为 reject。默认情况下，fetch 不会从服务端发送或接收任何 cookies, 
+    如果站点依赖于用户 session，则会导致未经认证的请求（要发送 cookies，必须设置 credentials 选项）
+
+
+    fetch('https://www.baidu.com/search/error.html') // 返回一个Promise对象
+    .then((res) => {
+      return res.text() // res.text()是一个Promise对象
+    })
+    .then((res) => {
+      console.log(res) // res是最终的结果
+    }) 
+
+    get请求
+    fetch('https://www.baidu.com/search/error.html?a=1&b=2', { // 在URL中写上传递的参数
+      method: 'GET'
+    })
+
+    post请求
+    fetch('https://www.baidu.com/search/error.html', {
+      method: 'POST',
+      body: new URLSearchParams([["foo", 1],["bar", 2]]).toString() // 这里是请求对象
+    })
+
+    设置请求头
+    fetch('https://www.baidu.com/search/error.html', {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/x-www-form-urlencoded' // 指定提交方式为表单提交
+      }),
+      body: new URLSearchParams([["foo", 1],["bar", 2]]).toString()
+    })
+
+
+    fetch默认返回文本
+
+
+    // 通过fetch获取百度的错误提示页面
+    fetch('https://www.baidu.com/rec?platform=wise&ms=1&rset=rcmd&word=123&qid=11327900426705455986&rq=123&from=844b&baiduid=A1D0B88941B30028C375C79CE5AC2E5E%3AFG%3D1&tn=&clientWidth=375&t=1506826017369&r=8255', { // 在URL中写上传递的参数
+      method: 'GET',
+      headers: new Headers({
+        'Accept': 'application/json' // 通过头指定，获取的数据类型是JSON
+      })
+    })
+    .then((res)=>{
+      return res.json() // 返回一个Promise，可以解析成JSON
+    })
+    .then((res)=>{
+      console.log(res) // 获取JSON数据
+    })
+
+
+
+    封装
+    function _fetch(url, data, method = 'GET',options={}) {
+        const body = o2s(data);
+        let params = {
+            method: method,
+        };
+        if (method === 'GET') { // 如果是GET请求，拼接url
+            url += '?' + body;
+        } else {
+            params.body=body
+        }
+        if(options.cookie!=undefined){
+            params.credentials='include'
+        }
+        if(options.headers!=undefined && typeof options.headers=="object"){
+            params.headers=new Headers(options.headers);
+        }else{
+            params.headers=new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            });
+        }
+        fetch(url, params).then(r => options.dataType=="text"?r.text():r.json()).then(r => r);
+    }
+    export function o2s(obj, arr = [], idx = 0) {
+        for (let item in obj) {
+            arr[idx++] = [item, obj[item]];
+        }
+        return new URLSearchParams(arr).toString();
+    }
+    export function get(url, data,,options={}) {
+        return _fetch(url, data, 'GET',options);
+    }
+
+    export function post(url, data,options={}) {
+        return _fetch(url, data, 'POST',options);
+    }
+    post("/api/test",{title:"标题"},{
+        dataType:"json",
+        cookie:true,
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    });
+
+
+
+
+
+    method: 请求使用的方法，如 GET、POST。
+    headers: 请求的头信息，形式为 Headers 的对象或包含 ByteString 值的对象字面量。
+    body: 请求的 body 信息：可能是一个 Blob、BufferSource、FormData、URLSearchParams 或者 USVString 对象。注意 GET 或 HEAD 方法的请求不能包含 body 信息。
+    mode: 请求的模式，如 cors、 no-cors 或者 same-origin。
+    credentials: 请求的 credentials，如 omit、same-origin 或者 include。为了在当前域名内自动发送 cookie ， 必须提供这个选项， 从 Chrome 50 开始， 这个属性也可以接受 FederatedCredential 实例或是一个 PasswordCredential 实例。
+    cache:  请求的 cache 模式: default 、 no-store 、 reload 、 no-cache 、 force-cache 或者 only-if-cached 。
+    redirect: 可用的 redirect 模式: follow (自动重定向), error (如果产生重定向将自动终止并且抛出一个错误), 或者 manual (手动处理重定向). 在Chrome中，Chrome 47之前的默认值是 follow，从 Chrome 47开始是 manual。
+    referrer: 一个 USVString 可以是 no-referrer、client或一个 URL。默认是 client。
+    referrerPolicy: Specifies the value of the referer HTTP header. May be one of no-referrer、 no-referrer-when-downgrade、 origin、 origin-when-cross-origin、 unsafe-url 。
+    integrity: 包括请求的  subresource integrity 值 （ 例如： sha256-BpfBw7ivV8q2jLiT13fxDYAe2tJllusRSZ273h2nFSE=）。
+    */
+  </script>
+</body>
+</html>
+
+
+

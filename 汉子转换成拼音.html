@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+	h1{text-shadow:1px 1px 10px red,3px 3px 11px green;font-size:106px;font-family:"微软雅黑"}
+	h1.t{
+		text-shadow:
+			-1px 0px #fff,/*左*/
+			0px -1px #fff,/*上*/
+			1px 0px green,/*右*/
+			0px 1px green;/*下*/
+			font-size:106px;
+			color:#ccc;
+			font-family:"微软雅黑"}
+
+	h1.t2{
+		text-shadow:
+			-1px 0px #fff,/*左*/
+			0px -1px #fff,/*上*/
+			1px 0px #333,/*右*/
+			0px 1px #333;/*下*/
+			font-size:106px;
+			color:#ccc;
+			font-family:"微软雅黑"
+	}
+	.text{position:relative;width:640px;}
+	.text .t{position:absolute;top:0;left:0;padding:10px;font-family:"微软雅黑";
+		color:#333;
+		font-size:14px;
+		text-shadow:
+			-1px 0px #fff,/*左*/
+			0px -1px #fff,/*上*/
+			1px 0px #f8f8f8,/*右*/
+			0px 1px #f8f8f8;/*下*/
+	}
+  </style>
+ </head>
+ <body>
+ <h1>汉子转拼音</h1>
+ <h1 class="t">汉子转拼音</h1>
+ <h1 class="t2">汉子转拼音</h1>
+ <textarea id="content" onkeyup="enterchinese(this)" style="width:600px;height:200px;"> </textarea>
+ <textarea id="pinyinbox" style="width:600px;height:200px;"> </textarea>
+ <script type="text/javascript" src="js/pinyin.js"></script>
+ <script>
+	
+	function enterchinese(obj){
+		var pinyin = Pinyin.get(obj.value,false);
+		document.getElementById("pinyinbox").value = pinyin;
+	};
+
+
+	var arr = ["中国","啊","我爱你","他们"];
+	//
+	arr.sort(function(a,b){
+		//数字或者字母--a <b
+		var apinyin = Pinyin.get(a,false);
+		var bpinyin = Pinyin.get(b,false);
+		return apinyin.localeCompare(bpinyin);
+	});
+
+	alert(arr);
+ </script>
+</body>
+</html>

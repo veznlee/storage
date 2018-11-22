@@ -1,0 +1,746 @@
+.clear-float:after,.clearfix:after{
+    display: block;
+    content: "";
+    width:0;
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    zoom:1;
+    clear: both;
+}
+/*.boe-gre {
+    border-top: 5px solid #2d8931;
+}*/
+.boe-green .title{
+    background:#2d8930;
+}
+.boe-green .mid{
+    background:#63b566;
+}
+.boe-red .title{
+    background:#da646d;
+}
+.boe-red .mid{
+    background:#bf8286;
+}
+.boe-yellow .title{
+    background:#eaa45c;
+}
+.boe-yellow .mid{
+    background:#dab894;
+}
+.boe-blue .title{
+    background: #3394da;
+}
+.boe-blue .mid{
+    background: #5da4d6;
+}
+
+.pin_DC0_DT1 b {
+    background-position: -180px -30px;
+}
+
+/*正常图标背景*/
+.mosaic-block .pin_base {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    padding: 2px;
+    border: 1px solid #2d8931;
+    border-radius: 50%;
+    background: #fff
+}
+
+/*报警图标背景*/
+.warning1 .pin_base {
+    border: 1px solid #da646d;
+    background: #da646d
+}
+
+/*预警图标背景*/
+.alarm1 .pin_base {
+    border: 1px solid #eaa45c;
+    background: #eaa45c
+}
+
+/*设备和控制图标*/
+.pin_base b, .pin_pinbase b {
+    background: url(../img/ic_monitor_30_gray.png) 0 0 no-repeat;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin: 0
+}
+
+.warning1 b, .alarm1 b, .monitor_detail_icon b, .monitor_control_icon b {
+    background: url(../img/ic-monitor-30.png) 0 0 no-repeat;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin: 0
+}
+
+.monitor_detail_icon b, .monitor_control_icon b {
+    background: url(../img/ic_monitor_30_gray.png) 0 0 no-repeat;
+}
+
+.pin_red b {
+    background: url(../img/ic-monitor-30.png) 0 0 no-repeat;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin: 5px;
+}
+
+/*DC为DeviceCategory(设备大类),DT为DeviceType， TM为DeviceTypeMore字段*/
+/*相机*/
+.pin_DC2_DT300 b {
+    background-position: -60px -30px;
+}
+
+/*排风*/
+.pin_DC1_TM2 b {
+    background-position: -90px -30px;
+}
+
+/*脉冲灌溉*/
+.pin_DC1_TM3 b {
+    background-position: -120px -30px;
+}
+
+/*脉冲灌溉NT*/
+.pin_DC1_TM103 b {
+    background-position: -120px -30px;
+}
+
+/*降温*/
+.pin_DC1_TM1 b {
+    background-position: -150px -30px;
+}
+
+/*降温NT*/
+.pin_DC1_TM101 b {
+    background-position: -150px -30px;
+}
+
+/*视频监控*/
+.VIDEO-1 b {
+    background-position: -270px -60px;
+}
+
+/*空气温度*/
+.THTC-1-T b {
+    background-position: -180px -30px;
+}
+.THTC b {
+    background-position: -180px -30px;
+}
+
+/*土壤温度*/
+.SLTH-1-T b {
+    background-position: -210px -30px;
+}
+.SLTH b {
+    background-position: -210px -30px;
+}
+
+/*空气湿度*/
+.THTC-1-H b {
+    background-position: -240px -30px;
+}
+.THSC b {
+    background-position: -240px -30px;
+}
+
+/*土壤水分*/
+.pin_DC0_DT4 b {
+    background-position: -270px -30px;
+}
+
+/*光照度*/
+.pin_DC0_DT5 b {
+    background-position: -300px -30px;
+}
+
+/*土壤湿度传感器*/
+.SLTH-1-H b {
+    background-position: -330px -30px;
+}
+.SLSH b {
+    background-position: -330px -30px;
+}
+
+/*PH值*/
+/*.PH-1 b {
+    background-position: -360px -30px;
+}*/
+.SOPH-1 b {
+    background-position: -360px -30px;
+}
+.SOPH b {
+    background-position: -360px -30px;
+}
+
+/*CO2*/
+.COTU-1 b {
+    background-position: -390px -30px;
+}
+.COTU b {
+    background-position: -390px -30px;
+}
+
+/*风速*/
+.FLWS-1 b {
+    background-position: 0px -60px;
+}
+.FLWS b {
+    background-position: 0px -60px;
+}
+
+/*风向*/
+.FLWD-1 b {
+    background-position: -180px -60px;
+}
+.FLWD b {
+    background-position: -180px -60px;
+}
+
+/*降雨量*/
+.RANC-1 b {
+    background-position: -30px -60px;
+}
+.RANC b {
+    background-position: -30px -60px;
+}
+.RADC b {
+    background-position: -30px -60px;
+}
+
+/*流量*/
+.pin_DC0_DT9 b {
+    background-position: -60px -60px;
+}
+
+/*实时流量*/
+.pin_DC0_DT15 b {
+    background-position: -60px -60px;
+}
+
+/*加湿器*/
+.pin_DC1_TM6 b {
+    background-position: -90px -60px;
+}
+
+/*加湿器NT*/
+.pin_DC1_TM106 b {
+    background-position: -90px -60px;
+}
+
+/*照明*/
+.pin_DC1_TM5 b {
+    background-position: -120px -60px;
+}
+
+/*照明NT*/
+.pin_DC1_TM105 b {
+    background-position: -120px -60px;
+}
+
+/*声光报警*/
+.pin_DC1_TM4 b {
+    background-position: -150px -60px;
+}
+
+/*声光报警NT*/
+.pin_DC1_TM104 b {
+    background-position: -150px -60px;
+}
+
+/*压力*/
+.pin_DC0_DT11 b {
+    background-position: -210px -60px;
+}
+
+/*液位*/
+.pin_DC0_DT13 b {
+    background-position: -60px -90px;
+}
+
+/*氧含量*/
+.pin_DC0_DT30 b {
+    background-position: -30px 0px;
+}
+
+/*甲烷含量*/
+.pin_DC0_DT32 b {
+    background-position: -60px 0px;
+}
+
+/*硫化氢含量*/
+.pin_DC0_DT20 b {
+    background-position: -90px 0px;
+}
+
+/*水泵*/
+.pin_DC1_TM8 b {
+    background-position: -120px 0px;
+}
+
+/*水泵NT*/
+.pin_DC1_TM108 b {
+    background-position: -120px 0px;
+}
+
+/*搅拌器*/
+.pin_DC1_TM7 b {
+    background-position: -150px 0px;
+}
+
+/*搅拌器NT*/
+.pin_DC1_TM107 b {
+    background-position: -150px 0px;
+}
+
+/*输送机*/
+.pin_DC1_TM9 b {
+    background-position: -180px 0px;
+}
+
+/*输送机NT*/
+.pin_DC1_TM109 b {
+    background-position: -180px 0px;
+}
+
+/*风机*/
+.pin_DC1_TM10 b {
+    background-position: -210px 0px;
+}
+
+/*风机NT*/
+.pin_DC1_TM110 b {
+    background-position: -210px 0px;
+}
+
+/*粉碎机*/
+.pin_DC1_TM11 b {
+    background-position: -240px 0px;
+}
+
+/*粉碎机NT*/
+.pin_DC1_TM111 b {
+    background-position: -240px 0px;
+}
+
+/*抓料机*/
+.pin_DC1_TM12 b {
+    background-position: -270px 0px;
+}
+
+/*抓料机NT*/
+.pin_DC1_TM112 b {
+    background-position: -270px 0px;
+}
+
+/*破壳机*/
+.pin_DC1_TM13 b {
+    background-position: -300px 0px;
+}
+
+/*破壳机NT*/
+.pin_DC1_TM113 b {
+    background-position: -300px 0px;
+}
+
+/*电机*/
+.pin_DC1_TM14 b {
+    background-position: -330px 0px;
+}
+
+/*电机NT*/
+.pin_DC1_TM114 b {
+    background-position: -330px 0px;
+}
+
+/*内遮阴*/
+.pin_DC1_TM15 b {
+    background-position: -360px 0px;
+}
+
+/*内遮阴NT*/
+.pin_DC1_TM115 b {
+    background-position: -360px 0px;
+}
+
+/*外遮阳*/
+.pin_DC1_TM16 b {
+    background-position: -390px 0px;
+}
+
+/*外遮阳NT*/
+.pin_DC1_TM116 b {
+    background-position: -390px 0px;
+}
+
+/*开窗*/
+.pin_DC1_TM17 b {
+    background-position: 0 -30px;
+}
+
+/*开窗NT*/
+.pin_DC1_TM117 b {
+    background-position: 0 -30px;
+}
+
+/*气压*/
+.pin_DC0_DT12 b {
+    background-position: -30px -30px;
+}
+
+/*阀门*/
+.pin_DC1_TM18 b {
+    background-position: -240px -60px;
+}
+
+/*阀门NT*/
+.pin_DC1_TM118 b {
+    background-position: -240px -60px;
+}
+
+/*叶面湿度*/
+.pin_DC0_DT16 b {
+    background-position: -300px -60px;
+}
+
+/*噪声值*/
+.pin_DC0_DT17 b {
+    background-position: -330px -60px;
+}
+
+/*红外双鉴*/
+.pin_DC0_DT19 b {
+    background-position: -360px -60px;
+}
+
+/*红外对射*/
+.pin_DC0_DT18 b {
+    background-position: -390px -60px;
+}
+
+/*COD*/
+.pin_DC0_DT52 b {
+    background-position: 0px -90px
+}
+
+/*氨氮含量*/
+.pin_DC0_DT53 b {
+    background-position: -30px -90px
+}
+
+/*液位*/
+.pin_DC0_DT13 b {
+    background-position: -60px -90px
+}
+
+/*土壤张力*/
+.pin_DC0_DT54 b {
+    background-position: -90px -90px
+}
+
+/*卷帘*/
+.pin_DC1_TM19 b {
+    background-position: -360px 0px
+}
+
+/*卷被*/
+.pin_DC1_TM20 b {
+    background-position: -120px -90px
+}
+
+/*溶解氧*/
+.pin_DC0_DT43 b {
+    background-position: -150px -90px
+}
+
+/*电导率*/
+.pin_DC0_DT42 b {
+    background-position: -180px -90px
+}
+
+/*土壤电导率*/
+.pin_DC0_DT56 b {
+    background-position: -210px -90px
+}
+
+/*下面为NT (Non Time Controll)*/
+/*灌溉NT*/
+.pin_DC1_TM103 b {
+    background-position: -120px -30px;
+}
+
+/*加温灯NT*/
+.pin_DC1_TM105 b {
+    background-position: -120px -60px;
+}
+
+/*加温灯NT*/
+.pin_DC1_TM155 b {
+    background-position: -120px -60px;
+}
+
+/*水泵NT*/
+.pin_DC1_TM108 b {
+    background-position: -120px 0px;
+}
+
+/*输送机NT*/
+.pin_DC1_TM109 b {
+    background-position: -180px 0px;
+}
+
+/*电机NT*/
+.pin_DC1_TM114 b {
+    background-position: -330px 0px;
+}
+
+/*脉冲卷帘NT*/
+.pin_DC1_TM117 b {
+    background-position: 0 -30px;
+}
+
+/*阀门*/
+.pin_DC1_TM118 b {
+    background-position: -240px -60px;
+}
+
+/*排风NT*/
+.pin_DC1_TM102 b {
+    background-position: -90px -30px;
+}
+
+/*光照强度*/
+.LTTC-1 b{
+    background-position: -300px -30px;
+}
+.LTTC b{
+    background-position: -300px -30px;
+}
+
+/*土壤盐分传感器*/
+.SOSA-1 b{
+    background-position: -240px -90px;
+}
+.SOSA b{
+    background-position: -240px -90px;
+}
+
+/*PM2.5传感器*/
+.PMTW-1 b{
+     background-position: -270px -90px;
+}
+.PMTW b{
+     background-position: -270px -90px;
+}
+
+/*高度传感器*/
+.ALTD-1 b{
+     background-position: -300px -90px;
+}
+
+/*气压传感器*/
+.ATMP-1 b{
+     background-position: -332px -90px;
+}
+.ATMP b{
+     background-position: -332px -90px;
+}
+
+/*DC为DeviceCategory(设备大类),DT为DeviceType， TM为DeviceTypeMore字段*/
+/*降温*/
+.mosaic-block .pin_DC1_TM1 s {
+    background-position: -150px -30px
+}
+
+/*降温NT*/
+.mosaic-block .pin_DC1_TM101 s {
+    background-position: -150px -30px
+}
+
+/*脉冲灌溉*/
+.mosaic-block .pin_DC1_TM3 s {
+    background-position: -30px 0px
+}
+
+/*脉冲灌溉NT*/
+.mosaic-block .pin_DC1_TM103 s {
+    background-position: -30px 0px
+}
+
+/*排风*/
+.mosaic-block .pin_DC1_TM2 s {
+    background-position: -60px 0px;
+}
+
+/*相机*/
+.mosaic-block .pin_DC2_DT300 s {
+    background-position: -90px 0px;
+}
+
+/*加湿器*/
+.mosaic-block .pin_DC1_TM6 s {
+    background-position: -120px 0px;
+}
+
+/*加湿器NT*/
+.mosaic-block .pin_DC1_TM106 s {
+    background-position: -120px 0px;
+}
+
+/*照明*/
+.mosaic-block .pin_DC1_TM5 s {
+    background-position: -150px 0px;
+}
+
+/*照明NT*/
+.mosaic-block .pin_DC1_TM105 s {
+    background-position: -150px 0px;
+}
+
+/*照明NT*/
+.mosaic-block .pin_DC1_TM155 s {
+    background-position: -150px 0px;
+}
+
+/*声光报警*/
+.mosaic-block .pin_DC1_TM4 s {
+    background-position: -180px 0px
+}
+
+/*声光报警NT*/
+.mosaic-block .pin_DC1_TM104 s {
+    background-position: -180px 0px
+}
+
+/*水泵*/
+.mosaic-block .pin_DC1_TM8 s {
+    background-position: -210px 0px
+}
+
+/*水泵NT*/
+.mosaic-block .pin_DC1_TM108 s {
+    background-position: -210px 0px
+}
+
+/*搅拌器*/
+.mosaic-block .pin_DC1_TM7 s {
+    background-position: -240px 0px;
+}
+
+/*搅拌器NT*/
+.mosaic-block .pin_DC1_TM107 s {
+    background-position: -240px 0px;
+}
+
+/*输送机*/
+.mosaic-block .pin_DC1_TM9 s {
+    background-position: -270px 0px;
+}
+
+/*输送机NT*/
+.mosaic-block .pin_DC1_TM109 s {
+    background-position: -270px 0px;
+}
+
+/*风机*/
+.mosaic-block .pin_DC1_TM10 s {
+    background-position: -300px 0px;
+}
+
+/*风机NT*/
+.mosaic-block .pin_DC1_TM110 s {
+    background-position: -300px 0px;
+}
+
+/*粉碎机*/
+.mosaic-block .pin_DC1_TM11 s {
+    background-position: -330px 0px;
+}
+
+/*粉碎机NT*/
+.mosaic-block .pin_DC1_TM111 s {
+    background-position: -330px 0px;
+}
+
+/*抓料机*/
+.mosaic-block .pin_DC1_TM12 s {
+    background-position: -360px 0px;
+}
+
+/*抓料机NT*/
+.mosaic-block .pin_DC1_TM112 s {
+    background-position: -360px 0px;
+}
+
+/*破壳机*/
+.mosaic-block .pin_DC1_TM13 s {
+    background-position: -390px 0px;
+}
+
+/*破壳机NT*/
+.mosaic-block .pin_DC1_TM113 s {
+    background-position: -390px 0px;
+}
+
+/*电机*/
+.mosaic-block .pin_DC1_TM14 s {
+    background-position: 0px -30px;
+}
+
+/*电机NT*/
+.mosaic-block .pin_DC1_TM114 s {
+    background-position: 0px -30px;
+}
+
+/*内遮荫*/
+.mosaic-block .pin_DC1_TM15 s {
+    background-position: -30px -30px;
+}
+
+/*内遮荫NT*/
+.mosaic-block .pin_DC1_TM115 s {
+    background-position: -30px -30px;
+}
+
+/*外遮阳*/
+.mosaic-block .pin_DC1_TM16 s {
+    background-position: -60px -30px;
+}
+
+/*外遮阳NT*/
+.mosaic-block .pin_DC1_TM116 s {
+    background-position: -60px -30px;
+}
+
+/*开窗*/
+.mosaic-block .pin_DC1_TM17 s {
+    background-position: -90px -30px;
+}
+
+/*开窗NT*/
+.mosaic-block .pin_DC1_TM117 s {
+    background-position: -90px -30px;
+}
+
+/*阀门*/
+.mosaic-block .pin_DC1_TM18 s {
+    background-position: -120px -30px;
+}
+
+/*阀门NT*/
+.mosaic-block .pin_DC1_TM118 s {
+    background-position: -120px -30px;
+}
+
+/*排风NT*/
+.mosaic-block .pin_DC1_TM102 s {
+    background-position: -60px 0px;
+}

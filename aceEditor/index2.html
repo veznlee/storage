@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./src/ace.js"></script>
+</head>
+<body>
+<div id="editor"  style="height:200px">
+
+</div>
+<script>
+    ace.require("ace/ext/language_tools");
+    var editor = ace.edit("editor");
+    editor.$blockScrolling = Infinity;
+    editor.setFontSize(16);
+    //设置语言
+    editor.session.setMode("ace/mode/javascript");
+
+    //自动换行,设置为off关闭
+    editor.setOption("wrap", "free")
+    //启用提示菜单
+    ace.require("ace/ext/language_tools");
+
+    editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+    //这里的字符串不是路径，而是定义的模块名
+    editor.setTheme("ace/theme/chrome");
+    //editor.setTheme("ace/theme/github");
+
+
+        
+    var editorValue =`
+        //请在下面编写你的js代码
+        function foo(items, nada) {
+            for (var i=0; i<items.length; i++) {
+                alert(items[i] + "juhu");
+            }	// Real Tab.
+        }`;
+    editor.setValue(editorValue);
+</script>
+
+<!--代码输入框（注意请务必设置高度，否则无法显示）-->
+<pre id="code" class="ace_editor" style="min-height:300px">
+    <textarea class="ace_text-input">
+    <!-- #include <cstdio>
+    int main(){
+        int n,m;
+        scanf("%d %d",&n,&m);
+        printf("%d",n+m);
+        return 0;
+    } -->
+    <div class="hell0">大V而维护费吧是法萨芬是是否不是v</div>
+    </textarea>
+</pre>
+<script>
+    //初始化对象
+    editor2 = ace.edit("code");
+
+    //设置风格和语言（更多风格和语言，请到github上相应目录查看）
+    theme = "solarized_dark";//ace/theme/solarized_dark
+    language = "html";//"c_cpp"
+    //设置皮肤
+    editor2.setTheme("ace/theme/" + theme);
+    editor2.session.setMode("ace/mode/" + language);
+    //字体大小
+    editor2.setFontSize(18);
+    //设置只读（true时只读，用于展示代码）
+    editor2.setReadOnly(false);
+    //自动换行,设置为off关闭
+    editor2.setOption("wrap", "free");
+    //启用提示菜单
+    ace.require("ace/ext/language_tools");
+    editor2.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+</script>
+</body>
+</html>

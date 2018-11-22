@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Ace Kitchen Sink</title>
+  <meta name="author" content="Fabian Jakobs">
+
+  <link rel="stylesheet" href="./static/styles.css" type="text/css" media="screen" charset="utf-8">
+
+  <script async="true" src="./static/source-code-pro.js"></script>
+</head>
+
+<body>
+  <div style="position:absolute;height:100%;width:260px">
+    <a href="https://c9.io" title="Cloud9 IDE | Your code anywhere, anytime"></a>
+    <div style="position: absolute; overflow: hidden; top:0; bottom:0">
+      <div id="optionsPanel" style="width: 120%; height:100%; overflow-y: scroll">
+      </div>
+    </div>
+  </div>
+  <div id="editor-container"></div>
+
+  <script src="./static/ace.js" data-ace-base="src" type="text/javascript" charset="utf-8"></script>
+  <script src="./static/keybinding-vim.js"></script>
+  <script src="./static/keybinding-emacs.js"></script>
+  <script src="./static/demo.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    require("kitchen-sink/demo");
+  </script>
+</body>
+</html>

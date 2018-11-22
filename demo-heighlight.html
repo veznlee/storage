@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>大数据物联网可追溯云平台</title>
+    <meta name="description" content="大数据物联网可追溯云平台"/>
+    <meta name="keyword" content="大数据物联网可追溯云平台"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/control-tab.css">
+    <link rel="stylesheet" href="css/font/iconfont.css">
+    <!-- heigh-light主题样式 -->
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/default.css">
+    <link class="codestyle" rel="stylesheet" href="./heighLight/src/styles/solarized-dark.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/solarized-light.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/github.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/railscasts.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/monokai-sublime.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/mono-blue.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/tomorrow.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/color-brewer.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/zenburn.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/agate.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/androidstudio.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/dracula.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/rainbow.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/vs.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/atom-one-dark.css">
+    <link class="codestyle" rel="prefetch alternate stylesheet" href="./heighLight/src/styles/atom-one-light.css">
+    <script src="./heighLight/src/highlight.site.pack.js"></script>
+    
+    
+    <style>
+        html,body{background: #f3f4f8;}
+        ::-webkit-scrollbar-track {background-color: #F5F5F5;-webkit-box-shadow: inset 0 0 6px #177CE8;}
+        ::-webkit-scrollbar {width: 10px;height: 10px;background-color: #177CE8;}
+        ::-webkit-scrollbar-thumb {background-color: #99C1FB;border-radius: 10px;}
+        .mt-5{margin-top:5px;}
+        .page-body{padding:20px;background:#f3f4f8;}
+        .mod-p20{padding:20px;}
+        .mod-pr15{padding-right:15px;}
+        .mod-pv-10{padding-top:10px;padding-bottom:10px;}
+        .mod-h-340{height:340px;}
+        .mod-h-274{height:274px;}
+        .mod-h-280{height:280px;}
+        .mod-h-170{height:170px;}
+        .mod-year-sel{width:76px;}
+        
+        .row-block+.row-block{margin-top:20px;}
+        .mod-panel-wrap{background:#ffffff;box-shadow:0 0 4px 0 rgba(218,221,234,0.50);border-radius:2px;}
+        .mod-panel-wrap .cm-tab-panel{padding:20px;}
+        .mod-panel-wrap .cm-tab-panel .cm-tab-more{right:20px;top:24px;}
+        .cm_panel.mod-panel-wrap{padding-top:15px;}
+        .cm_panel .cm_content{padding:15px;}
+
+        .codeContainer{contenteditable:true;}
+
+        pre{
+           white-space: pre-wrap;       
+           white-space: -moz-pre-wrap;  
+           white-space: -pre-wrap;      
+           white-space: -o-pre-wrap;    
+           word-wrap: break-word;       
+        }
+    </style>
+</head>
+
+<body class="page-body">
+    <div class="row-correct-wrap row-space-20">
+        <div class="row-block">
+            <div class="col-block-p40">
+                <div class="row-correct-wrap row-space-20">
+                    <div class="row-block">
+                        <div class="cm_panel mod-panel-wrap">
+                            <div class="cm_title">
+                                <div class="title-block"><span>html</span></div>
+                            </div>
+                            <div class="cm_content">
+                                <pre class="mod-h-170" id="html" contenteditable="true">
+                                    <div class="hehe">
+                                        <span>hehe</span>
+                                    </div>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-block">
+                        <div class="cm_panel mod-panel-wrap">
+                            <div class="cm_title">
+                                <div class="title-block"><span>css</span></div>
+                            </div>
+                            <div class="cm_content">
+                                <textarea class="mod-h-170" id="css">
+                                    .h1{font-weight:bold}
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-block">
+                        <div class="cm_panel mod-panel-wrap">
+                            <div class="cm_title">
+                                <div class="title-block"><span>js</span></div>
+                            </div>
+                            <div class="cm_content">
+                                <textarea class="mod-h-170" id="js">
+                                    function aaa(){
+                                        alert(0);
+                                    }
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-block-p60">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block"><button class="btn" id="viewBtn">预览</button></div>
+                    </div>
+                    <div class="cm_content">
+                        <div style="height:730px;">
+                            <iframe frameborder="0" style="width:100%;height:100%;" id="viewFrame">
+
+
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function $id(id){
+            return document.getElementById(id);
+        }
+        var btn = $id('viewBtn');
+        var frame = $id('viewFrame');
+        var doc = frame.contentWindow.document;
+
+        var h = $id('html'),c = $id('css'),j = $id('js');
+
+        btn.onclick = function(){
+            var html = h.innerHTML,
+                css = c.innerHTML,
+                js = j.innerHTML;
+            console.log(html);
+            console.log(css);
+            console.log(js);
+
+
+            // var style = doc.createElement('style');
+            //     style.innerHtml = css;
+            //     doc.head.appendChild(style);
+            var style = document.createElement("style");
+            style.type = "text/css";
+            style.innerHTML = css;
+            var head = doc.getElementsByTagName("head")[0];
+            head.appendChild(style);
+
+            doc.body.innerHTML = html;
+
+            var script = doc.createElement("script");
+            script.type = "text/javascript";
+            try {
+                script.appendChild(document.createTextNode(js));
+            } catch (ex) {
+                script.text = js;
+            }
+            doc.body.appendChild(script);
+        }
+
+
+        function addCssByLink(url) {
+            var doc = document;
+            var link = doc.createElement("link");
+            link.setAttribute("rel", "stylesheet");
+            link.setAttribute("type", "text/css");
+            link.setAttribute("href", url);
+
+            var heads = doc.getElementsByTagName("head");
+            if (heads.length)
+                heads[0].appendChild(link);
+            else
+                doc.documentElement.appendChild(link);
+        }
+
+
+        function addCssByStyle(cssString) {
+            var doc = document;
+            var style = doc.createElement("style");
+            style.setAttribute("type", "text/css");
+
+            if (style.styleSheet) {// IE 
+                style.styleSheet.cssText = cssString;
+            } else {// w3c 
+                var cssText = doc.createTextNode(cssString);
+                style.appendChild(cssText);
+            }
+
+            var heads = doc.getElementsByTagName("head");
+            if (heads.length)
+                heads[0].appendChild(style);
+            else
+                doc.documentElement.appendChild(style);
+        }
+
+
+        function loadScriptString(code) {
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            try {
+                script.appendChild(document.createTextNode(code));
+            } catch (ex) {
+                script.text = code;
+            }
+            document.body.appendChild(script);
+        }
+        //loadScriptString("function sayHi() {alert('hi');}");
+
+    </script>
+</body>
+</html>

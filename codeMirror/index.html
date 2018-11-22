@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>基于codeMirror实时在线编辑器</title>
+    <!--核心文件-->
+    <link rel="stylesheet" type="text/css" href="lib/codemirror.css">
+    <!--theme皮肤的设置-->
+    <link rel="stylesheet" type="text/css" href="theme/ambiance.css" />
+    <!--核心文件-->
+    <script type="text/javascript" src="lib/codemirror.js"></script>
+    <!--编辑器快捷键-->
+    <script type="text/javascript" src="keymap/sublime.js"></script>
+    <!--mode js风格,css javascript html 关键字高亮-->
+    <script src="mode/css/css.js"></script>
+    <script src="mode/xml/xml.js"></script>
+    <script src="mode/javascript/javascript.js"></script>
+    <script src="mode/htmlmixed/htmlmixed.js"></script>
+    <style type="text/css">
+        *{margin:0;padding:0;box-sizing: border-box;}
+        .clearfix:after {content: ""; display: block; width:0;height:0; clear:both; overflow:hidden;visibility: hidden;}
+        .clearfix { *zoom:1; }
+        .full-height{
+            position:relative;
+            height:100vh;
+        }
+        .cm-full-height{
+            height:100%;
+        }
+        .view-block{
+            position:relative;
+            width:50%;
+            height:100%;
+            float:left;
+        }
+        .code-block{
+            position:relative;
+            height:33.333%;
+            padding-top:32px;
+        }
+        .top-bar{
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 32px;
+            width: 100%;
+            box-shadow: 0px 0px 6px #909090;
+            border-top: 2px solid #3e3e3e;
+            border-bottom: 2px solid #aba8a8;
+            z-index: 5;
+            text-align: right;
+            background: #91adbb;
+        }
+        .btn{
+            display: inline-block;
+            height: 30px;
+            width: 55px;
+            padding: 0;
+            line-height: 30px;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            vertical-align: middle;
+            font-size:12px;
+            text-align: center;
+            color: #FFF;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+            background-color: #3FA7DC;
+            border: none;
+            cursor:pointer;
+        }
+        .btn:hover{
+            background-color: #277EAB;
+        }
+        #htmlEdit {
+            width: 400px;
+            height: 400px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+<div class="full-height">
+    <div class="view-block">
+        <div class="code-block">
+            <div class="top-bar"><span class="btn">css</span></div>
+            <div class="cm-full-height">
+                <!--css代码编写区域-->
+                <textarea id="cssEdit">
+<style type="text/css">
+    h1{}
+</style>
+                </textarea>
+            </div>
+        </div>
+        <div class="code-block">
+            <div class="top-bar"><span class="btn">html</span></div>
+            <div class="cm-full-height">
+                <!--html代码编写区域-->
+                <textarea id="htmlEdit">
+<div>
+    <h1 onclick="test()">demo</h1>
+</div>
+                </textarea>
+            </div>
+        </div>
+        <div class="code-block">
+            <div class="top-bar"><span class="btn">js</span></div>
+            <div class="cm-full-height">
+                <!--js代码编写区域-->
+                <textarea id="jsEdit">
+<script type="text/javascript" id="script">
+    function test(){
+        alert('demo');
+    }
+</script>
+                </textarea>
+            </div>
+        </div>
+    </div>
+    <div class="view-block" style="padding-top:32px;">
+        <div class="top-bar"><span class="btn" onclick="setPreview()">预览</span></div>
+        <div class="full-height">
+            <!--实时预览区域-->
+            <iframe id="preview" frameborder="0" name="preview" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+</div>
+    <script>
+        function idDom(id) {
+            return document.getElementById(id)
+        }
+        /*获得html代码编写区域，进行一些基本配置，比如行号是否显示，皮肤设置，tab长度，快捷键，当然还有与html高亮显示有关的js文件：htmlmixed*/
+        var htmlDom = idDom("htmlEdit");
+        var htmlMirror = CodeMirror.fromTextArea(htmlDom, {         //获得编辑区域，
+            mode: "htmlmixed",                          //引入html高亮相关文件
+            lineNumbers: true,                         //打开行号
+            theme: "ambiance",                         //引入主题
+            tabSize: 4,
+        });
+
+        /*与上面html相似*/
+        var cssDom = idDom("cssEdit");
+        var cssMirror = CodeMirror.fromTextArea(cssDom, {         //获得编辑区域，
+            mode: "htmlmixed",                         //引入html高亮相关文件
+            lineNumbers: true,                         //打开行号
+            theme: "ambiance",                         //引入主题
+            tabSize: 4
+        });
+
+
+        /*与上面html相似 这里多配置了一个快捷键，当按下这个快捷键就会，执行这个函数*/
+        var jsDom = idDom("jsEdit");
+        var jsMirror = CodeMirror.fromTextArea(jsDom, {         //获得编辑区域，
+            mode: "htmlmixed",                          //引入html高亮相关文件
+            lineNumbers: true,                         //打开行号
+            theme: "ambiance",                         //引入主题
+            tabSize: 4,
+            extraKeys: { "Ctrl-B": setPreview }       //设置快捷键                   
+        });
+
+
+        
+
+
+        // 拿到html css js数据,将数据写到预览区域
+        function setPreview() {
+            var iframeDom = idDom("preview")
+            var htmlSource = htmlMirror.getValue()
+            var cssSource = cssMirror.getValue()
+            var jsSource = jsMirror.getValue()
+
+
+            var doc = iframeDom.contentWindow.document;
+            doc.body.innerHTML = '';
+            doc.write(cssSource);
+            doc.write(htmlSource);
+            doc.write(jsSource);
+        }
+
+        function getEditorData() {
+            var htmlData = localStorage.getItem("html_editor_data");
+            var jsData = localStorage.getItem("js_editor_data");
+            var cssData = localStorage.getItem("css_editor_data");
+            htmlMirror.setValue(htmlData);
+            jsMirror.setValue(jsData);
+            cssMirror.setValue(cssData);
+        }
+
+        function setEditorData() {
+            var htmlSource = htmlMirror.getValue();
+            var jsSource = jsMirror.getValue();
+            var cssSource = cssMirror.getValue();
+            if (window.localStorage) {
+                localStorage.setItem("html_editor_data", htmlSource);
+                localStorage.setItem("js_editor_data", jsSource);
+                localStorage.setItem("css_editor_data", cssSource);
+            }
+        }
+
+        setPreview();
+
+
+        /* window.onload = function () {
+            //给html编写区域添加事件，当区域中的内容改变时就会执行下面的函数
+            htmlMirror.on("change", function () {
+                //实时在iframe中实时显示
+                setPreview();
+                //将数据保存在浏览器中，刷新也不会数据丢失，可以继续编写
+                setEditorData();
+            });
+            //与上同理
+            cssMirror.on("change", function () {
+                setPreview();
+                setEditorData();
+            });
+            //js没有进行实时效果，当js写完后可以按快捷键Ctrl+B，进行预览
+
+            //将保存在浏览器中的数据提取出来，写到html区域，css区域，和js区域中这样刷新后数据不会丢失
+            if (window.localStorage) {
+                //getEditorData();
+            }
+        } */
+    </script>
+</body>
+</html>

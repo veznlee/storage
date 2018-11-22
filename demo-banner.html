@@ -1,0 +1,775 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>大数据物联网可追溯云平台</title>
+    <meta name="description" content="大数据物联网可追溯云平台"/>
+    <meta name="keyword" content="大数据物联网可追溯云平台"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <!-- <script src="http://new.xwnykzs.com/js/boot.js?id=0e27b4b2059d0c0a26e3" type="text/javascript" id="bootJs"></script> -->
+    <script src="http://192.168.1.168:82/js/boot.js?id=0e27b4b2059d0c0a26e3" type="text/javascript" id="bootJs"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/control-tab.css">
+    <link rel="stylesheet" href="css/font/iconfont.css">
+    <!-- <link rel="stylesheet" href="//at.alicdn.com/t/font_887241_786pwbnfcca.css"> -->
+    
+    
+    <style>
+        html,body{background: #f3f4f8;}
+
+        ::-webkit-scrollbar-track {background-color: #F5F5F5;-webkit-box-shadow: inset 0 0 6px #177CE8;}
+        ::-webkit-scrollbar {width: 10px;height: 10px;background-color: #177CE8;}
+        ::-webkit-scrollbar-thumb {background-color: #99C1FB;border-radius: 10px;}
+        .mt-5{margin-top:5px;}
+        .page-body{padding:20px;background:#f3f4f8;}
+        .mod-p20{padding:20px;}
+        .mod-pr15{padding-right:15px;}
+        .mod-pv-10{padding-top:10px;padding-bottom:10px;}
+        .mod-h-340{height:340px;}
+        .mod-h-274{height:274px;}
+        .mod-h-280{height:280px;}
+        .mod-h-170{height:170px;}
+        .mod-year-sel{width:76px;}
+        
+        .row-block+.row-block{margin-top:20px;}
+        .mod-panel-wrap{background:#ffffff;box-shadow:0 0 4px 0 rgba(218,221,234,0.50);border-radius:2px;}
+        .mod-panel-wrap .cm-tab-panel{padding:20px;}
+        .mod-panel-wrap .cm-tab-panel .cm-tab-more{right:20px;top:24px;}
+        .cm_panel.mod-panel-wrap{padding-top:15px;}
+        .cm_panel .cm_content{padding:15px;}
+    </style>
+</head>
+
+<body class="page-body">
+    <div class="row-correct-wrap row-space-20">
+
+        <div class="row-block">
+            <div class="col-block-p66">
+                <div class="row-correct-wrap row-space-20">
+                    <div class="row-block">
+                        <div class="col-block-p60" style="width:55%;">
+                            <div class="cm_panel mod-panel-wrap">
+                                <div class="cm_title">
+                                    <div class="title-block"><span>农作物现状</span></div>
+                                </div>
+                                <div class="cm_content">
+                                    <div class="mod-h-170">
+                                        <!-- <div class="b-crops-item big">
+                                            <div class="crop-header-wrap">
+                                                <div class="crop-header">
+                                                    <div class="img-box"><img src="images/1.png" alt=""></div>
+                                                    <div class="name">猕猴桃</div>
+                                                </div>
+                                            </div>
+                                            <div class="crop-detail">
+                                                <div class="crop-line">
+                                                    <div class="line-block prop">种植面积</div>
+                                                    <div class="line-block">80亩</div>
+                                                </div>
+                                                <div class="crop-line">
+                                                    <div class="line-block prop">种植面积</div>
+                                                    <div class="line-block">3000公斤</div>
+                                                </div>
+                                                <div class="crop-line">
+                                                    <div class="line-block prop">种植面积</div>
+                                                    <div class="line-block">3000公斤</div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                        <div class="banner-3d" id="banner3D">
+                                            <span class="switch-btn btn-prev"><i class="iconfont icon-left-circle-fill"></i></span>
+                                            <span class="switch-btn btn-next"><i class="iconfont icon-right-circle-fill"></i></span>
+                                            <ul class="sel-circles">
+                                                <li></li>
+                                                <li></li>
+                                                <li></li>
+                                            </ul>
+                                            <div class="banners">
+                                                <div class="b-crops-item">
+                                                    <div class="crop-header-wrap">
+                                                        <div class="crop-header">
+                                                            <div class="img-box"><img src="images/1.png" alt=""></div>
+                                                            <div class="name">猕猴桃1111111</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="crop-detail">
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">80亩</div>
+                                                        </div>
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">3000公斤</div>
+                                                        </div>
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">3000公斤</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="b-crops-item">
+                                                    <div class="crop-header-wrap">
+                                                        <div class="crop-header">
+                                                            <div class="img-box"><img src="images/1.png" alt=""></div>
+                                                            <div class="name">猕猴桃2222222</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="crop-detail">
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">80亩</div>
+                                                        </div>
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">3000公斤</div>
+                                                        </div>
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">3000公斤</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="b-crops-item">
+                                                    <div class="crop-header-wrap">
+                                                        <div class="crop-header">
+                                                            <div class="img-box"><img src="images/1.png" alt=""></div>
+                                                            <div class="name">猕猴桃33333</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="crop-detail">
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">80亩</div>
+                                                        </div>
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">3000公斤</div>
+                                                        </div>
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">3000公斤</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="b-crops-item">
+                                                    <div class="crop-header-wrap">
+                                                        <div class="crop-header">
+                                                            <div class="img-box"><img src="images/1.png" alt=""></div>
+                                                            <div class="name">猕猴桃44444</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="crop-detail">
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">80亩</div>
+                                                        </div>
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">3000公斤</div>
+                                                        </div>
+                                                        <div class="crop-line">
+                                                            <div class="line-block prop">种植面积</div>
+                                                            <div class="line-block">3000公斤</div>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-block-p40" style="width:45%;">
+                            <div class="cm_panel mod-panel-wrap">
+                                <div class="cm_title">
+                                    <div class="title-block"><span>环境监测</span></div>
+                                </div>
+                                <div class="cm_content">
+                                    <div class="mod-h-170 environment-watch clearfix">
+                                        <div class="ew-item b-item">
+                                            <div class="icon-box"><i class="iconfont icon-lvzhou_wuxianxinhao" style="color:#0e9ff8"></i></div>
+                                            <div>传感器</div>
+                                            <div class="total-all f-flex-wrap">
+                                                <div class="auto-item">
+                                                    <p>全部数量</p>
+                                                    <p class="num-line"><span class="total-num">66</span>个</p>
+                                                </div>
+                                                <div class="auto-item">
+                                                    <p>异常数量</p>
+                                                    <p class="num-line"><span class="total-num">66</span>个</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ew-item s-item">
+                                            <div class="icon-box"><i class="iconfont icon-didiandingwei_o" style="font-size:34px;color:#e0c218;"></i></div>
+                                            <div>采集点</div>
+                                            <div class="total-all f-flex-wrap">
+                                                <div class="auto-item">
+                                                    <p>全部数量</p>
+                                                    <p class="num-line"><span class="total-num">66</span>个</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ew-item b-item">
+                                            <div class="icon-box"><i class="iconfont icon-shipinjiankong" style="font-size:34px;color:#36ac91;"></i></div>
+                                            <div>视频监控</div>
+                                            <div class="total-all f-flex-wrap">
+                                                <div class="auto-item">
+                                                    <p>全部数量</p>
+                                                    <p class="num-line"><span class="total-num">66</span>个</p>
+                                                </div>
+                                                <div class="auto-item">
+                                                    <p>异常数量</p>
+                                                    <p class="num-line"><span class="total-num">66</span>个</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-block-p33">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block"><span>简单表格示例</span></div>
+                    </div>
+                    <div class="cm_content">
+                        <div class="mod-h-170">
+                            <table class="table table-bordered">
+                                <thead class="table-center-head">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Username</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-center-body">
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Larry</td>
+                                        <td>the Bird</td>
+                                        <td>@twitter</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row-block">
+            <div class="col-block-p66">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block"><span>园区农事</span></div>
+                    </div>
+                    <div class="cm_content">
+                        <div class="orchard-farm mod-h-170">
+                            <div class="farm-item">
+                                <div class="orchard-farm-item sub-ns">
+                                    <div class="sub-item">
+                                        <div class="icon-box">
+                                            <i class="iconfont icon-nongshi"></i>
+                                        </div>
+                                        <span>种植</span>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植记录</p>
+                                        <p class="num-line"><span class="num">3</span>条</p>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植面积</p>
+                                        <p class="num-line"><span class="num">120</span>亩</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="farm-item">
+                                <div class="orchard-farm-item sub-cz">
+                                    <div class="sub-item">
+                                        <div class="icon-box">
+                                            <i class="iconfont icon-rengongcaizhai"></i>
+                                        </div>
+                                        <span>采摘</span>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植记录</p>
+                                        <p class="num-line"><span class="num">3</span>条</p>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植面积</p>
+                                        <p class="num-line"><span class="num">120</span>亩</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="farm-item">
+                                <div class="orchard-farm-item sub-ny">
+                                    <div class="sub-item">
+                                        <div class="icon-box">
+                                            <i class="iconfont icon-nongyao"></i>
+                                        </div>
+                                        <span>农药</span>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植记录</p>
+                                        <p class="num-line"><span class="num">3</span>条</p>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植面积</p>
+                                        <p class="num-line"><span class="num">120</span>亩</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="farm-item">
+                                <div class="orchard-farm-item sub-sf">
+                                    <div class="sub-item">
+                                        <div class="icon-box">
+                                            <i class="iconfont icon-fertilize-copy"></i>
+                                        </div>
+                                        <span>施肥</span>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植记录</p>
+                                        <p class="num-line"><span class="num">3</span>条</p>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植面积</p>
+                                        <p class="num-line"><span class="num">120</span>亩</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="farm-item">
+                                <div class="orchard-farm-item sub-sz">
+                                    <div class="sub-item">
+                                        <div class="icon-box">
+                                            <i class="iconfont icon-shumiao"></i>
+                                        </div>
+                                        <span>生长</span>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植记录</p>
+                                        <p class="num-line"><span class="num">3</span>条</p>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植面积</p>
+                                        <p class="num-line"><span class="num">120</span>亩</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="farm-item">
+                                <div class="orchard-farm-item sub-zh">
+                                    <div class="sub-item">
+                                        <div class="icon-box">
+                                            <i class="iconfont icon-ziranzaihai"></i>
+                                        </div>
+                                        <span>灾害</span>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植记录</p>
+                                        <p class="num-line"><span class="num">3</span>条</p>
+                                    </div>
+                                    <div class="sub-item mt">
+                                        <p>种植面积</p>
+                                        <p class="num-line"><span class="num">120</span>亩</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-block-p33">
+                <div class="cm_panel mod-panel-wrap">
+                    <div class="cm_title">
+                        <div class="title-block"><span>近期农事</span></div>
+                    </div>
+                    <div class="cm_content">
+                        <div class="orchard-vr-item">
+                            <div class="item-tag" style="background:#36ac91;">实景</div>
+                            <div class="response-banner" style="height:160px;">
+                                <div class="res-banner-wrap" id="banner">
+                                    <ul class="res-scroll-ul">
+                                        <li class="res-banner-item orchard-img"><img src="images/banner1.jpg" alt=""></li>
+                                        <li class="res-banner-item orchard-img"><img src="images/banner2.jpg" alt=""></li>
+                                        <li class="res-banner-item orchard-img"><img src="images/banner3.jpg" alt=""></li>
+                                        <li class="res-banner-item orchard-img"><img src="images/banner4.jpg" alt=""></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row-block">
+            <div class="col-block-p33">
+                <div class="mod-panel-wrap">
+                    <div class="cm-tab-panel" id="tabOne">
+                        <a href="javascript:;" class="cm-tab-more">更多<span class="point">···</span></a>
+                        <div class="cm-tab-nav">
+                            <div class="tab-nav-container">
+                                <ul class="tab-nav-list">
+                                    <li class="active">行业资讯</li>
+                                    <li>通知公告</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="cm-tab-container mod-pv-10">
+                            <div class="cm-tab-switch">
+                                <div class="tab-item mod-h-274 active">
+                                    <div class="cm-table-list cursor-list">
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item pr-60">
+                                                <div class="auto-item f-pr-15">
+                                                    <div class="f-toe">建设人才储备，促企业成长，农投助力中小助力中小</div>
+                                                </div>
+                                                <div class="fix-item right">2018-07-13</div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item pr-60">
+                                                <div class="auto-item f-pr-15">
+                                                    <div class="f-toe">建设人才储备，促企业成长，农投助力中小助力中小</div>
+                                                </div>
+                                                <div class="fix-item right">2018-07-13</div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item pr-60">
+                                                <div class="auto-item f-pr-15">
+                                                    <div class="f-toe">建设人才储备，促企业成长，农投助力中小助力中小</div>
+                                                </div>
+                                                <div class="fix-item right">2018-07-13</div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item pr-60">
+                                                <div class="auto-item f-pr-15">
+                                                    <div class="f-toe">建设人才储备，促企业成长，农投助力中小助力中小</div>
+                                                </div>
+                                                <div class="fix-item right">2018-07-13</div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item pr-60">
+                                                <div class="auto-item f-pr-15">
+                                                    <div class="f-toe">建设人才储备，促企业成长，农投助力中小助力中小</div>
+                                                </div>
+                                                <div class="fix-item right">2018-07-13</div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item pr-60">
+                                                <div class="auto-item f-pr-15">
+                                                    <div class="f-toe">建设人才储备，促企业成长，农投助力中小助力中小</div>
+                                                </div>
+                                                <div class="fix-item right">2018-07-13</div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item pr-60">
+                                                <div class="auto-item f-pr-15">
+                                                    <div class="f-toe">建设人才储备，促企业成长，农投助力中小助力中小</div>
+                                                </div>
+                                                <div class="fix-item right">2018-07-13</div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item pr-60">
+                                                <div class="auto-item f-pr-15">
+                                                    <div class="f-toe">建设人才储备，促企业成长，农投助力中小助力中小</div>
+                                                </div>
+                                                <div class="fix-item right">2018-07-13</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-item mod-h-274">
+                                    <div class="cm-table-list cursor-list">
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item pr-60">
+                                                <div class="auto-item f-pr-15">
+                                                    <div class="f-toe">建设人才储备，促企业成长，农投助力中小助力中小</div>
+                                                </div>
+                                                <div class="fix-item right">2018-07-13</div>
+                                            </div>
+                                            <div class="item-inner cm-flex-item pr-60">
+                                                <div class="auto-item f-pr-15">
+                                                    <div class="f-toe">建设人才储备，促企业成长，农投助力中小助力中小</div>
+                                                </div>
+                                                <div class="fix-item right">2018-07-13</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-block-p33">
+                <div class="mod-panel-wrap">
+                    <div class="cm-tab-panel" id="tabTwo">
+                        <a href="javascript:;" class="cm-tab-more">更多<span class="point">···</span></a>
+                        <div class="cm-tab-nav">
+                            <div class="tab-nav-container">
+                                <ul class="tab-nav-list">
+                                    <li class="active">产量预警</li>
+                                    <li>价格预警</li>
+                                    <li>标签打印预警</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="cm-tab-container mod-pv-10">
+                            <div class="cm-tab-switch">
+                                <div class="tab-item mod-h-274 active">
+                                    <div class="cm-table-list">
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item warning-p">
+                                                <div class="auto-item">
+                                                    <div class="f-toe">建设人才储备</div>
+                                                </div>
+                                                <div class="fix-item row-right">
+                                                    <span class="fix-block">过量</span>
+                                                    <span class="fix-block text-error">未处理</span>
+                                                    <span class="fix-block">2018-08-08</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item warning-p">
+                                                <div class="auto-item">
+                                                    <div class="f-toe">建设人才储备</div>
+                                                </div>
+                                                <div class="fix-item row-right">
+                                                    <span class="fix-block">过量</span>
+                                                    <span class="fix-block">已处理</span>
+                                                    <span class="fix-block">2018-08-08</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-item mod-h-274">
+                                    <div class="cm-table-list">
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item price-p">
+                                                <div class="auto-item">
+                                                    <div class="f-toe">建设人才储备</div>
+                                                </div>
+                                                <div class="fix-item row-right clearfix">
+                                                    <span class="per-price fix-block f-toe">7.51元/斤</span>
+                                                    <span class="fix-block text-error">跌</span>
+                                                    <span class="fix-block">2018-08-08</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item price-p">
+                                                <div class="auto-item">
+                                                    <div class="f-toe">建设人才储备</div>
+                                                </div>
+                                                <div class="fix-item row-right">
+                                                    <span class="per-price fix-block">12.51元/斤</span>
+                                                    <span class="fix-block text-success">涨</span>
+                                                    <span class="fix-block">2018-08-08</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-item mod-h-274">
+                                    <div class="cm-table-list">
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item tag-p">
+                                                <div class="auto-item">
+                                                    <div class="f-toe">建设人才储备</div>
+                                                </div>
+                                                <div class="fix-item row-right clearfix">
+                                                    <span class="fix-block">200粒装</span>
+                                                    <span class="fix-block allnum">9000</span>
+                                                    <span class="fix-block allnum">2018</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item tag-p">
+                                                <div class="auto-item">
+                                                    <div class="f-toe">建设人才储备</div>
+                                                </div>
+                                                <div class="fix-item row-right">
+                                                    <span class="fix-block">20粒装</span>
+                                                    <span class="fix-block allnum">9000</span>
+                                                    <span class="fix-block allnum">2018</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-block-p33">
+                <div class="mod-panel-wrap">
+                    <div class="cm-tab-panel">
+                        <a href="javascript:;" class="cm-tab-more">更多<span class="point">···</span></a>
+                        <div class="cm-tab-nav">
+                            <div class="tab-nav-container">
+                                <ul class="tab-nav-list">
+                                    <li class="active">扫码热度</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="cm-tab-container mod-pv-10">
+                            <div class="cm-tab-switch">
+                                <div class="tab-item mod-h-274 active">
+                                    <div class="cm-table-list">
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item scan-p">
+                                                <div class="auto-item">
+                                                    <div class="f-toe">
+                                                        <span>鲜果码</span>
+                                                        <span>贵州省</span>
+                                                        <span>贵阳市</span>
+                                                        <span>192.168.11.111</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fix-item row-right">
+                                                    <span>2018-08-08 08-08-08</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner cm-flex-item scan-p">
+                                                <div class="auto-item">
+                                                    <div class="f-toe">
+                                                        <span>鲜果码</span>
+                                                        <span>贵州省</span>
+                                                        <span>贵阳市</span>
+                                                        <span>192.168.11.111</span>
+                                                    </div>
+                                                </div>
+                                                <div class="fix-item row-right">
+                                                    <span>2018-08-08 08-08-08</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="list-item">
+                                            <div class="item-inner row-block warn-tip-p">
+                                                <div class="col-block-p60">
+                                                    <div class="f-toe">建设人才储备</div>
+                                                </div>
+                                                <div class="col-block-p20 small-col f-tac">
+                                                    <div class="f-toe">离线</div>
+                                                </div>
+                                                <div class="col-block-p20 small-col f-tar">
+                                                    <div class="f-toe">07-13</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-inner row-block warn-tip-p">
+                                                <div class="col-block-p60">
+                                                    <div class="f-toe">建设人才储备</div>
+                                                </div>
+                                                <div class="col-block-p20 small-col f-tac">
+                                                    <div class="f-toe">离线</div>
+                                                </div>
+                                                <div class="col-block-p20 small-col f-tar">
+                                                    <div class="f-toe">07-13</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<style>
+    
+</style>
+<script src="js/dialogPanelSel.js"></script>
+<script src="js/resBanner.min.js"></script>
+<script src="js/resThreeBanner.min.js"></script>
+<script>
+
+    var tabOne = new CmTabPanel({
+        container: $('#tabOne'),
+        afterChange: function (el, index) {
+            //切换成功后的函数 el:激活的标签，index:激活标签的index
+            console.log(el, index);
+        }
+    });
+    var tabOne = new CmTabPanel({
+        container: $('#tabTwo'),
+        afterChange: function (el, index) {
+            console.log(el, index);
+        }
+    });
+    //灾害统计切换
+    var selecter1 = new CmSelector({
+        container: $('#warningSel'),
+        change: function (index, el) {
+            console.log(index, el);
+        }
+    });
+
+    //园区排名切换
+    var selecter2 = new CmSelector({
+        container: $('#orderSel'),
+        change: function (index, el) {
+            console.log(index, el);
+        }
+    });
+    $(function(){
+        var $banner = $('#banner');
+        var banner = new ResSlideBanner($banner, {
+            initItemWidth: true,
+            response: true,
+            scrollBox: '.res-scroll-ul'
+        });
+        var $b3d = $('#banner3D');
+        new threeBanner($b3d,{
+            controller:'.sel-circles',
+            prevBtn:'.btn-prev',
+            nextBtn:'.btn-next',
+            isClick:false,
+            positions: [
+                { left: '12%', scale3d: 'scale3d(0.7, 0.7, 1)', zIndex: 2 },
+                { left: '50%', scale3d: 'scale3d(1, 1, 1)', zIndex: 5 },
+                { left: '70%', scale3d: 'scale3d(0.7, 0.7, 1)', zIndex: 2 }
+            ],
+            positionTwo: [
+                { left: '50%', scale3d: 'scale3d(1, 1, 1)', zIndex: 5 },
+                { left: '55.5%', scale3d: 'scale3d(1.2, 0.9, 1)', zIndex: 2 }
+            ]
+        });
+    });
+</script>
+</body>
+</html>

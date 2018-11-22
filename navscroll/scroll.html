@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <title>模拟滑动导航</title>
+	    <meta name="description" content="">
+	    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	    <link rel="shortcut icon" href="http://m.sui.taobao.org/favicon.ico">
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	    <meta name="format-detection" content="telephone=no">
+	    <style>
+	    	body{
+	    		font-size:14px;
+	    	}
+	    	body, div, ul, ol, li, p {
+			    margin: 0;
+			    padding: 0;
+			    display: block;
+			}
+			a, a:hover, a:active, a:visited{
+				text-decoration: none;
+				color:#fff;
+			}
+	    	.topbar{
+			    position: relative;
+			    width: 100%;
+			    line-height: 2.2rem;
+			    height: 2.2rem;
+			    background: #000;
+			    overflow: hidden;
+	    	}
+	    	.topnavul {
+			    position: absolute;
+			    left: 0;
+			    top: 0;
+			    font-size: 0;
+			    display: table-cell;
+			    white-space: nowrap;
+			    list-style: none;
+			    background: #3e3e3e;
+			}
+			.topnavul li {
+			    display: inline-block;
+			    line-height: 2.2rem;
+			    font-size: .85rem;
+			    padding: 0 .4rem;
+			}
+			.topnavul li:last-child {
+			    margin-right: 0;
+			}
+    
+	    </style>
+  	</head>
+  	<body>
+  	<!--顶部工具栏部分  start-->
+	<div class="topbar clearfix" id="topbar">
+		<div class="topnav" id="topnav">
+			<ul class="topnavul">
+				<li class="active"><a href="#">首页</a></li>
+				<li><a href="#">中央政策</a></li>
+				<li><a href="#">重大新闻</a></li>
+				<li><a href="#">时政新闻</a></li>
+				<li><a href="#">军事才艺</a></li>
+				<li><a href="#">视频</a></li>
+				<li><a href="#">娱乐头条</a></li>
+				<li><a href="#">热门综艺</a></li>
+				<li><a href="#">爱奇艺vip</a></li>
+				<li><a href="#">腾讯视频</a></li>
+				<li><a href="#">吃瓜群众</a></li>
+				<li><a href="#">明星八卦</a></li>
+				<li><a href="#">德玛西亚</a></li>
+				<li><a href="#">无极剑圣</a></li>
+				<li><a href="#">卡牌大师</a></li>
+				<li><a href="#">光辉女郎</a></li>
+				<li><a href="#">皮城女警</a></li>
+				<li><a href="#">冒险家</a></li>
+				<li><a href="#">爆破鬼才</a></li>
+				<li><a href="#">九尾妖狐</a></li>
+				<li><a href="#">虚空先知</a></li>
+				<li><a href="#">熔岩巨兽</a></li>
+			</ul>  			
+		</div>
+	</div>
+	<script type="text/javascript" src="js/zepto.js"></script>
+    <script type="text/javascript" src="js/fx.js"></script>
+    <script type="text/javascript" src="js/simulateTouchScroll.js"></script>
+    <script type="text/javascript">
+		$(function(){
+			//设置导航可滚动
+			$("#topnav").simulateTouchScroll();
+
+			//我们在滑动的过程中，这里的事件不会触发，因为插件里面阻止了事件的冒泡
+			$("#topbar").on('touchstart',function(){
+				console.log(0);
+			})
+		})
+	</script>
+</body>
+</html>
